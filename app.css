@@ -1,0 +1,103 @@
+.app {
+    text-align: center;
+    font-size: 1.2em;
+  
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  button {
+    border-radius: 0.5em;
+    border: none;
+    padding: 0.5em;
+    margin: 0.25em;
+    font-size: medium;
+    background-color: #009688;
+    color: white;
+    font-weight: bold;
+  }
+  
+  input {
+    border-radius: 0.5em;
+    border: none;
+    padding: 0.5em;
+    background-color: rgb(244, 243, 243);
+    margin: 0.5em;
+  }
+  
+  body {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
+  }
+  
+  .nav-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F8F8F8;
+    color: #009688;
+    border: none;
+    border-radius: 0.5em;
+    /* padding: 0.5em;
+    margin: 0.5em; */
+    font-size: medium;
+    /* font-weight: bold; */
+  }
+  
+  /* Large icons and images */
+  .large-icons img, .large-icons svg {
+    width: 50px;
+    height: 50px;
+  }
+  
+  /* Large text */
+  .large-text {
+    font-size: x-large;
+  }
+  
+  /* High contrast colors */
+  .high-contrast {
+    color: #fff;
+    background-color: #000;
+  }
+  
+  .high-contrast button {
+    color: #000;
+    background-color: #fff;
+    border: 2px solid #fff;
+  }
+  
+  
