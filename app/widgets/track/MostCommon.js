@@ -1,63 +1,93 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Slider, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const CustomSlider = ({ sliderText, onChange, value }) => {
-    const [sliderValue, setSliderValue] = useState(value);
+const MostCommon = ({ onTrack, sliderValues }) => {
+    const [selectedButtons, setSelectedButtons] = useState([]);
+
+    const commonSymptoms = [
+        { symptom: 'Anxiety', level: 'Medium' },
+        { symptom: 'Brain Fog', level: 'High' },
+        { symptom: 'Hot Flushes', level: 'Low' },
+        { symptom: 'Headaches', level: 'Medium' },
+        { symptom: 'Fatigue', level: 'High' },
+        { symptom: 'Mood Swings', level: 'Low' }
+    ];
 
     useEffect(() => {
-        setSliderValue(value);
-    }, [value]);
+        const initialSelectedButtons = commonSymptoms.reduce((acc, item, index) => {
+            const sliderValue = sliderValues[item.symptom.toLowerCase().replace(' ', '')];
+            const levels = ['None', 'Low', 'Medium', 'High'];
+            if (sliderValue !== undefined && levels[sliderValue] === item.level) {
+                acc.push(index);
+            }
+            return acc;
+        }, []);
+        setSelectedButtons(initialSelectedButtons);
+    }, [sliderValues]);
 
-    const handleChange = (newValue) => {
-        setSliderValue(newValue);
-        onChange(newValue);
+    const handleButtonClick = (symptom, level, index) => {
+        setSelectedButtons(prevSelected => {
+            if (prevSelected.includes(index)) {
+                return prevSelected.filter(i => i !== index);
+            } else {
+                return [...prevSelected, index];
+            }
+        });
+        onTrack(symptom, level);
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>{sliderText}</Text>
-            <Slider
-                style={styles.slider}
-                minimumValue={0}
-                maximumValue={3}
-                step={1}
-                value={sliderValue}
-                onValueChange={handleChange}
-                minimumTrackTintColor="#009688"
-                maximumTrackTintColor="#f0f0f0"
-                thumbTintColor="#009688"
-            />
-            <View style={styles.levelsContainer}>
-                <Text style={styles.levelText}>None</Text>
-                <Text style={styles.levelText}>Low</Text>
-                <Text style={styles.levelText}>Medium</Text>
-                <Text style={styles.levelText}>High</Text>
-            </View>
+            {commonSymptoms.map((item, index) => (
+                <TouchableOpacity
+                    key={index}
+                    onPress={() => handleButtonClick(item.symptom, item.level, index)}
+                    style={[
+                        styles.button,
+                        selectedButtons.includes(index) ? styles.selectedButton : styles.unselectedButton
+                    ]}
+                >
+                    <Text style={[styles.buttonText, selectedButtons.includes(index) ? styles.selectedText : styles.unselectedText]}>
+                        {item.level} {item.symptom}
+                    </Text>
+                </TouchableOpacity>
+            ))}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 16,
-        width: '100%',
-        alignItems: 'center',
-    },
-    label: {
-        marginBottom: 8,
-        fontWeight: 'bold',
-    },
-    slider: {
-        width: '80%',
-    },
-    levelsContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '80%',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        width: '100%',
+        marginVertical: 10
     },
-    levelText: {
-        fontSize: 12,
+    button: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+        padding: 10,
+        margin: 5,
+        width: '23%',
+        height: 100,
     },
+    selectedButton: {
+        backgroundColor: '#009688',
+    },
+    unselectedButton: {
+        backgroundColor: '#f0f0f0',
+    },
+    buttonText: {
+        textAlign: 'center',
+    },
+    selectedText: {
+        color: '#ffffff',
+    },
+    unselectedText: {
+        color: '#009688',
+    }
 });
 
-export default CustomSlider;
+export default MostCommon;
