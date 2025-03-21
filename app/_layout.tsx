@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './(tabs)/home';
 import Calendar from './(tabs)/calendar';
 import Track from './(tabs)/track';
+import Analysis from './(tabs)/analysis';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="Track" component={Track} />
+        <Stack.Screen name="Analysis" component={Analysis} />
       </Stack.Navigator>
     );
 };
