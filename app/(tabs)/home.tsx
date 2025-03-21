@@ -55,7 +55,7 @@ const Home = () => {
             <Text style={styles.welcomeText}>Welcome back, {user.name}!</Text>
             <ScrollView style={styles.content}>
                 <Text>Let's help with your {user.stage} experience</Text>
-                {/* <TwoWeek /> */}
+                <TwoWeek />
                 <View style={styles.chartToggleContainer}>
                     <TouchableOpacity 
                         style={[styles.chartButton, selectedChart === 'symptoms' && styles.activeButton]} 
@@ -74,7 +74,7 @@ const Home = () => {
                     <MostCommonSymptom />
                 </View>
             </ScrollView>
-            {/* <Nav/> */}
+            <Nav/>
         </View>
     );
 };

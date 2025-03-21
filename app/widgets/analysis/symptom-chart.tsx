@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
-import FlatPickr from 'react-flatpickr';
-import 'flatpickr/dist/themes/material_blue.css';
+import { View, Text, Button, StyleSheet, ScrollView, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import CheckBox from '@react-native-community/checkbox';
 import { SettingsContext } from '../../settings-context';
 
@@ -23,7 +22,8 @@ const SymptomChart = () => {
         dermatological: false,
         other: false
     });
-
+    const [date, setDate] = useState<Date>(new Date());
+    const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
     const handleSymptomChange = (event: boolean, symptom: string) => {
         setSelectedSymptoms(prevSelected => 
@@ -46,13 +46,23 @@ const SymptomChart = () => {
         other: ['Sleeplessness', 'Tinnitus', 'UTIs']
     };
 
+    const onDateChange = (event: any, selectedDate?: Date) => {
+        const currentDate = selectedDate || date;
+        setShowDatePicker(Platform.OS === 'ios');
+        setDate(currentDate);
+    };
+
     return (
         <View style={styles.container}>
-            <FlatPickr
-                options={{ mode: "range", dateFormat: "J M Y", position: "auto center" }}
-                onChange={date => {}}
-                style={styles.datePicker}
-            />
+            <Button title="Select Date" onPress={() => setShowDatePicker(true)} />
+            {showDatePicker && (
+                <DateTimePicker
+                    value={date}
+                    mode="date"
+                    display="default"
+                    onChange={onDateChange}
+                />
+            )}
             <Button title="Select Symptoms" onPress={() => setIsPopupVisible(true)} />
             
             {isPopupVisible && (
