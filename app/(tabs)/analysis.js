@@ -15,17 +15,6 @@ const Analysis = () => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <View style={styles.headerButtonContainer}>
-                    <Button
-                        title="Profile"
-                        onPress={() => navigation.navigate('Profile')}
-                        color="#fff"
-                    />
-                </View>
-                <Text style={styles.headerTitle}>Analysis</Text>
-            </View>
-
             <ScrollView contentContainerStyle={styles.content}>
                 <SymptomChart />
                 {/* <ChartLoadingWidget /> */}

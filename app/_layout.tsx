@@ -10,11 +10,81 @@ const Stack = createStackNavigator();
 const App = () => {
     return (
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Calendar" component={Calendar} />
-        <Stack.Screen name="Track" component={Track} />
-        <Stack.Screen name="Analysis" component={Analysis} />
-        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen 
+          name="Home" 
+          component={Home} 
+          options={{
+            title: 'Home',
+            headerStyle: {
+              backgroundColor: '#rgb(0, 150, 136);',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen 
+            name="Calendar" 
+            component={Calendar} 
+            options={{
+              title: 'Calendar',
+              headerStyle: {
+                backgroundColor: '#rgb(0, 150, 136);',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+              headerTitleAlign: 'center',
+            }}
+          />
+        <Stack.Screen 
+          name="Track" 
+          component={Track} 
+          options={{
+            title: 'Track',
+            headerStyle: {
+              backgroundColor: '#rgb(0, 150, 136);',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen 
+          name="Analysis" 
+          component={Analysis} 
+          options={{
+            title: 'Analysis',
+            headerStyle: {
+              backgroundColor: '#rgb(0, 150, 136);',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen 
+          name="Profile" 
+          component={Profile} 
+          options={{
+            title: 'Profile',
+            headerStyle: {
+              backgroundColor: '#rgb(0, 150, 136);',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
       </Stack.Navigator>
     );
 };

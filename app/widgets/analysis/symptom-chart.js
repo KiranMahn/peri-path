@@ -98,6 +98,7 @@ const SymptomChart = () => {
 
         // Ensure all possible symptoms are included in the datasets
         symptomsData.symptoms.forEach(({ symptom }) => {
+            console.log(symptom);
             const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
             if (!symptoms[formattedSymptom]) {
                 symptoms[formattedSymptom] = [];

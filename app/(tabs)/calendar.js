@@ -45,9 +45,6 @@ const Calendar = () => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Calendar</Text>
-            </View>
             <View style={styles.navigation}>
                 <TouchableOpacity onPress={handlePrevMonth} style={styles.navButton}>
                     <Text>{'<'}</Text>
