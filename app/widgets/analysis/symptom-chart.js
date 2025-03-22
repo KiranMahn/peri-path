@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 import symptomsData from '../../../symptoms.json';
 import DateTimePicker from 'react-datetime-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
     Chart as ChartJS,
@@ -63,90 +64,94 @@ const SymptomChart = () => {
     };
 
     useEffect(() => {
-        const currentUser = JSON.parse(localStorage.getItem('user'));
-        const username = currentUser ? currentUser.username : 'Unknown User';
-        const allUsersData = JSON.parse(localStorage.getItem('allUsersData')) || {};
-        const userData = allUsersData[username] || {};
+        const loadUserData = async () => {
+            const currentUser = JSON.parse(await AsyncStorage.getItem('user'));
+            const username = currentUser ? currentUser.username : 'Unknown User';
+            const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
+            const userData = allUsersData[username] || {};
 
-        const severityLevels = {
-            'None': 0,
-            'Low': 1,
-            'Medium': 2,
-            'High': 3
-        };
+            const severityLevels = {
+                'None': 0,
+                'Low': 1,
+                'Medium': 2,
+                'High': 3
+            };
 
-        const start = new Date(startDate);
-        const end = new Date(endDate);
+            const start = new Date(startDate);
+            const end = new Date(endDate);
 
-        const dateArray = [];
-        const symptomArray = [];
+            const dateArray = [];
+            const symptomArray = [];
 
-        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-            dateArray.push(new Date(d));
-        }
-        const symptoms = dateArray.reduce((acc, date) => {
-            const dateString = date.toDateString();
-            const dayData = userData[dateString] || {};
-            const entryDate = new Date(date);
+            for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+                dateArray.push(new Date(d));
+            }
+            const symptoms = dateArray.reduce((acc, date) => {
+                const dateString = date.toDateString();
+                const dayData = userData[dateString] || {};
+                const entryDate = new Date(date);
 
-            Object.keys(dayData).forEach(symptom => {
-                if (symptom !== 'period' && symptom !== 'symptoms') {
-                    const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
-                    if (!acc[formattedSymptom]) {
-                        acc[formattedSymptom] = [];
+                Object.keys(dayData).forEach(symptom => {
+                    if (symptom !== 'period' && symptom !== 'symptoms') {
+                        const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
+                        if (!acc[formattedSymptom]) {
+                            acc[formattedSymptom] = [];
+                        }
+                        if (!symptomArray.includes(formattedSymptom)) {
+                            symptomArray.push(formattedSymptom);
+                        }
+                        acc[formattedSymptom].push({ date: entryDate, severity: severityLevels[dayData[symptom]] ? severityLevels[dayData[symptom]] : 0});
                     }
-                    if (!symptomArray.includes(formattedSymptom)) {
-                        symptomArray.push(formattedSymptom);
-                    }
-                    acc[formattedSymptom].push({ date: entryDate, severity: severityLevels[dayData[symptom]] ? severityLevels[dayData[symptom]] : 0});
+                });
+
+                if(Object.keys(dayData).length === 0) {
+                    symptomArray.forEach(symptom => {
+                        acc[symptom].push({ date: date, severity: 0});
+                    });
+                }
+
+                return acc;
+            }, {});
+
+            // Ensure all possible symptoms are included in the datasets
+            symptomsData.symptoms.forEach(({ symptom }) => {
+                const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
+                if (!symptoms[formattedSymptom]) {
+                    symptoms[formattedSymptom] = [];
                 }
             });
 
-            if(Object.keys(dayData).length === 0) {
-                symptomArray.forEach(symptom => {
-                    acc[symptom].push({ date: date, severity: 0});
-                });
-            }
+            // Generate unique random colors with hue between green and purple
+            const generateRandomColor = () => {
+                const hue = Math.floor(Math.random() * (300 - 120 + 1)) + 120; // Hue between 120 (green) and 300 (purple)
+                const saturation = 25 + 70 * Math.random();
+                const lightness = Math.floor(Math.random() * (75 - 40 + 1)) + 40; // Lightness between 60 and 90
+                return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+            };
 
-            return acc;
-        }, {});
+            const usedColors = new Set();
+            const getUniqueColor = () => {
+                let color;
+                do {
+                    color = generateRandomColor();
+                } while (usedColors.has(color));
+                usedColors.add(color);
+                return color;
+            };
 
-        // Ensure all possible symptoms are included in the datasets
-        symptomsData.symptoms.forEach(({ symptom }) => {
-            const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
-            if (!symptoms[formattedSymptom]) {
-                symptoms[formattedSymptom] = [];
-            }
-        });
+            const datasets = Object.keys(symptoms).map(symptom => ({
+                label: symptom.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+                data: symptoms[symptom].map(entry => ({ x: entry.date, y: entry.severity })),
+                fill: false,
+                borderColor: getUniqueColor(),
+            }));
 
-        // Generate unique random colors with hue between green and purple
-        const generateRandomColor = () => {
-            const hue = Math.floor(Math.random() * (300 - 120 + 1)) + 120; // Hue between 120 (green) and 300 (purple)
-            const saturation = 25 + 70 * Math.random();
-            const lightness = Math.floor(Math.random() * (75 - 40 + 1)) + 40; // Lightness between 60 and 90
-            return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+            setChartData({
+                datasets,
+            });
         };
 
-        const usedColors = new Set();
-        const getUniqueColor = () => {
-            let color;
-            do {
-                color = generateRandomColor();
-            } while (usedColors.has(color));
-            usedColors.add(color);
-            return color;
-        };
-
-        const datasets = Object.keys(symptoms).map(symptom => ({
-            label: symptom.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
-            data: symptoms[symptom].map(entry => ({ x: entry.date, y: entry.severity })),
-            fill: false,
-            borderColor: getUniqueColor(),
-        }));
-
-        setChartData({
-            datasets,
-        });
+        loadUserData();
 
         // Cleanup function to destroy the chart instance
         return () => {
