@@ -52,10 +52,14 @@ const Home = () => {
                     <FontAwesome name="user" size={24} color="white" />
                 </TouchableOpacity>
             </View> */}
-            <Text style={styles.welcomeText}>Welcome back, {user.name}!</Text>
+            {/* <Text style={styles.welcomeText}>Welcome back, {user.name}!</Text> */}
             <ScrollView style={styles.content}>
-                <Text>Let's help with your {user.stage} experience</Text>
+                {/* <Text>Let's help with your {user.stage} experience</Text> */}
+                
+                {/** Mini Calendar View */}
                 <TwoWeek />
+
+                {/** Chart Selector */}
                 <View style={styles.chartToggleContainer}>
                     <TouchableOpacity 
                         style={[styles.chartButton, selectedChart === 'symptoms' && styles.activeButton]} 
@@ -68,7 +72,11 @@ const Home = () => {
                         <Text style={styles.buttonText}>Period</Text>
                     </TouchableOpacity>
                 </View>
+
+                {/** Charts */}
                 {selectedChart === 'period' ? <PeriodChart /> : <SymptomChart />}
+                
+                {/** Mini Analysis Wigits */}
                 <View style={styles.analysisContainer}>
                     <LastPeriod />
                     <MostCommonSymptom />
@@ -127,6 +135,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         marginTop: 10,
+        justifyContent: 'center'
     },
 });
 

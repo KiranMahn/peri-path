@@ -107,14 +107,14 @@ const Track = () => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
+            {/* <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Text style={styles.button}>Back</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                     <Text style={styles.button}>Profile</Text>
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
             <Text style={styles.dateText}>{currentDate}</Text>
 
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 8,
+        alignSelf: 'center'
     },
     sectionTitle: {
         fontSize: 18,

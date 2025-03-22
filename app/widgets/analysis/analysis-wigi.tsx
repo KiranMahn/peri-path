@@ -24,7 +24,7 @@ const AnalysisWigi: React.FC<AnalysisWigiProps> = ({ title, value, altMsg }) => 
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
+        width: '40%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

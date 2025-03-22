@@ -4,6 +4,7 @@ import Home from './(tabs)/home';
 import Calendar from './(tabs)/calendar';
 import Track from './(tabs)/track';
 import Analysis from './(tabs)/analysis';
+import Profile from './(tabs)/profile';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="Track" component={Track} />
         <Stack.Screen name="Analysis" component={Analysis} />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     );
 };

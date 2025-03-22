@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     dayText: {
         fontSize: 14,
         fontWeight: 'bold',
+        top: 0
     },
     periodIndicator: {
         position: 'absolute',
