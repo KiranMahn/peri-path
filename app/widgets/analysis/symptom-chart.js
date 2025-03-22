@@ -1,31 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Line } from 'react-chartjs-2';
-import 'chartjs-adapter-date-fns';
-import symptomsData from '../../../symptoms.json';
+import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
+import { LineChart } from 'react-native-chart-kit';
 import DateTimePicker from 'react-datetime-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import symptomsData from '../../../symptoms.json';
 
-import {
-    Chart as ChartJS,
-    TimeScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-} from 'chart.js';
-import { View, Text, Button, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-// Register the necessary components with Chart.js
-ChartJS.register(
-    TimeScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
+const screenWidth = Dimensions.get('window').width;
 
 const SymptomChart = () => {
     const [chartData, setChartData] = useState(null);
@@ -38,7 +18,6 @@ const SymptomChart = () => {
         dermatological: false,
         other: false
     });
-    const chartRef = useRef(null);
 
     // Set the default date range to the past two weeks
     const today = new Date();
@@ -146,19 +125,15 @@ const SymptomChart = () => {
                 borderColor: getUniqueColor(),
             }));
 
+            const labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+
             setChartData({
+                labels,
                 datasets,
             });
         };
 
         loadUserData();
-
-        // Cleanup function to destroy the chart instance
-        return () => {
-            if (chartRef.current && chartRef.current.chartInstance) {
-                chartRef.current.chartInstance.destroy();
-            }
-        };
     }, [startDate, endDate]);
 
     return (
@@ -183,53 +158,31 @@ const SymptomChart = () => {
                 </View>
             </View>
             {chartData ? (
-                <Line
-                    ref={chartRef}
+                <LineChart
                     data={chartData}
-                    options={{
-                        responsive: true,
-                        scales: {
-                            x: {
-                                type: 'time',
-                                time: {
-                                    unit: 'day',
-                                },
-                                ticks: {
-                                    callback: function(value) {
-                                        const date = new Date(value);
-                                        return `${date.getMonth() + 1}/${date.getDate()}`;
-                                    }
-                                },
-                                grid: {
-                                    display: false,
-                                }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                max: 5,
-                                ticks: {
-                                    callback: function(value) {
-                                        const levels = ['', 'Spotting', 'Light', 'Medium', 'Heavy'];
-                                        return levels[value];
-                                    }
-                                },
-                                grid: {
-                                    display: true,
-                                }
-                            },
+                    width={screenWidth * 0.95} // from react-native
+                    height={220}
+                    chartConfig={{
+                        backgroundColor: '#ffffff',
+                        backgroundGradientFrom: '#ffffff',
+                        backgroundGradientTo: '#ffffff',
+                        decimalPlaces: 1, // optional, defaults to 2dp
+                        color: (opacity = 0.2) => `rgba(0, 150, 135, 0.92)`,
+                        labelColor: (opacity = 1) => `rgba(0, 0, 0, 1)`,
+                        style: {
+                            borderRadius: 16
                         },
-                        elements: {
-                            line: {
-                                tension: 0.5,
-                            },
-                        },
-                        layout: {
-                            padding: {
-                                top: 20,
-                            },
-                        },
+                        propsForDots: {
+                            r: '6',
+                            strokeWidth: '2',
+                            stroke: '#009688'
+                        }
                     }}
-                    style={{width: '95vw', padding: '0.5em'}}
+                    bezier
+                    style={{
+                        marginVertical: 8,
+                        borderRadius: 16
+                    }}
                 />
             ) : (
                 <Text>Loading...</Text>
@@ -237,5 +190,69 @@ const SymptomChart = () => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#ffffff',
+        paddingTop: 20,
+        paddingHorizontal: 16,
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#009688',
+        padding: 16,
+        marginBottom: 16,
+    },
+    button: {
+        color: '#fff',
+        fontSize: 16,
+    },
+    dateText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginTop: 16,
+    },
+    periodContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 8,
+    },
+    scrollView: {
+        marginTop: 16,
+    },
+    categoryContainer: {
+        marginBottom: 16,
+    },
+    categoryButton: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#f0f0f0',
+        padding: 10,
+        borderRadius: 8,
+    },
+    categoryButtonText: {
+        color: '#009688',
+        fontSize: 16,
+    },
+    symptomList: {
+        paddingLeft: 10,
+        backgroundColor: '#f9f9f9',
+        borderRadius: 8,
+        marginTop: 8,
+    },
+    footer: {
+        padding: 16,
+        backgroundColor: '#f8f8f8',
+        borderTopWidth: 1,
+        borderTopColor: '#ddd',
+    },
+});
 
 export default SymptomChart;
