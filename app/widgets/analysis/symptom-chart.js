@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 import symptomsData from '../../../symptoms.json';
-import DatePicker from 'react-native-date-picker'
+import DateTimePicker from 'react-datetime-picker';
 
 import {
     Chart as ChartJS,
@@ -14,7 +14,7 @@ import {
     Tooltip,
     Legend
 } from 'chart.js';
-import { View, Text, Input, Button, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 // Register the necessary components with Chart.js
 ChartJS.register(
     TimeScale,
@@ -43,10 +43,25 @@ const SymptomChart = () => {
     const today = new Date();
     const twoWeeksAgo = new Date();
     twoWeeksAgo.setDate(today.getDate() - 14);
-    const [tempdate, setTempDate] = useState(new Date());
-    const [startDate, setStartDate] = useState(twoWeeksAgo.toISOString().split('T')[0]);
-    const [endDate, setEndDate] = useState(today.toISOString().split('T')[0]);
-    const [open, setOpen] = useState(false);
+    const [startDate, setStartDate] = useState(twoWeeksAgo);
+    const [endDate, setEndDate] = useState(today);
+    const [selectedRange, setSelectedRange] = useState('2weeks');
+
+    const handleDateRangeChange = (range) => {
+        const newEndDate = new Date();
+        let newStartDate = new Date();
+        if (range === '2weeks') {
+            newStartDate.setDate(newEndDate.getDate() - 14);
+        } else if (range === '2months') {
+            newStartDate.setMonth(newEndDate.getMonth() - 2);
+        } else if (range === '1year') {
+            newStartDate.setFullYear(newEndDate.getFullYear() - 1);
+        }
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
+        setSelectedRange(range);
+    };
+
     useEffect(() => {
         const currentUser = JSON.parse(localStorage.getItem('user'));
         const username = currentUser ? currentUser.username : 'Unknown User';
@@ -98,7 +113,6 @@ const SymptomChart = () => {
 
         // Ensure all possible symptoms are included in the datasets
         symptomsData.symptoms.forEach(({ symptom }) => {
-            console.log(symptom);
             const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
             if (!symptoms[formattedSymptom]) {
                 symptoms[formattedSymptom] = [];
@@ -124,7 +138,7 @@ const SymptomChart = () => {
         };
 
         const datasets = Object.keys(symptoms).map(symptom => ({
-            Text: symptom.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+            label: symptom.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
             data: symptoms[symptom].map(entry => ({ x: entry.date, y: entry.severity })),
             fill: false,
             borderColor: getUniqueColor(),
@@ -145,36 +159,23 @@ const SymptomChart = () => {
     return (
         <View style={{display: "flex", flexDirection: 'column', alignItems: 'center'}}>
             <View style={{ marginBottom: '1em', width: '70vw', textAlign: 'center' }}>
-                <Text>
-                    Start Date:
-                    <DatePicker
-                        modal
-                        open={open}
-                        date={tempdate}
-                        onConfirm={(date) => {
-                            setOpen(false)
-                            setStartDate(date)
-                        }}
-                        onCancel={() => {
-                            setOpen(false)
-                        }}                       
+                <View style={{ marginTop: '1em', flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+                    <Button
+                        title="Past 2 Weeks"
+                        onPress={() => handleDateRangeChange('2weeks')}
+                        color={selectedRange === '2weeks' ? '#009688' : '#ccc'}
                     />
-                </Text>
-                <Text>
-                    End Date:
-                    <DatePicker
-                        modal
-                        open={open}
-                        date={tempdate}
-                        onConfirm={(date) => {
-                            setOpen(false)
-                            setStartDate(date)
-                        }}
-                        onCancel={() => {
-                            setOpen(false)
-                        }}                       
+                    <Button
+                        title="Past 2 Months"
+                        onPress={() => handleDateRangeChange('2months')}
+                        color={selectedRange === '2months' ? '#009688' : '#ccc'}
                     />
-                </Text>
+                    <Button
+                        title="Past Year"
+                        onPress={() => handleDateRangeChange('1year')}
+                        color={selectedRange === '1year' ? '#009688' : '#ccc'}
+                    />
+                </View>
             </View>
             {chartData ? (
                 <Line
@@ -226,7 +227,7 @@ const SymptomChart = () => {
                     style={{width: '95vw', padding: '0.5em'}}
                 />
             ) : (
-                <p>Loading...</p>
+                <Text>Loading...</Text>
             )}
         </View>
     );
