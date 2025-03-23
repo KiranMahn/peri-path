@@ -102,6 +102,23 @@ const PeriodChart = () => {
 
     }, [startDate, endDate]);
 
+    const formatYLabel = (value) => {
+        switch (value) {
+            case '0.0':
+                return 'None';
+            case '1.0':
+                return 'Spotting';
+            case '2.0':
+                return 'Light';
+            case '3.0':
+                return 'Medium';
+            case '4.0':
+                return 'Heavy';
+            default:
+                return '';
+        }
+    };
+
     return (
         <View style={{display: "flex", flexDirection: 'column', alignItems: 'center'}}>
             <View style={{ marginBottom: '1em', width: '70vw', textAlign: 'center' }}>
@@ -152,8 +169,9 @@ const PeriodChart = () => {
                                 return index % 2 === 0 ? label : '';
                             }
                             return label;
-                        }
+                        },
                     }}
+                    formatYLabel={formatYLabel}
                     bezier
                     style={{
                         marginVertical: 8,
