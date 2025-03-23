@@ -26,7 +26,7 @@ const TwoWeek = () => {
                 setDaysInTwoWeeks(daysArray);
 
                 const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
-                setUserData(allUsersData[currentUser?.username] || {});
+                setUserData(allUsersData[username] || {});
 
                 const end = new Date(start);
                 end.setDate(start.getDate() + 13);
