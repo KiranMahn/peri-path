@@ -60,105 +60,33 @@ const SymptomChart = () => {
             const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
             const userData = allUsersData[username] || {};
 
-            const severityLevels = {
-                'None': 0,
-                'Low': 1,
-                'Medium': 2,
-                'High': 3
-            };
-
             const start = new Date(startDate);
             const end = new Date(endDate);
 
             const dateArray = [];
-            const symptomArray = [];
-
             for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
                 dateArray.push(new Date(d));
             }
 
-            const symptoms = dateArray.reduce((acc, date) => {
+            const symptomsCount = dateArray.map(date => {
                 const dateString = date.toDateString();
                 const dayData = userData[dateString] || {};
-                const entryDate = new Date(date);
-
-                // for each symptom in that day's data:
-            // if (!acc[formattedSymptom]) {
-                //     acc[formattedSymptom] = [];
-                // }
-                Object.keys(dayData).forEach(symptom => {
-                    // make sure is valid symptom 
-                    if (symptom !== 'period' && symptom !== 'symptoms') {
-
-                        // reformat name 
-                        const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
-
-                        // initailize array for symptom if not already present
-                        if (!acc[formattedSymptom]) {
-                            acc[formattedSymptom] = [];
-                        }
-
-                        // add to symptom array if not already present
-                        if (!symptomArray.includes(formattedSymptom)) {
-                            symptomArray.push(formattedSymptom);
-                        }
-
-                        // add to accumulated symptom data and default level to 0 if not present
-                        acc[formattedSymptom].push({ date: entryDate, severity: severityLevels[dayData[symptom]] ? severityLevels[dayData[symptom]] : 0});
-                    }
-                });
-
-                // add empty data for days with no data
-                if(Object.keys(dayData).length === 0) {
-                    symptomArray.forEach(symptom => {
-                        acc[symptom].push({ date: date, severity: 0});
-                    });
-                }
-                console.log("sympom acc", acc);
-                return acc;
-            }, {});
-
-            // Ensure all possible symptoms are included in the datasets
-            symptomsData.symptoms.forEach(({ symptom }) => {
-                const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
-                if (!symptoms[formattedSymptom]) {
-                    symptoms[formattedSymptom] = [];
-                }
+                const symptomsTracked = Object.keys(dayData).filter(symptom => symptom !== 'period' && symptom !== 'symptoms' && dayData[symptom] !== 'None').length;
+                return symptomsTracked;
             });
-
-            // Generate unique random colors with hue between green and purple
-            const generateRandomColor = () => {
-                const hue = Math.floor(Math.random() * (300 - 120 + 1)) + 120; // Hue between 120 (green) and 300 (purple)
-                const saturation = 25 + 70 * Math.random();
-                const lightness = Math.floor(Math.random() * (75 - 40 + 1)) + 40; // Lightness between 60 and 90
-                return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-            };
-
-            const usedColors = new Set();
-            const getUniqueColor = () => {
-                let color;
-                do {
-                    color = generateRandomColor();
-                } while (usedColors.has(color));
-                usedColors.add(color);
-                return color;
-            };
-
-            const datasets = Object.keys(symptoms).map(symptom => ({
-                label: symptom.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
-                data: symptoms[symptom].map(entry => entry.severity),
-                color: (opacity = 1) => getUniqueColor(),
-            }));
-
-            console.log("datasets", datasets);
 
             const labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
 
             setChartData({
                 labels,
-                datasets,
+                datasets: [
+                    {
+                        data: symptomsCount,
+                        color: (opacity = 1) => `rgba(0, 150, 136, ${opacity})`, // optional
+                        strokeWidth: 2 // optional
+                    }
+                ]
             });
-            console.log("chartData", chartData);
         };
 
         loadUserData();
@@ -196,7 +124,7 @@ const SymptomChart = () => {
                         backgroundColor: '#ffffff',
                         backgroundGradientFrom: '#ffffff',
                         backgroundGradientTo: '#ffffff',
-                        decimalPlaces: 1, // optional, defaults to 2dp
+                        decimalPlaces: 0, // optional, defaults to 2dp
                         color: (opacity = 1) => `rgba(0, 150, 136, ${opacity})`,
                         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         style: {
