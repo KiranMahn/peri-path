@@ -142,6 +142,7 @@ const SymptomChart = () => {
                 labels,
                 datasets,
             });
+            console.log("chartData", chartData);
         };
 
         loadUserData();
@@ -189,6 +190,16 @@ const SymptomChart = () => {
                             r: '6',
                             strokeWidth: '2',
                             stroke: '#009688'
+                        },
+                        propsForBackgroundLines: {
+                            strokeDasharray: '', // solid background lines with no dashes
+                        },
+                        formatXLabel: (label, index) => {
+                            if (selectedRange === '2weeks') {
+                                // Show only every 5th label to avoid intersection
+                                return index % 5 === 0 ? label : '';
+                            }
+                            return label;
                         }
                     }}
                     bezier

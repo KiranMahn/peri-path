@@ -60,9 +60,7 @@ const PeriodLength = () => {
     }, []);
 
     return (
-        <View>
-            <AnalysisWigi title="Average Period Length" value={averagePeriodLength ? `${averagePeriodLength} days` : ''} message={message} />
-        </View>
+        <AnalysisWigi title="Average Period Length" value={averagePeriodLength ? `${averagePeriodLength} days` : ''} message={message} />
     );
 };
 
