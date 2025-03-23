@@ -42,6 +42,18 @@ const SymptomChart = () => {
         setSelectedRange(range);
     };
 
+    const logAsyncStorage = async () => {
+        try {
+            const keys = await AsyncStorage.getAllKeys();
+            const result = await AsyncStorage.multiGet(keys);
+            result.forEach(([key, value]) => {
+                console.log(`${key}: ${value}`);
+            });
+        } catch (error) {
+            console.error('Error logging AsyncStorage data:', error);
+        }
+    };
+
     useEffect(() => {
         const loadUserData = async () => {
             const currentUser = JSON.parse(await AsyncStorage.getItem('user'));
@@ -120,9 +132,8 @@ const SymptomChart = () => {
 
             const datasets = Object.keys(symptoms).map(symptom => ({
                 label: symptom.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
-                data: symptoms[symptom].map(entry => ({ x: entry.date, y: entry.severity })),
-                fill: false,
-                borderColor: getUniqueColor(),
+                data: symptoms[symptom].map(entry => entry.severity),
+                color: (opacity = 1) => getUniqueColor(),
             }));
 
             const labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
@@ -134,6 +145,8 @@ const SymptomChart = () => {
         };
 
         loadUserData();
+        logAsyncStorage(); // Log AsyncStorage data
+
     }, [startDate, endDate]);
 
     return (
@@ -167,8 +180,8 @@ const SymptomChart = () => {
                         backgroundGradientFrom: '#ffffff',
                         backgroundGradientTo: '#ffffff',
                         decimalPlaces: 1, // optional, defaults to 2dp
-                        color: (opacity = 0.2) => `rgba(0, 150, 135, 0.92)`,
-                        labelColor: (opacity = 1) => `rgba(0, 0, 0, 1)`,
+                        color: (opacity = 1) => `rgba(0, 150, 136, ${opacity})`,
+                        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         style: {
                             borderRadius: 16
                         },
