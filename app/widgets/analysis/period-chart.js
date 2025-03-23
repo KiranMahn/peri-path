@@ -2,28 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import symptomsData from '../../../symptoms.json';
 
 const screenWidth = Dimensions.get('window').width;
 
-const SymptomChart = () => {
+const PeriodChart = () => {
     const [chartData, setChartData] = useState(null);
-    const [selectedSymptoms, setSelectedSymptoms] = useState([]);
-    const [isPopupVisible, setIsPopupVisible] = useState(false);
-    const [dropdowns, setDropdowns] = useState({
-        cognitive: false,
-        emotional: false,
-        physical: false,
-        dermatological: false,
-        other: false
-    });
-
-    // Set the default date range to the past two weeks
-    const today = new Date();
-    const twoWeeksAgo = new Date();
-    twoWeeksAgo.setDate(today.getDate() - 14);
-    const [startDate, setStartDate] = useState(twoWeeksAgo);
-    const [endDate, setEndDate] = useState(today);
+    const [startDate, setStartDate] = useState(new Date(new Date().setDate(new Date().getDate() - 14)));
+    const [endDate, setEndDate] = useState(new Date());
     const [selectedRange, setSelectedRange] = useState('2weeks');
 
     const handleDateRangeChange = (range) => {
@@ -72,85 +57,44 @@ const SymptomChart = () => {
             const end = new Date(endDate);
 
             const dateArray = [];
-            const symptomArray = [];
-
             for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
                 dateArray.push(new Date(d));
             }
-            const symptoms = dateArray.reduce((acc, date) => {
+
+            let symptomsCount = dateArray.map(date => {
                 const dateString = date.toDateString();
                 const dayData = userData[dateString] || {};
-                const entryDate = new Date(date);
                 const severity = dayData['period'] ? severityLevels[dayData['period']] : 0;
+                return severity;
+            });
 
-                if (!acc['period']) {
-                    acc['period'] = [];
+            if (selectedRange === '2weeks') {
+                // Average data for every 2 days
+                const averagedSymptomsCount = [];
+                for (let i = 0; i < symptomsCount.length; i += 2) {
+                    const avg = (symptomsCount[i] + (symptomsCount[i + 1] || 0)) / 2;
+                    averagedSymptomsCount.push(avg);
                 }
-                acc['period'].push({ date: new Date(dateString), severity });
-                console.log("period acc", acc);
-                return acc;
-
-                // Object.keys(dayData).forEach(symptom => {
-                //     if (symptom !== 'period' && symptom !== 'symptoms') {
-                //         const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
-                //         if (!acc[formattedSymptom]) {
-                //             acc[formattedSymptom] = [];
-                //         }
-                //         if (!symptomArray.includes(formattedSymptom)) {
-                //             symptomArray.push(formattedSymptom);
-                //         }
-                //         acc[formattedSymptom].push({ date: entryDate, severity: severityLevels[dayData[symptom]] ? severityLevels[dayData[symptom]] : 0});
-                //     }
-                // });
-
-                // if(Object.keys(dayData).length === 0) {
-                //     symptomArray.forEach(symptom => {
-                //         acc[symptom].push({ date: date, severity: 0});
-                //     });
-                // }
-
-                // return acc;
-            }, {});
-
-            // Ensure all possible symptoms are included in the datasets
-            // symptomsData.symptoms.forEach(({ symptom }) => {
-            //     const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
-            //     if (!symptoms[formattedSymptom]) {
-            //         symptoms[formattedSymptom] = [];
-            //     }
-            // });
-
-            // Generate unique random colors with hue between green and purple
-            const generateRandomColor = () => {
-                const hue = Math.floor(Math.random() * (300 - 120 + 1)) + 120; // Hue between 120 (green) and 300 (purple)
-                const saturation = 25 + 70 * Math.random();
-                const lightness = Math.floor(Math.random() * (75 - 40 + 1)) + 40; // Lightness between 60 and 90
-                return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-            };
-
-            const usedColors = new Set();
-            const getUniqueColor = () => {
-                let color;
-                do {
-                    color = generateRandomColor();
-                } while (usedColors.has(color));
-                usedColors.add(color);
-                return color;
-            };
-
-            const datasets = Object.keys(symptoms).map(symptom => ({
-                label: symptom.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
-                data: symptoms[symptom].map(entry => entry.severity),
-                color: (opacity = 1) => getUniqueColor(),
-            }));
+                symptomsCount = averagedSymptomsCount;
+            }
 
             const labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+            const averagedLabels = [];
+            for (let i = 0; i < labels.length; i += 2) {
+                averagedLabels.push(labels[i]);
+            }
 
+            console.log("symptomsCount", symptomsCount);
             setChartData({
-                labels,
-                datasets,
+                labels: selectedRange === '2weeks' ? averagedLabels : labels,
+                datasets: [
+                    {
+                        data: symptomsCount,
+                        color: (opacity = 1) => `rgba(0, 150, 136, ${opacity})`, // optional
+                        strokeWidth: 2 // optional
+                    }
+                ]
             });
-            console.log("chartData", chartData);
         };
 
         loadUserData();
@@ -204,8 +148,8 @@ const SymptomChart = () => {
                         },
                         formatXLabel: (label, index) => {
                             if (selectedRange === '2weeks') {
-                                // Show only every 5th label to avoid intersection
-                                return index % 5 === 0 ? label : '';
+                                // Show only every 2nd label to match the averaged data points
+                                return index % 2 === 0 ? label : '';
                             }
                             return label;
                         }
@@ -288,4 +232,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SymptomChart;
+export default PeriodChart;
