@@ -90,7 +90,7 @@ const PeriodChart = () => {
                 datasets: [
                     {
                         data: symptomsCount,
-                        color: (opacity = 1) => `rgba(0, 150, 136, ${opacity})`, // optional
+                        color: (opacity = 1) => `rgba(337, 106, 94, ${opacity})`, // optional
                         strokeWidth: 2 // optional
                     }
                 ]
@@ -150,7 +150,7 @@ const PeriodChart = () => {
                         backgroundGradientFrom: '#ffffff',
                         backgroundGradientTo: '#ffffff',
                         decimalPlaces: 1, // optional, defaults to 2dp
-                        color: (opacity = 1) => `rgba(0, 150, 136, ${opacity})`,
+                        color: (opacity = 1) => `rgba(223, 89, 83, ${opacity})`,
                         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         style: {
                             borderRadius: 16
@@ -158,7 +158,7 @@ const PeriodChart = () => {
                         propsForDots: {
                             r: '6',
                             strokeWidth: '2',
-                            stroke: '#009688'
+                            stroke: 'rgb(223, 89, 83)'
                         },
                         propsForBackgroundLines: {
                             strokeDasharray: '', // solid background lines with no dashes
