@@ -102,6 +102,7 @@ const SymptomChart = () => {
                     }
                 ]
             });
+            console.log("chart data", chartData);
         };
 
         loadUserData();
@@ -159,13 +160,14 @@ const SymptomChart = () => {
                                 return index % 2 === 0 ? label : '';
                             }
                             return label;
-                        }
+                        },
                     }}
                     bezier
                     style={{
                         marginVertical: 8,
                         borderRadius: 16
                     }}
+                    segments={3}
                 />
             ) : (
                 <Text>Loading...</Text>

@@ -215,6 +215,7 @@ const SymptomChart = () => {
                         marginVertical: 8,
                         borderRadius: 16
                     }}
+                    segments={4}
                 />
             ) : (
                 <Text>Loading...</Text>
