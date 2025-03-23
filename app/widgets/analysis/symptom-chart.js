@@ -68,17 +68,32 @@ const SymptomChart = () => {
                 dateArray.push(new Date(d));
             }
 
-            const symptomsCount = dateArray.map(date => {
+            let symptomsCount = dateArray.map(date => {
                 const dateString = date.toDateString();
                 const dayData = userData[dateString] || {};
                 const symptomsTracked = Object.keys(dayData).filter(symptom => symptom !== 'period' && symptom !== 'symptoms' && dayData[symptom] !== 'None').length;
                 return symptomsTracked;
             });
 
-            const labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+            if (selectedRange === '2weeks') {
+                // Average data for every 2 days
+                const averagedSymptomsCount = [];
+                for (let i = 0; i < symptomsCount.length; i += 2) {
+                    const avg = (symptomsCount[i] + (symptomsCount[i + 1] || 0)) / 2;
+                    averagedSymptomsCount.push(avg);
+                }
+                symptomsCount = averagedSymptomsCount;
+            }
 
+            const labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+            const averagedLabels = [];
+            for (let i = 0; i < labels.length; i += 2) {
+                averagedLabels.push(labels[i]);
+            }
+
+            console.log("averageLabels", averagedLabels);
             setChartData({
-                labels,
+                labels: selectedRange === '2weeks' ? averagedLabels : labels,
                 datasets: [
                     {
                         data: symptomsCount,
@@ -140,8 +155,8 @@ const SymptomChart = () => {
                         },
                         formatXLabel: (label, index) => {
                             if (selectedRange === '2weeks') {
-                                // Show only every 5th label to avoid intersection
-                                return index % 5 === 0 ? label : '';
+                                // Show only every 2nd label to match the averaged data points
+                                return index % 2 === 0 ? label : '';
                             }
                             return label;
                         }
