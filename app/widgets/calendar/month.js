@@ -13,13 +13,12 @@ const Month = ({ month, year, onDayClick }) => {
             try {
                 const currentUser = JSON.parse(await AsyncStorage.getItem('user'));
                 setUsername(currentUser ? currentUser.username : 'Unknown User');
-
                 const days = new Date(year, month + 1, 0).getDate();
                 setDaysInMonth(Array.from({ length: days }, (_, i) => i + 1));
 
                 const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
-                setUserData(allUsersData[currentUser?.username] || {});
-
+                setUserData(allUsersData[username] || {});
+                console.log(("userdata", userData));
                 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
                 setMonthYear(`${monthNames[month]} ${year}`);
             } catch (error) {
@@ -52,18 +51,19 @@ const Month = ({ month, year, onDayClick }) => {
     const renderDayBox = (day) => {
         const date = new Date(year, month, day);
         const dateString = date.toDateString();
+        // console.log("dateString", dateString);
+        // console.log("userData", JSON.stringify(userData));
         const dayData = userData[dateString] || {};
         const periodLevel = dayData.period;
 
+        const hasSymptoms = Object.keys(dayData).some(key => key !== 'period' && dayData[key] !== 'None');
+        // console.log("dayData", dayData);
+        // console.log("hasSymptoms: ", hasSymptoms);
         return (
             <TouchableOpacity key={day} onPress={() => onDayClick(dayData)} style={styles.dayBox}>
                 <Text style={styles.dayText}>{day}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
-                <View style={styles.symptomIndicators}>
-                    {Object.keys(dayData).filter(slider => dayData[slider] !== 'None').map((slider) => (
-                        <View key={slider} style={[styles.symptomDot, { backgroundColor: getColor(dayData[slider]) }]} />
-                    ))}
-                </View>
+                {hasSymptoms && <View style={styles.symptomDot} />}
             </TouchableOpacity>
         );
     };
@@ -115,18 +115,15 @@ const styles = StyleSheet.create({
         height: 10,
         borderRadius: 5,
     },
-    symptomIndicators: {
-        position: 'absolute',
-        bottom: 2,
-        left: 4,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-    },
     symptomDot: {
-        width: 6,
-        height: 6,
-        margin: 1,
-        borderRadius: 3,
+        position: 'absolute',
+        bottom: 5,
+        left: '50%',
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        backgroundColor: 'blue',
+        transform: [{ translateX: -5 }],
     },
 });
 
