@@ -76,30 +76,45 @@ const SymptomChart = () => {
             for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
                 dateArray.push(new Date(d));
             }
+
             const symptoms = dateArray.reduce((acc, date) => {
                 const dateString = date.toDateString();
                 const dayData = userData[dateString] || {};
                 const entryDate = new Date(date);
 
+                // for each symptom in that day's data:
+            // if (!acc[formattedSymptom]) {
+                //     acc[formattedSymptom] = [];
+                // }
                 Object.keys(dayData).forEach(symptom => {
+                    // make sure is valid symptom 
                     if (symptom !== 'period' && symptom !== 'symptoms') {
+
+                        // reformat name 
                         const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
+
+                        // initailize array for symptom if not already present
                         if (!acc[formattedSymptom]) {
                             acc[formattedSymptom] = [];
                         }
+
+                        // add to symptom array if not already present
                         if (!symptomArray.includes(formattedSymptom)) {
                             symptomArray.push(formattedSymptom);
                         }
+
+                        // add to accumulated symptom data and default level to 0 if not present
                         acc[formattedSymptom].push({ date: entryDate, severity: severityLevels[dayData[symptom]] ? severityLevels[dayData[symptom]] : 0});
                     }
                 });
 
+                // add empty data for days with no data
                 if(Object.keys(dayData).length === 0) {
                     symptomArray.forEach(symptom => {
                         acc[symptom].push({ date: date, severity: 0});
                     });
                 }
-
+                console.log("sympom acc", acc);
                 return acc;
             }, {});
 
@@ -134,6 +149,8 @@ const SymptomChart = () => {
                 data: symptoms[symptom].map(entry => entry.severity),
                 color: (opacity = 1) => getUniqueColor(),
             }));
+
+            console.log("datasets", datasets);
 
             const labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
 

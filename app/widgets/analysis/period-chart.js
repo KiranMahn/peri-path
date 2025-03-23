@@ -87,7 +87,7 @@ const SymptomChart = () => {
                     acc['period'] = [];
                 }
                 acc['period'].push({ date: new Date(dateString), severity });
-    
+                console.log("period acc", acc);
                 return acc;
 
                 // Object.keys(dayData).forEach(symptom => {
