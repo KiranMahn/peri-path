@@ -61,10 +61,11 @@ const SymptomChart = () => {
             const userData = allUsersData[username] || {};
 
             const severityLevels = {
-                'None': 0,
-                'Low': 1,
-                'Medium': 2,
-                'High': 3
+                ' ': 0,
+                'Spotting': 1,
+                'Light': 2,
+                'Medium': 3,
+                'Heavy': 4
             };
 
             const start = new Date(startDate);
@@ -80,36 +81,44 @@ const SymptomChart = () => {
                 const dateString = date.toDateString();
                 const dayData = userData[dateString] || {};
                 const entryDate = new Date(date);
+                const severity = dayData['period'] ? severityLevels[dayData['period']] : 0;
 
-                Object.keys(dayData).forEach(symptom => {
-                    if (symptom !== 'period' && symptom !== 'symptoms') {
-                        const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
-                        if (!acc[formattedSymptom]) {
-                            acc[formattedSymptom] = [];
-                        }
-                        if (!symptomArray.includes(formattedSymptom)) {
-                            symptomArray.push(formattedSymptom);
-                        }
-                        acc[formattedSymptom].push({ date: entryDate, severity: severityLevels[dayData[symptom]] ? severityLevels[dayData[symptom]] : 0});
-                    }
-                });
-
-                if(Object.keys(dayData).length === 0) {
-                    symptomArray.forEach(symptom => {
-                        acc[symptom].push({ date: date, severity: 0});
-                    });
+                if (!acc['period']) {
+                    acc['period'] = [];
                 }
-
+                acc['period'].push({ date: new Date(dateString), severity });
+    
                 return acc;
+
+                // Object.keys(dayData).forEach(symptom => {
+                //     if (symptom !== 'period' && symptom !== 'symptoms') {
+                //         const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
+                //         if (!acc[formattedSymptom]) {
+                //             acc[formattedSymptom] = [];
+                //         }
+                //         if (!symptomArray.includes(formattedSymptom)) {
+                //             symptomArray.push(formattedSymptom);
+                //         }
+                //         acc[formattedSymptom].push({ date: entryDate, severity: severityLevels[dayData[symptom]] ? severityLevels[dayData[symptom]] : 0});
+                //     }
+                // });
+
+                // if(Object.keys(dayData).length === 0) {
+                //     symptomArray.forEach(symptom => {
+                //         acc[symptom].push({ date: date, severity: 0});
+                //     });
+                // }
+
+                // return acc;
             }, {});
 
             // Ensure all possible symptoms are included in the datasets
-            symptomsData.symptoms.forEach(({ symptom }) => {
-                const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
-                if (!symptoms[formattedSymptom]) {
-                    symptoms[formattedSymptom] = [];
-                }
-            });
+            // symptomsData.symptoms.forEach(({ symptom }) => {
+            //     const formattedSymptom = symptom.toLowerCase().replace(/\s+/g, '');
+            //     if (!symptoms[formattedSymptom]) {
+            //         symptoms[formattedSymptom] = [];
+            //     }
+            // });
 
             // Generate unique random colors with hue between green and purple
             const generateRandomColor = () => {

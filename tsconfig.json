@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "app/widgets/analysis/symptom-chart.js", "app/widgets/analysis/symptom-chart.js", "app/widgets/calendar/two-week.js", "app/widgets/calendar/month.js", "app/widgets/analysis/period-chart.js"  ]
 }
