@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import Ionicons from '@expo/vector-icons/Entypo';
 
 const TwoWeek = () => {
     const navigation = useNavigation();
@@ -68,14 +69,19 @@ const TwoWeek = () => {
         const dayData = userData[dateString] || {};
         const periodLevel = dayData.period;
 
+        const symptomKeys = Object.keys(dayData).filter(slider => (dayData[slider] !== 'None') && (dayData[slider] !== ''));
+        const symptomDots = symptomKeys.slice(0, 4).map((slider) => (
+            <View key={slider} style={[styles.symptomDot, { backgroundColor: getColor(dayData[slider]) }]} />
+        ));
+        const showPlus = symptomKeys.length > 4;
+
         return (
             <TouchableOpacity key={dateString} onPress={() => navigation.navigate('Calendar')} style={styles.dayBox}>
                 <Text style={styles.dayText}>{day.getDate()}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
                 <View style={styles.symptomIndicators}>
-                    {Object.keys(dayData).filter(slider => (dayData[slider] !== 'None') && (dayData[slider] !== '')).map((slider) => (
-                        <View key={slider} style={[styles.symptomDot, { backgroundColor: getColor(dayData[slider]) }]} />
-                    ))}
+                    {symptomDots}
+                    {showPlus && <Ionicons name="circle-with-plus" size={8} color="red"/>}
                 </View>
             </TouchableOpacity>
         );
@@ -135,12 +141,19 @@ const styles = StyleSheet.create({
         left: 4,
         flexDirection: 'row',
         flexWrap: 'wrap',
+        alignItems: 'center',
     },
     symptomDot: {
         width: 6,
         height: 6,
         margin: 1,
         borderRadius: 3,
+    },
+    plusText: {
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: 'black',
+        margin: 1,
     },
 });
 
