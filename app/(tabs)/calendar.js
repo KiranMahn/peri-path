@@ -8,6 +8,7 @@ const Calendar = () => {
     const [currentMonth, setCurrentMonth] = useState(date.getMonth());
     const [currentYear, setCurrentYear] = useState(date.getFullYear());
     const [selectedDayData, setSelectedDayData] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(null);
     const navigation = useNavigation();
 
     const handlePrevMonth = () => {
@@ -28,9 +29,11 @@ const Calendar = () => {
         }
     };
 
-    const handleDayClick = (dayData) => {
+    const handleDayClick = ([dateString, dayData]) => {
         setSelectedDayData(dayData);
+        setSelectedDate(dateString);
         console.log("Selected day data: ", dayData);
+        console.log("dateString: ", dateString);
     };
 
     const getColor = (status) => {
@@ -60,7 +63,7 @@ const Calendar = () => {
             <Month month={currentMonth} year={currentYear} onDayClick={handleDayClick} />
             {selectedDayData && 
                 <View style={styles.detailView}>
-                    <Text style={{fontWeight: 'bold', fontSize: '20'}}>Tracked on {selectedDayData.Date}</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: '20'}}>Tracked on {selectedDate}</Text>
                     <ScrollView contentContainerStyle={styles.dayDataContainer}>
                     {Object.keys(selectedDayData).filter(slider => (selectedDayData[slider] !== 'None') && (selectedDayData[slider] !== '')).map((slider) => (
                         <View key={slider} style={[styles.dayDataItem]}>

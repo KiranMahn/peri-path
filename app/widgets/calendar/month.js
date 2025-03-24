@@ -60,6 +60,9 @@ const Month = ({ month, year, onDayClick }) => {
         const dayData = userData[dateString] || {};
         const periodLevel = dayData.period;
 
+        const dayClickData = [dateString, dayData];
+
+        // console.log("dayData", dayData);
         const symptomKeys = Object.keys(dayData).filter(slider => (dayData[slider] !== 'None') && (dayData[slider] !== ''));
         const symptomDots = symptomKeys.slice(0, 4).map((slider) => (
             <View key={slider} style={[styles.symptomDot, { backgroundColor: getColor(dayData[slider]) }]} />
@@ -67,7 +70,7 @@ const Month = ({ month, year, onDayClick }) => {
         const showPlus = symptomKeys.length > 4;
 
         return (
-            <TouchableOpacity key={dateString} onPress={() => onDayClick(dayData)} style={styles.dayBox}>
+            <TouchableOpacity key={dateString} onPress={() => onDayClick(dayClickData)} style={styles.dayBox}>
                 <Text style={styles.dayText}>{day.getDate()}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
                 <View style={styles.symptomIndicators}>
