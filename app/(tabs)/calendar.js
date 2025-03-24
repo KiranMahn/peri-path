@@ -63,7 +63,7 @@ const Calendar = () => {
             <Month month={currentMonth} year={currentYear} onDayClick={handleDayClick} />
             {selectedDayData && 
                 <View style={styles.detailView}>
-                    <Text style={{fontWeight: 'bold', fontSize: '20'}}>Tracked on {selectedDate}</Text>
+                    <Text style={{fontWeight: 'bold', fontSize: '20', marginBottom: 5}}>Tracked on {selectedDate}</Text>
                     <ScrollView contentContainerStyle={styles.dayDataContainer}>
                     {Object.keys(selectedDayData).filter(slider => (selectedDayData[slider] !== 'None') && (selectedDayData[slider] !== '')).map((slider) => (
                         <View key={slider} style={[styles.dayDataItem]}>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
         alignItems: 'start',
         justifyContent: 'space-between',
         width: '100%',
-        marginVertical: 20,
+        marginTop: 20,
         backgroundColor: 'rgb(223, 223, 223)',
         paddingTop: 20,
         borderTopEndRadius: 20,
@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 3, height: -10 },
         shadowOpacity: 0.15,
         shadowRadius: 3,
+        maxHeight: '40%',
     },
     navButton: {
         padding: 10,
