@@ -1,9 +1,5 @@
 - replace nav bar with react native bottom tabs navigator 
-- fix dates intersecting 
-- fix y axis of symptom chart 
-- fix y axis labels of period chart 
 - fix lack of space at bottom of hoem page 
-- fix dots in calendar boxes 
 - fix detail view in calendar 
 - allow unselect in track 
 - fix view in analysis 
