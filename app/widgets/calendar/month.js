@@ -67,7 +67,7 @@ const Month = ({ month, year, onDayClick }) => {
         const showPlus = symptomKeys.length > 4;
 
         return (
-            <TouchableOpacity key={dateString} onPress={() => onDayClick(day)} style={styles.dayBox}>
+            <TouchableOpacity key={dateString} onPress={() => onDayClick(dayData)} style={styles.dayBox}>
                 <Text style={styles.dayText}>{day.getDate()}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
                 <View style={styles.symptomIndicators}>
