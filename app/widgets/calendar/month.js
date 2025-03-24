@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Ionicons from '@expo/vector-icons/Entypo';
 
 const Month = ({ month, year, onDayClick }) => {
     const [daysInMonth, setDaysInMonth] = useState([]);
@@ -13,12 +14,18 @@ const Month = ({ month, year, onDayClick }) => {
             try {
                 const currentUser = JSON.parse(await AsyncStorage.getItem('user'));
                 setUsername(currentUser ? currentUser.username : 'Unknown User');
+
+                // Calculate the number of days in the given month
                 const days = new Date(year, month + 1, 0).getDate();
-                setDaysInMonth(Array.from({ length: days }, (_, i) => i + 1));
+                const daysArray = Array.from({ length: days }, (_, i) => {
+                    return new Date(year, month, i + 1);
+                });
+                setDaysInMonth(daysArray);
 
                 const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
                 setUserData(allUsersData[username] || {});
-                console.log(("userdata", userData));
+                console.log("userdata", userData);
+
                 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
                 setMonthYear(`${monthNames[month]} ${year}`);
             } catch (error) {
@@ -49,21 +56,24 @@ const Month = ({ month, year, onDayClick }) => {
     };
 
     const renderDayBox = (day) => {
-        const date = new Date(year, month, day);
-        const dateString = date.toDateString();
-        // console.log("dateString", dateString);
-        // console.log("userData", JSON.stringify(userData));
+        const dateString = day.toDateString();
         const dayData = userData[dateString] || {};
         const periodLevel = dayData.period;
 
-        const hasSymptoms = Object.keys(dayData).some(key => key !== 'period' && dayData[key] !== 'None');
-        // console.log("dayData", dayData);
-        // console.log("hasSymptoms: ", hasSymptoms);
+        const symptomKeys = Object.keys(dayData).filter(slider => (dayData[slider] !== 'None') && (dayData[slider] !== ''));
+        const symptomDots = symptomKeys.slice(0, 4).map((slider) => (
+            <View key={slider} style={[styles.symptomDot, { backgroundColor: getColor(dayData[slider]) }]} />
+        ));
+        const showPlus = symptomKeys.length > 4;
+
         return (
-            <TouchableOpacity key={day} onPress={() => onDayClick(dayData)} style={styles.dayBox}>
-                <Text style={styles.dayText}>{day}</Text>
+            <TouchableOpacity key={dateString} onPress={() => onDayClick(day)} style={styles.dayBox}>
+                <Text style={styles.dayText}>{day.getDate()}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
-                {hasSymptoms && <View style={styles.symptomDot} />}
+                <View style={styles.symptomIndicators}>
+                    {symptomDots}
+                    {showPlus && <Ionicons name="circle-with-plus" size={8} color="red" />}
+                </View>
             </TouchableOpacity>
         );
     };
@@ -115,15 +125,18 @@ const styles = StyleSheet.create({
         height: 10,
         borderRadius: 5,
     },
-    symptomDot: {
+    symptomIndicators: {
         position: 'absolute',
-        bottom: 5,
-        left: '50%',
-        width: 10,
-        height: 10,
-        borderRadius: 5,
-        backgroundColor: 'blue',
-        transform: [{ translateX: -5 }],
+        bottom: 2,
+        left: 4,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    symptomDot: {
+        width: 6,
+        height: 6,
+        margin: 1,
+        borderRadius: 3,
     },
 });
 
