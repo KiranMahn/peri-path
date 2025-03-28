@@ -40,6 +40,8 @@ const App = () => {
               headerTintColor: '#fff',
               headerTitleStyle: {
                 fontWeight: 'bold',
+                fontSize: 20,
+
               },
               headerTitleAlign: 'center',
               headerRight: () => (
@@ -61,6 +63,7 @@ const App = () => {
                 headerTintColor: '#fff',
                 headerTitleStyle: {
                   fontWeight: 'bold',
+                  fontSize: 20,
                 },
                 headerTitleAlign: 'center',
                 headerRight: () => (
@@ -82,6 +85,8 @@ const App = () => {
               headerTintColor: '#fff',
               headerTitleStyle: {
                 fontWeight: 'bold',
+                fontSize: 20,
+
               },
               headerTitleAlign: 'center',
               headerRight: () => (
@@ -103,6 +108,8 @@ const App = () => {
               headerTintColor: '#fff',
               headerTitleStyle: {
                 fontWeight: 'bold',
+                fontSize: 20,
+
               },
               headerTitleAlign: 'center',
             }}
@@ -118,6 +125,8 @@ const App = () => {
               headerTintColor: '#fff',
               headerTitleStyle: {
                 fontWeight: 'bold',
+                fontSize: 20,
+
               },
               headerTitleAlign: 'center',
               headerRight: () => (
@@ -126,21 +135,6 @@ const App = () => {
                   <Ionicons name="settings" size={21} color="white" />
                 </TouchableOpacity>
               ),
-            }}
-          />
-          <Stack.Screen 
-            name="Profile" 
-            component={Profile} 
-            options={{
-              title: 'Profile',
-              headerStyle: {
-                backgroundColor: '#rgb(0, 150, 136);',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-              headerTitleAlign: 'center',
             }}
           />
           <Stack.Screen 
@@ -154,6 +148,8 @@ const App = () => {
               headerTintColor: '#fff',
               headerTitleStyle: {
                 fontWeight: 'bold',
+                fontSize: 20,
+
               },
               headerTitleAlign: 'center',
             }}
