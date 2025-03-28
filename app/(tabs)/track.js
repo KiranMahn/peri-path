@@ -180,7 +180,7 @@ const Track = () => {
 
             
 
-            {/* Period tracking section */}
+            <ScrollView>
             <Text style={styles.sectionTitle}>Period</Text>
             <View style={styles.periodContainer}>
                 <PeriodSquare level="Light" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Light'} />
@@ -200,7 +200,7 @@ const Track = () => {
                     <View key={category} style={styles.categoryContainer}>
                         {/* Dropdown for symptom category */}
                         <TouchableOpacity onPress={() => toggleDropdown(category)} style={styles.categoryButton}>
-                            <Text style={styles.categoryButtonText}>
+                            <Text style={[styles.categoryButtonText, {fontSize: settings.largeText ? 20 : 15, fontWeight: settings.largeText ? 'bold' : 'normal'}]}>
                                 {category.charAt(0).toUpperCase() + category.slice(1)}
                             </Text>
                             <Ionicons name={dropdowns[category] ? 'chevron-up' : 'chevron-down'} size={20} color="#009688" />
@@ -224,6 +224,9 @@ const Track = () => {
                     </View>
                 ))}
             </ScrollView>
+            </ScrollView>
+            {/* Period tracking section */}
+            
 
             {/* Save button */}
             <View style={styles.footer}>
