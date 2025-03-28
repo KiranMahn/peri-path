@@ -1,6 +1,4 @@
 
-- fix detail view in calendar 
-
 - JEST testing 
 
 - Figma sketches 
