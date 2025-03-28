@@ -9,6 +9,7 @@ type RootStackParamList = {
     Track: undefined;
     Analysis: undefined;
     Learn: undefined;
+    Settings: undefined;
 };
 
 type NavButtonProps = {

@@ -1,6 +1,5 @@
 
 
-- add learn 
 - add settings
 
 - add delete / reset data button 

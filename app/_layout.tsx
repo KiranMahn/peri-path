@@ -6,9 +6,25 @@ import Track from './(tabs)/track';
 import Analysis from './(tabs)/analysis';
 import Profile from './(tabs)/profile';
 import Learn from './(tabs)/learn';
+import Settings from './(tabs)/settings';
+import { Button } from '@react-navigation/elements';
+import { TouchableOpacity } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+
 const Stack = createStackNavigator();
+type RootStackParamList = {
+  Home: undefined;
+  Calendar: undefined;
+  Track: undefined;
+  Analysis: undefined;
+  Learn: undefined;
+  Settings: undefined;
+};
 
 const App = () => {
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
     return (
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen 
@@ -24,6 +40,12 @@ const App = () => {
               fontWeight: 'bold',
             },
             headerTitleAlign: 'center',
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Settings')}
+              style={{ marginRight: 15 }}>
+                <Ionicons name="settings" size={21} color="white" />
+              </TouchableOpacity>
+            ),
           }}
         />
         <Stack.Screen 
@@ -101,7 +123,23 @@ const App = () => {
             headerTitleAlign: 'center',
           }}
         />
+        <Stack.Screen 
+          name="Settings" 
+          component={Settings} 
+          options={{
+            title: 'Settings',
+            headerStyle: {
+              backgroundColor: '#rgb(0, 150, 136);',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
       </Stack.Navigator>
+
     );
 };
 
