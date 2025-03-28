@@ -4,7 +4,6 @@
 
 - add delete / reset data button 
 - add data info button 
-- add export data to spreadsheet button
 
 - make background in analyis better so analysis wigis stand out 
 - adjust button backgroud for charts
