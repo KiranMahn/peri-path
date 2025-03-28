@@ -15,7 +15,7 @@ const Analysis = () => {
 
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.content}>
+            <ScrollView style={styles.content}>
                 <SymptomChart />
                 {/* <ChartLoadingWidget /> */}
                 
@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 3,
-        justifyContent: 'center',
-        alignItems: 'center',
         padding: 10,
+        marginTop: 10,
+        marginBottom: 20,
     },
     row: {
         flexDirection: 'row',

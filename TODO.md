@@ -1,8 +1,5 @@
 
 
-- allow tracking for previous days
-- fix view in analysis 
-
 - add learn 
 - add settings
 
@@ -11,6 +8,7 @@
 - add export data to spreadsheet button
 
 - make background in analyis better so analysis wigis stand out 
+- adjust button backgroud for charts
 - replace nav bar with react native bottom tabs navigator 
 - fix lack of space at bottom of hoem page 
 - fix detail view in calendar 
