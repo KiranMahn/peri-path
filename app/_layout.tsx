@@ -5,6 +5,7 @@ import Calendar from './(tabs)/calendar';
 import Track from './(tabs)/track';
 import Analysis from './(tabs)/analysis';
 import Profile from './(tabs)/profile';
+import Learn from './(tabs)/learn';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -40,6 +41,21 @@ const App = () => {
               headerTitleAlign: 'center',
             }}
           />
+          <Stack.Screen 
+          name="Learn" 
+          component={Learn} 
+          options={{
+            title: 'Learn',
+            headerStyle: {
+              backgroundColor: '#rgb(0, 150, 136);',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
         <Stack.Screen 
           name="Track" 
           component={Track} 
