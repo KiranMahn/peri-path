@@ -1,10 +1,12 @@
 import { SafeAreaView, StyleSheet, TouchableOpacity, Text, Linking } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import articles from '../../articles.json'; // Import articles.json
+import { SettingsContext } from '../settings-context';
 
 const Learn = () => {
     const [selected, setSelected] = useState("For You");
+    const { settings } = useContext(SettingsContext);
 
     const TabButton = ({ text, isSelected }) => {
         return (
@@ -17,7 +19,6 @@ const Learn = () => {
                     borderBottomWidth: isSelected ? 7 : 3,
                     margin: 0,
                     padding: 10,
-                    // height: 'min-content',
                 }}
                 onPress={() => {
                     setSelected(text);
@@ -27,7 +28,7 @@ const Learn = () => {
                     style={{
                         color: isSelected ? '#009688' : 'grey',
                         fontWeight: isSelected ? 'bolder' : 'unset',
-                        fontSize: 20,
+                        fontSize: settings.largeText ? 25 : 20, // Increase font size by 5 if largeText is enabled
                     }}
                 >
                     {text}
@@ -42,15 +43,13 @@ const Learn = () => {
                 style={styles.articleButton}
                 onPress={() => Linking.openURL(url)} // Open the URL when clicked
             >
-                <Text style={styles.articleTitle}>{title}</Text>
-                <Text style={styles.articleAuthor}>By: {author}</Text>
+                <Text style={[styles.articleTitle, { fontSize: settings.largeText ? 21 : 16 }]}>{title}</Text>
+                <Text style={[styles.articleAuthor, { fontSize: settings.largeText ? 19 : 14 }]}>By: {author}</Text>
             </TouchableOpacity>
         );
     };
 
     // Filter articles based on the selected tab
-    // const symptomArticles = selected === "Symptom Relief" ? Object.values(articles).filter(article => article.keywords.includes("symptoms")) : Object.values(articles);
-
     const getArticlesForTab = () => {   
         switch (selected) {
             case "For You":
@@ -59,15 +58,14 @@ const Learn = () => {
                 return Object.values(articles)
                 .filter(article => article.Date) // Exclude articles without a date
                 .sort((a, b) => new Date(b.Date) - new Date(a.Date));
-                // return articles in order of date with most recent first
             case "Symptom Relief":
-                return Object.values(articles).filter(article => article.keywords.includes("symptoms"))
+                return Object.values(articles).filter(article => article.keywords.includes("symptoms"));
             case "Menopause Stages":
-                return Object.values(articles).filter(article => article.keywords.includes("stages"))
+                return Object.values(articles).filter(article => article.keywords.includes("stages"));
             default:
                 return Object.values(articles);
         }
-    }
+    };
 
     let tabarticles = getArticlesForTab();
 
@@ -83,7 +81,7 @@ const Learn = () => {
 
             {/* Articles Section */}
             <ScrollView style={styles.articlesContainer}>
-            {tabarticles.map((article, index) => (
+                {tabarticles.map((article, index) => (
                     <ArticleButton
                         key={index}
                         title={article.Title}

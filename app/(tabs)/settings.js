@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
 import { View, Text, Button, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
+import { SettingsContext } from '../settings-context';
 
 const Settings = () => {
     const [textSize, setTextSize] = useState(16); // Default text size
     const [highContrast, setHighContrast] = useState(false); // High contrast mode
+    const { settings, saveSettings } = useContext(SettingsContext);
 
     // Export AsyncStorage data to CSV
     const exportDataToCSV = async () => {
@@ -72,12 +74,12 @@ const Settings = () => {
 
     // Toggle high contrast mode
     const toggleHighContrast = () => {
-        setHighContrast(!highContrast);
+        saveSettings({ ...settings, highContrast: !settings.highContrast });
     };
 
     // Increase text size
-    const increaseTextSize = () => {
-        setTextSize((prevSize) => Math.min(prevSize + 2, 24)); // Limit max size
+    const toggleLargeText = () => {
+        saveSettings({ ...settings, largeText: !settings.largeText });
     };
 
     return (
@@ -90,7 +92,7 @@ const Settings = () => {
             </TouchableOpacity>
 
             {/* Increase Text Size */}
-            <TouchableOpacity style={styles.button} onPress={increaseTextSize}>
+            <TouchableOpacity style={styles.button} onPress={toggleLargeText}>
                 <Text style={[styles.buttonText, { fontSize: textSize }]}>Increase Text Size</Text>
             </TouchableOpacity>
 
