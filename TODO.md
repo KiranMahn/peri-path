@@ -12,3 +12,9 @@
 - add delete / reset data button 
 - add data info button 
 - allow tracking for previous days
+- JEST testing 
+
+
+- Figma sketches 
+- gantt chart 
+- netowork diagram 

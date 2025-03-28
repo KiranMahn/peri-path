@@ -75,6 +75,9 @@ const SymptomChart = () => {
                 return symptomsTracked;
             });
 
+            let averagedLabels = [];
+            let labels = [];
+
             if (selectedRange === '2weeks') {
                 // Average data for every 2 days
                 const averagedSymptomsCount = [];
@@ -83,22 +86,68 @@ const SymptomChart = () => {
                     averagedSymptomsCount.push(avg);
                 }
                 symptomsCount = averagedSymptomsCount;
+
+                labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+                for (let i = 0; i < labels.length; i += 2) {
+                    averagedLabels.push(labels[i]);
+                }
             }
 
-            const labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
-            const averagedLabels = [];
-            for (let i = 0; i < labels.length; i += 2) {
-                averagedLabels.push(labels[i]);
+            if (selectedRange === '2months') {
+                // Average data for every 7 days
+                const averagedSymptomsCount = [];
+                for (let i = 0; i < symptomsCount.length; i += 7) {
+                    const chunk = symptomsCount.slice(i, i + 7); // Get a chunk of 7 days
+                    const avg = chunk.reduce((sum, val) => sum + val, 0) / chunk.length; // Calculate the average
+                    averagedSymptomsCount.push(avg);
+                }
+                symptomsCount = averagedSymptomsCount;
+            
+                labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+                for (let i = 0; i < labels.length; i += 7) {
+                    averagedLabels.push(labels[i]); // Use the first label of each 4-day interval
+                }
             }
+
+            if (selectedRange === '1year') {
+                // Average data for each month in the past 12 months
+                const monthlySymptomsCount = [];
+                const monthlyLabels = [];
+            
+                for (let month = 0; month < 12; month++) {
+                    const monthData = dateArray.filter(date => date.getMonth() === month && date <= endDate); // Filter dates up to endDate
+                    const monthSymptoms = monthData.map(date => {
+                        const dateString = date.toDateString();
+                        const dayData = userData[dateString] || {};
+                        return Object.keys(dayData).filter(symptom => symptom !== 'period' && symptom !== 'symptoms' && dayData[symptom] !== 'None').length;
+                    });
+            
+                    if (monthSymptoms.length > 0) {
+                        const avg = monthSymptoms.reduce((sum, val) => sum + val, 0) / monthSymptoms.length;
+                        monthlySymptomsCount.push(avg);
+                        monthlyLabels.push(`${monthData[0].toLocaleString('default', { month: 'short' })}`);
+                    } else {
+                        // If no data for the month, push 0
+                        monthlySymptomsCount.push(0);
+                        monthlyLabels.push(new Date(startDate.getFullYear(), month).toLocaleString('default', { month: 'short' }));
+                    }
+                }
+            
+                symptomsCount = monthlySymptomsCount;
+                averagedLabels = monthlyLabels;
+            }
+
+           
+            
+
+            
 
             console.log("averageLabels", averagedLabels);
             setChartData({
-                labels: selectedRange === '2weeks' ? averagedLabels : labels,
+                labels: averagedLabels,
                 datasets: [
                     {
                         data: symptomsCount,
-                        color: (opacity = 1) => `rgba(0, 150, 136, ${opacity})`, // optional
-                        strokeWidth: 2 // optional
                     }
                 ]
             });
@@ -142,6 +191,7 @@ const SymptomChart = () => {
                         backgroundGradientTo: '#ffffff',
                         decimalPlaces: 0, // optional, defaults to 2dp
                         color: (opacity = 1) => `rgba(0, 150, 136, ${opacity})`,
+
                         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         style: {
                             borderRadius: 16
