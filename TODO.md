@@ -1,6 +1,5 @@
 
 
-- allow unselect in track 
 - allow tracking for previous days
 - fix view in analysis 
 

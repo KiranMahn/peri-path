@@ -7,6 +7,9 @@ import Slider from '../widgets/track/Slider'; // Component for tracking symptoms
 import { useNavigation } from '@react-navigation/native'; // Navigation hook
 import { Ionicons } from '@expo/vector-icons'; // Icons for dropdowns
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For data persistence
+import TwoWeek from '../widgets/calendar/two-week';
+import Calendar from './calendar';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const Track = () => {
     const navigation = useNavigation(); // Navigation instance
@@ -18,41 +21,56 @@ const Track = () => {
         physical: false,
         other: false
     });
+    const [isCalendarVisible, setIsCalendarVisible] = useState(false); // State for calendar visibility
+    const [date, setDate] = useState(new Date()); // State for selected date
 
-    // Load user data and initialize state on component mount
+    const onChange = (event, selectedDate) => {
+        if (selectedDate) {
+            const formattedDate = selectedDate.toDateString(); // Format the date to match AsyncStorage format
+            console.log("Selected date: ", formattedDate);
+    
+            setDate(selectedDate); // Update the selected date state
+            setCurrentDate(formattedDate); // Update the current date display
+            setIsCalendarVisible(false); // Hide the calendar dropdown
+    
+            // Load the data for the selected date
+            loadUserData(formattedDate);
+        }
+    };
+    
+    // Load user data and initialize state on component mount or when the date changes
+    const loadUserData = async (dateString) => {
+        const user = JSON.parse(await AsyncStorage.getItem('user')); // Get current user
+        const username = user ? user.username : 'Unknown User'; // Default to 'Unknown User' if no user
+        const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {}; // Get all users' data
+        const userData = allUsersData[username] || {}; // Get current user's data
+        const savedData = userData[dateString] || {}; // Get saved data for the specified date
+    
+        // Initialize slider values with default values (0)
+        const initialSliderValues = symptoms.symptoms.reduce((acc, symptom) => {
+            acc[symptom.key] = 0;
+            return acc;
+        }, {});
+    
+        // Update slider values with saved data
+        const updatedSliderValues = { ...initialSliderValues };
+        symptoms.symptoms.forEach(symptom => {
+            updatedSliderValues[symptom.key] = ['None', 'Low', 'Medium', 'High'].indexOf(savedData[symptom.key]) !== -1
+                ? ['None', 'Low', 'Medium', 'High'].indexOf(savedData[symptom.key])
+                : 0;
+        });
+    
+        setSliderValues(updatedSliderValues); // Set slider values
+        setSelectedPeriod(savedData.period || ''); // Set selected period severity
+    };
+    
+    // Call `loadUserData` on component mount with the current date
     useEffect(() => {
-        const date = new Date();
         const dateString = date.toDateString(); // Format current date as a string
         setCurrentDate(dateString);
-
-        const loadUserData = async () => {
-            const user = JSON.parse(await AsyncStorage.getItem('user')); // Get current user
-            const username = user ? user.username : 'Unknown User'; // Default to 'Unknown User' if no user
-            const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {}; // Get all users' data
-            const userData = allUsersData[username] || {}; // Get current user's data
-            const savedData = userData[dateString] || {}; // Get saved data for the current date
-
-            // Initialize slider values with default values (0)
-            const initialSliderValues = symptoms.symptoms.reduce((acc, symptom) => {
-                acc[symptom.key] = 0;
-                return acc;
-            }, {});
-
-            // Update slider values with saved data
-            const updatedSliderValues = { ...initialSliderValues };
-            symptoms.symptoms.forEach(symptom => {
-                updatedSliderValues[symptom.key] = ['None', 'Low', 'Medium', 'High'].indexOf(savedData[symptom.key]) !== -1
-                    ? ['None', 'Low', 'Medium', 'High'].indexOf(savedData[symptom.key])
-                    : 0;
-            });
-
-            setSliderValues(updatedSliderValues); // Set slider values
-            setSelectedPeriod(savedData.period || ''); // Set selected period severity
-        };
-
-        loadUserData(); // Call the function to load user data
+        loadUserData(dateString); // Load data for the current date
     }, []);
-
+    
     // Handle slider value changes
     const handleSliderChange = (name, value) => {
         setSliderValues(prevValues => ({
@@ -88,7 +106,6 @@ const Track = () => {
         if (!allUsersData[username]) {
             allUsersData[username] = {}; // Initialize user data if not present
         }
-        const currentDate = new Date().toDateString(); // Get current date as a string
         allUsersData[username][currentDate] = {
             ...sliderStatuses,
             period: selectedPeriod
@@ -136,9 +153,28 @@ const Track = () => {
         dermatological: ['Hair Loss', 'Dry Skin', 'Dry Mouth', 'Gum Disease', 'Body Odor', 'Brittle Nails'],
         other: ['Sleeplessness', 'Tinnitus', 'UTIs']
     };
+    const toggleDayDropdown = () => {
+        setIsCalendarVisible(!isCalendarVisible);
+    };
+
+
+    
 
     return (
         <View style={styles.container}>
+            {/* Dropdown for selecting another day */}
+            <TouchableOpacity onPress={toggleDayDropdown} style={styles.dayDropdown}>
+                <Text style={styles.dayDropdownText}>Select Another Day</Text>
+                <Ionicons name={isCalendarVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#009688" />
+            </TouchableOpacity>
+            {isCalendarVisible && (
+                <DateTimePicker
+                    mode='date'
+                    value={date}
+                    onChange={onChange}
+                />            
+            )}
+
             {/* Display current date */}
             <Text style={styles.dateText}>{currentDate}</Text>
 
