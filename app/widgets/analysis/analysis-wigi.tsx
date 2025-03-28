@@ -15,6 +15,13 @@ const AnalysisWigi: React.FC<AnalysisWigiProps> = ({ title, value, altMsg }) => 
     }
     const { settings } = context;
 
+    if(!altMsg || altMsg === '') {
+        altMsg = 'No data available';
+    }
+
+    if(value === null || value === '') {
+        value = altMsg;
+    }
     return (
         <View style={[styles.container, {backgroundColor: settings.highContrast ? '#555' : '#f4f3f3'}]}>
             {value !== null ? (

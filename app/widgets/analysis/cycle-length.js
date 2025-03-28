@@ -87,7 +87,7 @@ const CycleLength = () => {
     }, []);
 
     return (
-        <AnalysisWigi title="Average Cycle Length" value={averageCycleLength ? `${averageCycleLength} days` : ''} message={message} />
+        <AnalysisWigi title="Average Cycle Length" value={averageCycleLength ? `${averageCycleLength} days` : ''} altMsg={message} />
     );
 };
 
