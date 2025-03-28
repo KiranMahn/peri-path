@@ -1,54 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
-import symptoms from '../../symptoms.json';
-import MostCommon from '../widgets/track/MostCommon';
-import PeriodSquare from '../widgets/track/PeriodSquare';
-import Slider from '../widgets/track/Slider';
-import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import symptoms from '../../symptoms.json'; // Import symptoms data
+import MostCommon from '../widgets/track/MostCommon'; // Component for quick add of common symptoms
+import PeriodSquare from '../widgets/track/PeriodSquare'; // Component for tracking period severity
+import Slider from '../widgets/track/Slider'; // Component for tracking symptoms with sliders
+import { useNavigation } from '@react-navigation/native'; // Navigation hook
+import { Ionicons } from '@expo/vector-icons'; // Icons for dropdowns
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For data persistence
 
 const Track = () => {
-    const navigation = useNavigation();
-    const [currentDate, setCurrentDate] = useState('');
-    const [sliderValues, setSliderValues] = useState({});
-    const [selectedPeriod, setSelectedPeriod] = useState('');
-    const [dropdowns, setDropdowns] = useState({
+    const navigation = useNavigation(); // Navigation instance
+    const [currentDate, setCurrentDate] = useState(''); // Current date in string format
+    const [sliderValues, setSliderValues] = useState({}); // State for slider values
+    const [selectedPeriod, setSelectedPeriod] = useState(''); // State for selected period severity
+    const [dropdowns, setDropdowns] = useState({ // State for dropdown visibility
         mental: false,
         physical: false,
         other: false
     });
 
+    // Load user data and initialize state on component mount
     useEffect(() => {
         const date = new Date();
-        const dateString = date.toDateString();
+        const dateString = date.toDateString(); // Format current date as a string
         setCurrentDate(dateString);
 
         const loadUserData = async () => {
-            const user = JSON.parse(await AsyncStorage.getItem('user'));
-            const username = user ? user.username : 'Unknown User';
-            const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
-            const userData = allUsersData[username] || {};
-            const savedData = userData[dateString] || {};
+            const user = JSON.parse(await AsyncStorage.getItem('user')); // Get current user
+            const username = user ? user.username : 'Unknown User'; // Default to 'Unknown User' if no user
+            const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {}; // Get all users' data
+            const userData = allUsersData[username] || {}; // Get current user's data
+            const savedData = userData[dateString] || {}; // Get saved data for the current date
 
+            // Initialize slider values with default values (0)
             const initialSliderValues = symptoms.symptoms.reduce((acc, symptom) => {
                 acc[symptom.key] = 0;
                 return acc;
             }, {});
 
+            // Update slider values with saved data
             const updatedSliderValues = { ...initialSliderValues };
-
             symptoms.symptoms.forEach(symptom => {
-                updatedSliderValues[symptom.key] = ['None', 'Low', 'Medium', 'High'].indexOf(savedData[symptom.key]) !== -1 ? ['None', 'Low', 'Medium', 'High'].indexOf(savedData[symptom.key]) : 0;
+                updatedSliderValues[symptom.key] = ['None', 'Low', 'Medium', 'High'].indexOf(savedData[symptom.key]) !== -1
+                    ? ['None', 'Low', 'Medium', 'High'].indexOf(savedData[symptom.key])
+                    : 0;
             });
 
-            setSliderValues(updatedSliderValues);
-            setSelectedPeriod(savedData.period || '');
+            setSliderValues(updatedSliderValues); // Set slider values
+            setSelectedPeriod(savedData.period || ''); // Set selected period severity
         };
 
-        loadUserData();
+        loadUserData(); // Call the function to load user data
     }, []);
 
+    // Handle slider value changes
     const handleSliderChange = (name, value) => {
         setSliderValues(prevValues => ({
             ...prevValues,
@@ -56,32 +61,41 @@ const Track = () => {
         }));
     };
 
+    // Handle period tracking
     const handleTrackPeriod = (level) => {
-        setSelectedPeriod(level);
+        if (selectedPeriod === level) {
+            // If the same period square is pressed, unselect it
+            setSelectedPeriod(''); // Clear the selected period
+        } else {
+            // Otherwise, select the new period level
+            setSelectedPeriod(level);
+        }
     };
 
+    // Save the tracked data to AsyncStorage
     const handleSave = async () => {
-        const user = JSON.parse(await AsyncStorage.getItem('user'));
-        const username = user ? user.username : 'Unknown User';
+        const user = JSON.parse(await AsyncStorage.getItem('user')); // Get current user
+        const username = user ? user.username : 'Unknown User'; // Default to 'Unknown User' if no user
         const sliderStatuses = symptoms.symptoms.reduce((acc, symptom) => {
             acc[symptom.key] = ['None', 'Low', 'Medium', 'High'][sliderValues[symptom.key]];
             return acc;
         }, {});
 
-        const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
+        const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {}; // Get all users' data
         if (!allUsersData[username]) {
-            allUsersData[username] = {};
+            allUsersData[username] = {}; // Initialize user data if not present
         }
-        const currentDate = new Date().toDateString();
+        const currentDate = new Date().toDateString(); // Get current date as a string
         allUsersData[username][currentDate] = {
             ...sliderStatuses,
             period: selectedPeriod
         };
-        await AsyncStorage.setItem('allUsersData', JSON.stringify(allUsersData));
+        await AsyncStorage.setItem('allUsersData', JSON.stringify(allUsersData)); // Save updated data
 
-        navigation.navigate('Calendar'); // Assuming you're using React Navigation
+        navigation.navigate('Calendar'); // Navigate to the Calendar screen
     };
 
+    // Handle quick add of common symptoms
     const handleTrackCommon = (symptom, level) => {
         const levels = ['None', 'Low', 'Medium', 'High'];
         setSliderValues(prevValues => ({
@@ -90,6 +104,7 @@ const Track = () => {
         }));
     };
 
+    // Toggle dropdown visibility for symptom categories
     const toggleDropdown = (category) => {
         setDropdowns(prevDropdowns => ({
             ...prevDropdowns,
@@ -97,6 +112,7 @@ const Track = () => {
         }));
     };
 
+    // Symptom categories and their respective symptoms
     const categories = {
         cognitive: ['Brain Fog', 'Poor Concentration', 'Memory Loss'],
         emotional: ['Anxiety', 'Mood Swings', 'Depression', 'Panic Attacks', 'Irritability'],
@@ -107,17 +123,10 @@ const Track = () => {
 
     return (
         <View style={styles.container}>
-            {/* <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Text style={styles.button}>Back</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                    <Text style={styles.button}>Profile</Text>
-                </TouchableOpacity>
-            </View> */}
-
+            {/* Display current date */}
             <Text style={styles.dateText}>{currentDate}</Text>
 
+            {/* Period tracking section */}
             <Text style={styles.sectionTitle}>Period</Text>
             <View style={styles.periodContainer}>
                 <PeriodSquare level="Light" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Light'} />
@@ -126,19 +135,23 @@ const Track = () => {
                 <PeriodSquare level="Spotting" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Spotting'} />
             </View>
 
+            {/* Quick add section */}
             <Text style={styles.sectionTitle}>Quick Add</Text>
             <MostCommon onTrack={handleTrackCommon} sliderValues={sliderValues} />
 
+            {/* Symptoms tracking section */}
             <Text style={styles.sectionTitle}>Symptoms</Text>
             <ScrollView style={styles.scrollView}>
                 {Object.keys(categories).map(category => (
                     <View key={category} style={styles.categoryContainer}>
+                        {/* Dropdown for symptom category */}
                         <TouchableOpacity onPress={() => toggleDropdown(category)} style={styles.categoryButton}>
                             <Text style={styles.categoryButtonText}>
                                 {category.charAt(0).toUpperCase() + category.slice(1)}
                             </Text>
                             <Ionicons name={dropdowns[category] ? 'chevron-up' : 'chevron-down'} size={20} color="#009688" />
                         </TouchableOpacity>
+                        {/* List of symptoms in the category */}
                         {dropdowns[category] && (
                             <View style={styles.symptomList}>
                                 {categories[category].map((symptom, index) => {
@@ -158,6 +171,7 @@ const Track = () => {
                 ))}
             </ScrollView>
 
+            {/* Save button */}
             <View style={styles.footer}>
                 <Button title="Save" onPress={handleSave} />
             </View>
@@ -171,17 +185,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         paddingTop: 20,
         paddingHorizontal: 16,
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        backgroundColor: '#009688',
-        padding: 16,
-        marginBottom: 16,
-    },
-    button: {
-        color: '#fff',
-        fontSize: 16,
     },
     dateText: {
         fontSize: 18,
