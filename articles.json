@@ -2,6 +2,7 @@
     "1" : {
         "Title": "Menopause",
         "Author": "NHS",
+        "Date": "17 May 2022",
         "URL": "https://www.nhs.uk/conditions/menopause/",
         "keywords": [
             "menopause"
@@ -10,6 +11,7 @@
     "2" : {
         "Title": "Perimenopause & Menopause Symptoms",
         "Author": "NHS",
+        "Date": "17 May 2022",
         "URL": "https://www.nhs.uk/conditions/menopause/symptoms/",
         "keywords": [
             "menopause",
@@ -17,9 +19,10 @@
         ]
     },
     "3" : {
-        "Title": "Menopause Symptoms",
+        "Title": "Perimenopause: Symptoms & Causes",
         "Author": "Mayo Clinic",
-        "URL": "https://www.mayoclinic.org/healthy-lifestyle/womens-health/in-depth/menopause-symptoms/art-20045795",
+        "Date": "25 May 2023",
+        "URL": "https://www.mayoclinic.org/diseases-conditions/perimenopause/symptoms-causes/syc-20354666",
         "keywords": [
             "menopause"
         ]
@@ -27,6 +30,7 @@
     "4" : {
         "Title": "Perimenopause & Menopause Treatment",
         "Author": "NHS",
+        "Date": "17 May 2022",
         "URL": "https://www.nhs.uk/conditions/menopause/treatment/",
         "keywords": [
             "menopause",
@@ -37,7 +41,31 @@
     "5" : {
         "Title": "Perimenopause",
         "Author": "Johns Hopkins Medicine",
+        "Date": "",
         "URL": "https://www.hopkinsmedicine.org/health/conditions-and-diseases/perimenopause",
+        "keywords": [
+            "perimenopause",
+            "symptoms",
+            "treatment"
+        ]
+    }, 
+    "6": {
+        "Title": "Menopause An Overview",
+        "Author": "The Royal Womans Hospital",
+        "Date": "",
+        "URL": "https://www.thewomens.org.au/health-information/menopause-information/menopause-an-overview",
+        "keywords": [
+            "menopause",
+            "perimenopause",
+            "symptoms",
+            "stages"
+        ]
+    }, 
+    "7" : {
+        "Title": "Perimenopause: Rocky road to menopause",
+        "Author": "Harvard Health",
+        "Date": "9 August 2022",
+        "URL": "https://www.health.harvard.edu/womens-health/perimenopause-rocky-road-to-menopause",
         "keywords": [
             "perimenopause",
             "symptoms",

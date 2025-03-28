@@ -48,6 +48,28 @@ const Learn = () => {
         );
     };
 
+    // Filter articles based on the selected tab
+    // const symptomArticles = selected === "Symptom Relief" ? Object.values(articles).filter(article => article.keywords.includes("symptoms")) : Object.values(articles);
+
+    const getArticlesForTab = () => {   
+        switch (selected) {
+            case "For You":
+                return Object.values(articles);
+            case "Trending":
+                return Object.values(articles).filter(article => article.keywords.includes("symptoms"))
+            case "Recent":
+                // return articles in order of date with most recent first
+            case "Symptom Relief":
+                return Object.values(articles).filter(article => article.keywords.includes("symptoms"))
+            case "Menopause Stages":
+                return Object.values(articles).filter(article => article.keywords.includes("stages"))
+            default:
+                return Object.values(articles);
+        }
+    }
+
+    let tabarticles = getArticlesForTab();
+
     return (
         <SafeAreaView style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {/* Horizontal Tab Buttons */}
@@ -61,7 +83,7 @@ const Learn = () => {
 
             {/* Articles Section */}
             <ScrollView style={styles.articlesContainer}>
-                {Object.values(articles).map((article, index) => (
+            {tabarticles.map((article, index) => (
                     <ArticleButton
                         key={index}
                         title={article.Title}
