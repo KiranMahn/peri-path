@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Slider from '@react-native-community/slider';
+import { SettingsContext } from '../../settings-context'; // Import SettingsContext
+
 const SliderComponent = ({ sliderText, onChange, value }) => {
     const [sliderValue, setSliderValue] = useState(value);
+    const { settings } = useContext(SettingsContext); // Access settings from context
 
     useEffect(() => {
         setSliderValue(value);
@@ -15,7 +18,7 @@ const SliderComponent = ({ sliderText, onChange, value }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.sliderText}>{sliderText}</Text>
+            <Text style={[styles.sliderText, {fontSize: settings.largeText ? 17 : 15}]}>{sliderText}</Text>
             <View style={styles.sliderWrapper}>
                 <Slider
                     style={styles.slider}
@@ -29,10 +32,10 @@ const SliderComponent = ({ sliderText, onChange, value }) => {
                     thumbTintColor="#009688"
                 />
                 <View style={styles.levels}>
-                    <Text style={styles.levelText}>None</Text>
-                    <Text style={styles.levelText}>Low</Text>
-                    <Text style={styles.levelText}>Medium</Text>
-                    <Text style={styles.levelText}>High</Text>
+                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 10}]}>None</Text>
+                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 10}]}>Low</Text>
+                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 10}]}>Medium</Text>
+                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 10}]}>High</Text>
                 </View>
             </View>
         </View>
