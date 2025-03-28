@@ -6,6 +6,7 @@ import { SettingsContext } from '../../settings-context'; // Import SettingsCont
 const MostCommonSymptom: React.FC = () => {
     const [mostCommonSymptom, setMostCommonSymptom] = useState<string | null>(null);
     const settings = useContext(SettingsContext); // Access settings from context
+    
     useEffect(() => {
         const fetchUserData = async () => {
             try {
