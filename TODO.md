@@ -1,7 +1,7 @@
-- make background in analyis better so analysis wigis stand out 
+- make large text work 
+- make high contrast work 
+
 - adjust button backgroud for charts
-- replace nav bar with react native bottom tabs navigator 
-- fix lack of space at bottom of hoem page 
 - fix detail view in calendar 
 
 - JEST testing 

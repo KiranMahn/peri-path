@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from '@expo/vector-icons/Entypo';
+import { SettingsContext } from '../../settings-context'; // Import SettingsContext
 
 const Month = ({ month, year, onDayClick }) => {
     const [daysInMonth, setDaysInMonth] = useState([]);
     const [userData, setUserData] = useState({});
     const [monthYear, setMonthYear] = useState('');
     const [username, setUsername] = useState('Unknown User');
+    const { settings } = useContext(SettingsContext); // Access settings from context
 
     useEffect(() => {
         const loadUserData = async () => {
@@ -62,7 +64,6 @@ const Month = ({ month, year, onDayClick }) => {
 
         const dayClickData = [dateString, dayData];
 
-        // console.log("dayData", dayData);
         const symptomKeys = Object.keys(dayData).filter(slider => (dayData[slider] !== 'None') && (dayData[slider] !== ''));
         const symptomDots = symptomKeys.slice(0, 4).map((slider) => (
             <View key={slider} style={[styles.symptomDot, { backgroundColor: getColor(dayData[slider]) }]} />
@@ -71,7 +72,7 @@ const Month = ({ month, year, onDayClick }) => {
 
         return (
             <TouchableOpacity key={dateString} onPress={() => onDayClick(dayClickData)} style={styles.dayBox}>
-                <Text style={styles.dayText}>{day.getDate()}</Text>
+                <Text style={[styles.dayText, { fontSize: settings.largeText ? 19 : 14 }]}>{day.getDate()}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
                 <View style={styles.symptomIndicators}>
                     {symptomDots}
@@ -83,7 +84,7 @@ const Month = ({ month, year, onDayClick }) => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.header}>{monthYear}</Text>
+            <Text style={[styles.header, { fontSize: settings.largeText ? 25 : 20 }]}>{monthYear}</Text>
             <View style={styles.grid}>{daysInMonth.map((day) => renderDayBox(day))}</View>
         </ScrollView>
     );

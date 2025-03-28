@@ -63,6 +63,12 @@ const App = () => {
                   fontWeight: 'bold',
                 },
                 headerTitleAlign: 'center',
+                headerRight: () => (
+                  <TouchableOpacity onPress={() => navigation.navigate('Settings')}
+                  style={{ marginRight: 15 }}>
+                    <Ionicons name="settings" size={21} color="white" />
+                  </TouchableOpacity>
+                ),
               }}
             />
             <Stack.Screen 
@@ -78,6 +84,12 @@ const App = () => {
                 fontWeight: 'bold',
               },
               headerTitleAlign: 'center',
+              headerRight: () => (
+                <TouchableOpacity onPress={() => navigation.navigate('Settings')}
+                style={{ marginRight: 15 }}>
+                  <Ionicons name="settings" size={21} color="white" />
+                </TouchableOpacity>
+              ),
             }}
           />
           <Stack.Screen 
@@ -108,6 +120,12 @@ const App = () => {
                 fontWeight: 'bold',
               },
               headerTitleAlign: 'center',
+              headerRight: () => (
+                <TouchableOpacity onPress={() => navigation.navigate('Settings')}
+                style={{ marginRight: 15 }}>
+                  <Ionicons name="settings" size={21} color="white" />
+                </TouchableOpacity>
+              ),
             }}
           />
           <Stack.Screen 
