@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Nav from "../widgets/nav";
@@ -9,12 +9,12 @@ import LastPeriod from "../widgets/analysis/last-period";
 import MostCommonSymptom from "../widgets/analysis/most-common-symptom";
 import SymptomChart from "../widgets/analysis/symptom-chart";
 import PeriodChart from "../widgets/analysis/period-chart";
-
+import { SettingsContext } from '../settings-context';
 const Analysis = () => {
     const navigation = useNavigation();
-
+    const { settings } = useContext(SettingsContext);
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
             <ScrollView style={styles.content}>
                 <SymptomChart />
                 {/* <ChartLoadingWidget /> */}
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ffffff',
     },
     header: {
         flex: 0.5,
