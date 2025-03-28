@@ -188,13 +188,12 @@ const SymptomChart = () => {
                     width={screenWidth * 0.95} // from react-native
                     height={220}
                     chartConfig={{
-                        backgroundColor: '#f4f3f3',
-                        backgroundGradientFrom: '#f4f3f3',
-                        backgroundGradientTo: '#f4f3f3',
+                        backgroundColor: settings.highContrast ? 'rgb(55, 55, 55)': '#f4f3f3',
+                        backgroundGradientFrom: settings.highContrast ? 'rgb(55, 55, 55)': '#f4f3f3',
+                        backgroundGradientTo: settings.highContrast ? 'rgb(55, 55, 55)': '#f4f3f3',
                         decimalPlaces: 0, // optional, defaults to 2dp
-                        color: (opacity = 1) => `rgba(0, 150, 136, ${opacity})`,
-
-                        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                        color: settings.highContrast ? (opacity = 1) => `rgba(0, 150, 136, 1)` : (opacity = 1) => `rgba(0, 150, 136, ${opacity})`,
+                        labelColor: settings.highContrast ? (opacity = 1) => `rgb(255, 255, 255)` : (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         style: {
                             borderRadius: 16, 
                         },

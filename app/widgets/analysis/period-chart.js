@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { SettingsContext } from '@/app/settings-context';
 const screenWidth = Dimensions.get('window').width;
 
 const PeriodChart = () => {
@@ -11,6 +11,7 @@ const PeriodChart = () => {
     const [endDate, setEndDate] = useState(new Date());
     const [selectedRange, setSelectedRange] = useState('2weeks');
     const [maxYValue, setMaxYValue] = useState(0); 
+    const { settings } = useContext(SettingsContext); // Access settings from context
     const handleDateRangeChange = (range) => {
         const newEndDate = new Date();
         let newStartDate = new Date();
@@ -210,12 +211,12 @@ const PeriodChart = () => {
                     width={screenWidth * 0.95} // from react-native
                     height={220}
                     chartConfig={{
-                        backgroundColor: '#f4f3f3',
-                        backgroundGradientFrom: '#f4f3f3',
-                        backgroundGradientTo: '#f4f3f3',
-                        decimalPlaces: 1, // optional, defaults to 2dp
-                        color: (opacity = 1) => `rgba(223, 89, 83, ${opacity})`,
-                        labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                        backgroundColor: settings.highContrast ? 'rgb(55, 55, 55)': '#f4f3f3',
+                        backgroundGradientFrom: settings.highContrast ? 'rgb(55, 55, 55)': '#f4f3f3',
+                        backgroundGradientTo: settings.highContrast ? 'rgb(55, 55, 55)': '#f4f3f3',
+                        decimalPlaces: 0, // optional, defaults to 2dp
+                        color: settings.highContrast ? (opacity = 1) => `rgba(223,89,83, 1)` : (opacity = 1) => `rgba(229,83,83, ${opacity})`,
+                        labelColor: settings.highContrast ? (opacity = 1) => `rgb(255, 255, 255)` : (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         style: {
                             borderRadius: 16
                         },
