@@ -25,7 +25,7 @@ const SymptomChart = () => {
     const [startDate, setStartDate] = useState(twoWeeksAgo);
     const [endDate, setEndDate] = useState(today);
     const [selectedRange, setSelectedRange] = useState('2weeks');
-
+    const [maxSymptomValue, setMaxSymptomValue] = useState(0);
     const handleDateRangeChange = (range) => {
         const newEndDate = new Date();
         let newStartDate = new Date();
@@ -152,12 +152,16 @@ const SymptomChart = () => {
                 ]
             });
             console.log("chart data", chartData);
+            console.log("symptomsCount", symptomsCount);
+            setMaxSymptomValue(Math.max(...symptomsCount));
         };
 
         loadUserData();
         logAsyncStorage(); // Log AsyncStorage data
 
     }, [startDate, endDate]);
+
+    console.log("maxSymptomValue", maxSymptomValue);
 
     return (
         <View style={{display: "flex", flexDirection: 'column', alignItems: 'center'}}>
@@ -217,7 +221,7 @@ const SymptomChart = () => {
                         marginVertical: 8,
                         borderRadius: 16
                     }}
-                    segments={3}
+                    segments={maxSymptomValue | 1}
                 />
             ) : (
                 <Text>Loading...</Text>
