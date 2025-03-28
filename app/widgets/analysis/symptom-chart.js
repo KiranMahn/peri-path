@@ -1,22 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import symptomsData from '../../../symptoms.json';
+import { SettingsContext } from '../../settings-context'; // Import SettingsContext
 
 const screenWidth = Dimensions.get('window').width;
 
 const SymptomChart = () => {
     const [chartData, setChartData] = useState(null);
-    const [selectedSymptoms, setSelectedSymptoms] = useState([]);
-    const [isPopupVisible, setIsPopupVisible] = useState(false);
-    const [dropdowns, setDropdowns] = useState({
-        cognitive: false,
-        emotional: false,
-        physical: false,
-        dermatological: false,
-        other: false
-    });
+    const { settings } = useContext(SettingsContext); // Access settings from context
 
     // Set the default date range to the past two weeks
     const today = new Date();
@@ -173,16 +166,19 @@ const SymptomChart = () => {
                         title="Past 2 Weeks"
                         onPress={() => handleDateRangeChange('2weeks')}
                         color={selectedRange === '2weeks' ? '#009688' : '#ccc'}
+                        accessibilityLabel="Symptom data for the past 2 weeks"
                     />
                     <Button
                         title="Past 2 Months"
                         onPress={() => handleDateRangeChange('2months')}
                         color={selectedRange === '2months' ? '#009688' : '#ccc'}
+                        accessibilityLabel='Symptom data for the past 2 months'
                     />
                     <Button
                         title="Past Year"
                         onPress={() => handleDateRangeChange('1year')}
                         color={selectedRange === '1year' ? '#009688' : '#ccc'}
+                        accessibilityLabel='Symptom data for the past year'
                     />
                 </View>
             </View>
@@ -200,7 +196,7 @@ const SymptomChart = () => {
 
                         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         style: {
-                            borderRadius: 16
+                            borderRadius: 16, 
                         },
                         propsForDots: {
                             r: '6',
@@ -221,7 +217,7 @@ const SymptomChart = () => {
                     bezier
                     style={{
                         marginVertical: 8,
-                        borderRadius: 16
+                        borderRadius: 16, 
                     }}
                     segments={maxSymptomValue | 1}
                 />
