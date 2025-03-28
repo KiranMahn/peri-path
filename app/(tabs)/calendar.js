@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Month from '../widgets/calendar/month';
 import { useNavigation } from '@react-navigation/native';
+import { SettingsContext } from '../settings-context'; // Import SettingsContext
 
 const Calendar = () => {
     const date = new Date();
@@ -10,6 +11,7 @@ const Calendar = () => {
     const [selectedDayData, setSelectedDayData] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const navigation = useNavigation();
+    const { settings } = useContext(SettingsContext); // Access settings from context
 
     const handlePrevMonth = () => {
         if (currentMonth === 0) {
@@ -36,50 +38,39 @@ const Calendar = () => {
         console.log("dateString: ", dateString);
     };
 
-    const getColor = (status) => {
-        switch (status) {
-            case 'Low':
-                return 'green';
-            case 'Medium':
-                return 'orange';
-            case 'High':
-                return 'red';
-            default:
-                return 'gray';
-        }
-    };
-
     return (
         <View style={styles.container}>
             <View style={styles.navigation}>
                 <TouchableOpacity onPress={handlePrevMonth} style={styles.navButton}>
-                    <Text>{'<'}</Text>
+                    <Text style={[styles.navButtonText, { fontSize: settings.largeText ? 19 : 14 }]}>{'<'}</Text>
                 </TouchableOpacity>
-                <Text>{`${currentMonth + 1}/${currentYear}`}</Text>
+                <Text style={[styles.navText, { fontSize: settings.largeText ? 25 : 20 }]}>{`${currentMonth + 1}/${currentYear}`}</Text>
                 <TouchableOpacity onPress={handleNextMonth} style={styles.navButton}>
-                    <Text>{'>'}</Text>
+                    <Text style={[styles.navButtonText, { fontSize: settings.largeText ? 19 : 14 }]}>{'>'}</Text>
                 </TouchableOpacity>
             </View>
             <Month month={currentMonth} year={currentYear} onDayClick={handleDayClick} />
             {selectedDayData && 
                 <View style={styles.detailView}>
-                    <Text style={{fontWeight: 'bold', fontSize: '20', marginBottom: 5}}>Tracked on {selectedDate}</Text>
+                    <Text style={[styles.detailHeader, { fontSize: settings.largeText ? 25 : 20 }]}>
+                        Tracked on {selectedDate}
+                    </Text>
                     <ScrollView contentContainerStyle={styles.dayDataContainer}>
-                    {Object.keys(selectedDayData).filter(slider => (selectedDayData[slider] !== 'None') && (selectedDayData[slider] !== '')).map((slider) => (
-                        <View key={slider} style={[styles.dayDataItem]}>
-                            <Text style={styles.dayDataText}> {slider}: </Text>
-                            <Text style={{fontSize: 17}}>{selectedDayData[slider]}</Text>
-                        </View>
-                    ))}
-                    {/* {selectedDayData.period && (
-                        <View style={[styles.dayDataItem]}>
-                            <Text style={styles.dayDataText}>Period: {selectedDayData.period}</Text>
-                        </View>
-                    )} */}
+                        {Object.keys(selectedDayData)
+                            .filter(slider => (selectedDayData[slider] !== 'None') && (selectedDayData[slider] !== ''))
+                            .map((slider) => (
+                                <View key={slider} style={[styles.dayDataItem]}>
+                                    <Text style={[styles.dayDataText, { fontSize: settings.largeText ? 22 : 17 }]}>
+                                        {slider}:
+                                    </Text>
+                                    <Text style={[styles.dayDataValue, { fontSize: settings.largeText ? 22 : 17 }]}>
+                                        {selectedDayData[slider]}
+                                    </Text>
+                                </View>
+                            ))}
                     </ScrollView>
-                    
                     <TouchableOpacity style={styles.trackMoreButton} onPress={() => navigation.navigate('TrackSymptoms')}>
-                        <Text style={styles.trackMoreText}>Edit</Text>
+                        <Text style={[styles.trackMoreText, { fontSize: settings.largeText ? 20 : 15 }]}>Edit</Text>
                     </TouchableOpacity>
                 </View>
             }
@@ -93,23 +84,25 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    header: {
-        backgroundColor: '#009688',
-        padding: 20,
-        width: '100%',
-        alignItems: 'center',
-    },
-    headerText: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
     navigation: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '80%',
         marginVertical: 20,
+    },
+    navButton: {
+        padding: 10,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 5,
+    },
+    navButtonText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    navText: {
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     detailView: {
         flexDirection: 'column',
@@ -130,17 +123,17 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
         maxHeight: '40%',
     },
-    navButton: {
-        padding: 10,
-        backgroundColor: '#f0f0f0',
-        borderRadius: 5,
+    detailHeader: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginBottom: 5,
     },
     dayDataContainer: {
         alignItems: 'center',
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'start'
+        alignItems: 'start',
     },
     dayDataItem: {
         padding: 2,
@@ -156,7 +149,10 @@ const styles = StyleSheet.create({
         color: 'rgb(88, 88, 88)',
         fontWeight: 'bold',
         fontSize: 17,
-
+    },
+    dayDataValue: {
+        fontSize: 17,
+        color: 'rgb(88, 88, 88)',
     },
     trackMoreButton: {
         marginTop: 20,
@@ -170,6 +166,7 @@ const styles = StyleSheet.create({
     trackMoreText: {
         color: 'white',
         fontWeight: 'bold',
+        fontSize: 15,
     },
 });
 
