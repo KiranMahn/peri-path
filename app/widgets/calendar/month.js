@@ -72,7 +72,7 @@ const Month = ({ month, year, onDayClick }) => {
 
         return (
             <TouchableOpacity key={dateString} onPress={() => onDayClick(dayClickData)} style={styles.dayBox}>
-                <Text style={[styles.dayText, { fontSize: settings.largeText ? 19 : 14 }]}>{day.getDate()}</Text>
+                <Text style={[styles.dayText, { fontSize: settings.largeText ? 19 : 14, color: settings.highContrast ? 'white' : 'black'  }]}>{day.getDate()}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
                 <View style={styles.symptomIndicators}>
                     {symptomDots}
@@ -84,7 +84,7 @@ const Month = ({ month, year, onDayClick }) => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={[styles.header, { fontSize: settings.largeText ? 25 : 20 }]}>{monthYear}</Text>
+            <Text style={[styles.header, { fontSize: settings.largeText ? 25 : 20, color: settings.highContrast ? 'white' : 'black'  }]}>{monthYear}</Text>
             <View style={styles.grid}>{daysInMonth.map((day) => renderDayBox(day))}</View>
         </ScrollView>
     );
