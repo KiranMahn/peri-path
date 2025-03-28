@@ -210,9 +210,9 @@ const PeriodChart = () => {
                     width={screenWidth * 0.95} // from react-native
                     height={220}
                     chartConfig={{
-                        backgroundColor: '#ffffff',
-                        backgroundGradientFrom: '#ffffff',
-                        backgroundGradientTo: '#ffffff',
+                        backgroundColor: '#f4f3f3',
+                        backgroundGradientFrom: '#f4f3f3',
+                        backgroundGradientTo: '#f4f3f3',
                         decimalPlaces: 1, // optional, defaults to 2dp
                         color: (opacity = 1) => `rgba(223, 89, 83, ${opacity})`,
                         labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
