@@ -13,7 +13,7 @@ const Learn = () => {
             <TouchableOpacity
                 style={{
                     borderRadius: 0,
-                    backgroundColor: '#f8f8f9',
+                    backgroundColor: settings.highContrast ? 'black' : '#f8f8f9',
                     borderBottomStyle: 'solid',
                     borderBottomColor: isSelected ? '#009688' : '#d8d8d8',
                     borderBottomWidth: isSelected ? 7 : 3,
@@ -26,7 +26,7 @@ const Learn = () => {
             >
                 <Text
                     style={{
-                        color: isSelected ? '#009688' : 'grey',
+                        color: isSelected ? '#009688' : settings.highContrast ? 'white' : 'grey',
                         fontWeight: isSelected ? 'bolder' : 'unset',
                         fontSize: settings.largeText ? 25 : 20, // Increase font size by 5 if largeText is enabled
                     }}
@@ -40,11 +40,11 @@ const Learn = () => {
     const ArticleButton = ({ title, author, url }) => {
         return (
             <TouchableOpacity
-                style={styles.articleButton}
+                style={[styles.articleButton, {backgroundColor: settings.highContrast ? 'rgb(57, 57, 57)' : '#f0f0f0'}]} // Change background color based on high contrast settin
                 onPress={() => Linking.openURL(url)} // Open the URL when clicked
             >
                 <Text style={[styles.articleTitle, { fontSize: settings.largeText ? 21 : 16 }]}>{title}</Text>
-                <Text style={[styles.articleAuthor, { fontSize: settings.largeText ? 19 : 14 }]}>By: {author}</Text>
+                <Text style={[styles.articleAuthor, { fontSize: settings.largeText ? 19 : 14, color: settings.highContrast ? 'white' : '#555' }]}>By: {author}</Text>
             </TouchableOpacity>
         );
     };
@@ -70,9 +70,9 @@ const Learn = () => {
     let tabarticles = getArticlesForTab();
 
     return (
-        <SafeAreaView style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <SafeAreaView style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: settings.highContrast ? '#000' : '#fff' }}>
             {/* Horizontal Tab Buttons */}
-            <ScrollView style={styles.headings} horizontal={true} showsHorizontalScrollIndicator={false}>
+            <ScrollView style={[styles.headings, {backgroundColor: settings.highContrast ? 'black' : 'white'}]} horizontal={true} showsHorizontalScrollIndicator={false}>
                 <TabButton text={"For You"} isSelected={selected === "For You"} />
                 <TabButton text={"Recent"} isSelected={selected === "Recent"} />
                 <TabButton text={"Symptom Relief"} isSelected={selected === "Symptom Relief"} />
