@@ -1,4 +1,4 @@
-- handle cases with no data
+
 - fix detail view in calendar 
 
 - JEST testing 

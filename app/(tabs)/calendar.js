@@ -68,6 +68,11 @@ const Calendar = () => {
                                     </Text>
                                 </View>
                             ))}
+                         {(Object.keys(selectedDayData).length === 0)  &&
+                            <Text style={[styles.dayDataValue, { fontSize: settings.largeText ? 22 : 17 }]}>
+                                No data tracked on this day.
+                            </Text>
+                        } 
                     </ScrollView>
                     <TouchableOpacity style={styles.trackMoreButton} onPress={() => navigation.navigate('Track')}>
                         <Text style={[styles.trackMoreText, { fontSize: settings.largeText ? 20 : 15 }]}>Edit</Text>
