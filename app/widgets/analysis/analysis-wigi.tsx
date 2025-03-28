@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { SettingsContext } from '../../settings-context'; // Import SettingsContext
 
 type AnalysisWigiProps = {
     title: string;
@@ -8,15 +9,21 @@ type AnalysisWigiProps = {
 };
 
 const AnalysisWigi: React.FC<AnalysisWigiProps> = ({ title, value, altMsg }) => {
+    const context = useContext(SettingsContext); // Access settings from context
+    if (!context || !context.settings) {
+        throw new Error('SettingsContext is not properly provided.');
+    }
+    const { settings } = context;
+
     return (
         <View style={styles.container}>
             {value !== null ? (
                 <View>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.value}>{value}</Text>
+                    <Text style={[styles.title, { fontSize: settings.largeText ? 23 : 18 }]}>{title}</Text>
+                    <Text style={[styles.value, { fontSize: settings.largeText ? 27 : 22 }]}>{value}</Text>
                 </View>
             ) : (
-                <Text style={styles.altMsg}>{altMsg}</Text>
+                <Text style={[styles.altMsg, { fontSize: settings.largeText ? 25 : 20 }]}>{altMsg}</Text>
             )}
         </View>
     );
