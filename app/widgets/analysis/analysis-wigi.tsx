@@ -16,10 +16,10 @@ const AnalysisWigi: React.FC<AnalysisWigiProps> = ({ title, value, altMsg }) => 
     const { settings } = context;
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: settings.highContrast ? '#555' : '#f4f3f3'}]}>
             {value !== null ? (
                 <View>
-                    <Text style={[styles.title, { fontSize: settings.largeText ? 23 : 18 }]}>{title}</Text>
+                    <Text style={[styles.title, { fontSize: settings.largeText ? 23 : 18, color: settings.highContrast ? 'white' : 'black' }]}>{title}</Text>
                     <Text style={[styles.value, { fontSize: settings.largeText ? 27 : 22 }]}>{value}</Text>
                 </View>
             ) : (
