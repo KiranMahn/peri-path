@@ -1,13 +1,11 @@
-import React, { useState, useContext} from "react";
-import { View, Text, Button, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import { SettingsContext } from '../settings-context';
 
 const Settings = () => {
-    const [textSize, setTextSize] = useState(16); // Default text size
-    const [highContrast, setHighContrast] = useState(false); // High contrast mode
     const { settings, saveSettings } = useContext(SettingsContext);
 
     // Export AsyncStorage data to CSV
@@ -45,20 +43,19 @@ const Settings = () => {
         }
     };
 
-    // Reset AsyncStorage data
     // Reset AsyncStorage data with confirmation
     const resetData = async () => {
         Alert.alert(
-            "Reset Data", // Title
-            "Are you sure you want to reset all your data? This action cannot be undone.", // Message
+            "Reset Data",
+            "Are you sure you want to reset all your data? This action cannot be undone.",
             [
                 {
                     text: "Cancel",
-                    style: "cancel", // Cancel button style
+                    style: "cancel",
                 },
                 {
                     text: "Reset",
-                    style: "destructive", // Destructive button style
+                    style: "destructive",
                     onPress: async () => {
                         try {
                             await AsyncStorage.clear();
@@ -77,35 +74,35 @@ const Settings = () => {
         saveSettings({ ...settings, highContrast: !settings.highContrast });
     };
 
-    // Increase text size
+    // Toggle large text mode
     const toggleLargeText = () => {
         saveSettings({ ...settings, largeText: !settings.largeText });
     };
 
     return (
-        <View style={[styles.container, highContrast && styles.highContrast]}>
-            <Text style={[styles.header, { fontSize: textSize }]}>Settings</Text>
-
+        <View style={[styles.container, settings.highContrast && styles.highContrast]}>
             {/* Export Data */}
             <TouchableOpacity style={styles.button} onPress={exportDataToCSV}>
-                <Text style={[styles.buttonText, { fontSize: textSize }]}>Export Data to CSV</Text>
+                <Text style={[styles.buttonText, settings.largeText && styles.largeText]}>Export Data to CSV</Text>
             </TouchableOpacity>
 
-            {/* Increase Text Size */}
+            {/* Toggle Large Text */}
             <TouchableOpacity style={styles.button} onPress={toggleLargeText}>
-                <Text style={[styles.buttonText, { fontSize: textSize }]}>Increase Text Size</Text>
+                <Text style={[styles.buttonText, settings.largeText && styles.largeText]}>
+                    {settings.largeText ? "Disable Large Text" : "Enable Large Text"}
+                </Text>
             </TouchableOpacity>
 
             {/* Toggle High Contrast */}
             <TouchableOpacity style={styles.button} onPress={toggleHighContrast}>
-                <Text style={[styles.buttonText, { fontSize: textSize }]}>
-                    {highContrast ? "Disable High Contrast" : "Enable High Contrast"}
+                <Text style={[styles.buttonText, settings.largeText && styles.largeText]}>
+                    {settings.highContrast ? "Disable High Contrast" : "Enable High Contrast"}
                 </Text>
             </TouchableOpacity>
 
             {/* Reset Data */}
             <TouchableOpacity style={styles.button} onPress={resetData}>
-                <Text style={[styles.buttonText, { fontSize: textSize }]}>Reset Data</Text>
+                <Text style={[styles.buttonText, settings.largeText && styles.largeText]}>Reset Data</Text>
             </TouchableOpacity>
         </View>
     );
@@ -125,6 +122,9 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 20,
         color: "#009688",
+    },
+    largeText: {
+        fontSize: 24, // Increase font size for large text
     },
     button: {
         backgroundColor: "#009688",

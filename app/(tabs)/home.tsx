@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { useNavigation } from '@react-navigation/native';
 import { FontAwesome, FontAwesome6 } from '@expo/vector-icons';
 import TwoWeek from '../widgets/calendar/two-week';
 import LastPeriod from '../widgets/analysis/last-period';
@@ -9,12 +8,14 @@ import MostCommonSymptom from '../widgets/analysis/most-common-symptom';
 import SymptomChart from '../widgets/analysis/symptom-chart';
 import PeriodChart from '../widgets/analysis/period-chart';
 import Nav from '../widgets/nav';
+import { SettingsContext } from '../settings-context';
 
 const Home = () => {
     const [username, setUsername] = useState('');
-    const [phase, setPhase] = useState('');
     const [selectedChart, setSelectedChart] = useState<'symptoms' | 'period'>('symptoms');
     const [user, setUser] = useState<any>({});
+    const settingsContext = useContext(SettingsContext); // Access settings from context
+    const settings = settingsContext?.settings || { largeText: false }; // Provide a fallback with default largeText value
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -44,45 +45,34 @@ const Home = () => {
 
     return (
         <View style={styles.container}>
-            {/* <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-                    <FontAwesome6 name="gear" size={24} color="white" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                    <FontAwesome name="user" size={24} color="white" />
-                </TouchableOpacity>
-            </View> */}
-            {/* <Text style={styles.welcomeText}>Welcome back, {user.name}!</Text> */}
             <ScrollView style={styles.content}>
-                {/* <Text>Let's help with your {user.stage} experience</Text> */}
-                
-                {/** Mini Calendar View */}
+                {/* Mini Calendar View */}
                 <TwoWeek />
 
-                {/** Chart Selector */}
+                {/* Chart Selector */}
                 <View style={styles.chartToggleContainer}>
                     <TouchableOpacity 
                         style={[styles.chartButton, selectedChart === 'symptoms' && styles.activeButton]} 
                         onPress={() => setSelectedChart('symptoms')}>
-                        <Text style={styles.buttonText}>Symptoms</Text>
+                        <Text style={[styles.buttonText, { fontSize: settings.largeText ? 20 : 15 }]}>Symptoms</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                         style={[styles.chartButton, selectedChart === 'period' && styles.activeButton]} 
                         onPress={() => setSelectedChart('period')}>
-                        <Text style={styles.buttonText}>Period</Text>
+                        <Text style={[styles.buttonText, { fontSize: settings.largeText ? 20 : 15 }]}>Period</Text>
                     </TouchableOpacity>
                 </View>
 
-                {/** Charts */}
+                {/* Charts */}
                 {selectedChart === 'period' ? <PeriodChart /> : <SymptomChart />}
                 
-                {/** Mini Analysis Wigits */}
+                {/* Mini Analysis Widgets */}
                 <View style={styles.analysisContainer}>
                     <LastPeriod />
                     <MostCommonSymptom />
                 </View>
             </ScrollView>
-            <Nav/>
+            <Nav />
         </View>
     );
 };
@@ -93,23 +83,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
     },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        padding: 16,
-        backgroundColor: '#009688',
-    },
-    welcomeText: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-        padding: 10,
-    },
     content: {
         flex: 3,
         width: '98%',
         padding: 10,
+        marginBottom: 20,
     },
     chartToggleContainer: {
         flexDirection: 'row',
@@ -135,7 +113,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         marginTop: 10,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 });
 
