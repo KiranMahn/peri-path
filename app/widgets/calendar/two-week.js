@@ -79,7 +79,7 @@ const TwoWeek = () => {
 
         return (
             <TouchableOpacity key={dateString} onPress={() => navigation.navigate('Calendar')} style={styles.dayBox}>
-                <Text style={[styles.dayText, { fontSize: settings.largeText ? 17 : 14 }]}>{day.getDate()}</Text>
+                <Text style={[styles.dayText, { fontSize: settings.largeText ? 17 : 14, color: settings.highContrast ? '#fff' : '#000'  }]}>{day.getDate()}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
                 <View style={styles.symptomIndicators}>
                     {symptomDots}
@@ -91,7 +91,7 @@ const TwoWeek = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={[styles.header, { fontSize: settings.largeText ? 23 : 20 }]}>{dateRange}</Text>
+            <Text style={[styles.header, { fontSize: settings.largeText ? 23 : 20, color: settings.highContrast ? '#fff' : '#000' }]}>{dateRange}</Text>
             <View style={styles.grid}>{daysInTwoWeeks.map((day) => renderDayBox(day))}</View>
         </ScrollView>
     );

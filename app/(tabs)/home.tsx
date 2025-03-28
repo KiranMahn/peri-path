@@ -15,7 +15,7 @@ const Home = () => {
     const [selectedChart, setSelectedChart] = useState<'symptoms' | 'period'>('symptoms');
     const [user, setUser] = useState<any>({});
     const settingsContext = useContext(SettingsContext); // Access settings from context
-    const settings = settingsContext?.settings || { largeText: false }; // Provide a fallback with default largeText value
+    const settings = settingsContext?.settings || { largeText: false, highContrast: false }; // Provide a fallback with default largeText value
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -44,7 +44,7 @@ const Home = () => {
     }, []);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: settings.highContrast ? '#000' : '#fff'}]}>
             <ScrollView style={styles.content}>
                 {/* Mini Calendar View */}
                 <TwoWeek />

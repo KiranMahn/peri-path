@@ -39,14 +39,14 @@ const Calendar = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
             <View style={styles.navigation}>
-                <TouchableOpacity onPress={handlePrevMonth} style={styles.navButton}>
-                    <Text style={[styles.navButtonText, { fontSize: settings.largeText ? 19 : 14 }]}>{'<'}</Text>
+                <TouchableOpacity onPress={handlePrevMonth} style={[styles.navButton, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
+                    <Text style={[styles.navButtonText, { fontSize: settings.largeText ? 19 : 14, color: settings.highContrast ? 'white' : 'black' }]}>{'<'}</Text>
                 </TouchableOpacity>
-                <Text style={[styles.navText, { fontSize: settings.largeText ? 25 : 20 }]}>{`${currentMonth + 1}/${currentYear}`}</Text>
-                <TouchableOpacity onPress={handleNextMonth} style={styles.navButton}>
-                    <Text style={[styles.navButtonText, { fontSize: settings.largeText ? 19 : 14 }]}>{'>'}</Text>
+                <Text style={[styles.navText, { fontSize: settings.largeText ? 25 : 20, color: settings.highContrast ? 'white' : 'black'  }]}>{`${currentMonth + 1}/${currentYear}`}</Text>
+                <TouchableOpacity onPress={handleNextMonth} style={[styles.navButton, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
+                    <Text style={[styles.navButtonText, { fontSize: settings.largeText ? 19 : 14, color: settings.highContrast ? 'white' : 'black'  }]}>{'>'}</Text>
                 </TouchableOpacity>
             </View>
             <Month month={currentMonth} year={currentYear} onDayClick={handleDayClick} />
