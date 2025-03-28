@@ -200,11 +200,11 @@ const Track = () => {
                 {Object.keys(categories).map(category => (
                     <View key={category} style={styles.categoryContainer}>
                         {/* Dropdown for symptom category */}
-                        <TouchableOpacity onPress={() => toggleDropdown(category)} style={styles.categoryButton}>
-                            <Text style={[styles.categoryButtonText, {fontSize: settings.largeText ? 20 : 15, fontWeight: settings.largeText ? 'bold' : 'normal'}]}>
+                        <TouchableOpacity onPress={() => toggleDropdown(category)} style={[styles.categoryButton, {backgroundColor: settings.highContrast ? '#555' : '#f0f0f0'}]}>
+                            <Text style={[styles.categoryButtonText, {fontSize: settings.largeText ? 20 : 15, fontWeight: settings.largeText ? 'bold' : 'normal', color: settings.highContrast ? 'white' : 'black'}]}>
                                 {category.charAt(0).toUpperCase() + category.slice(1)}
                             </Text>
-                            <Ionicons name={dropdowns[category] ? 'chevron-up' : 'chevron-down'} size={20} color="#009688" />
+                            <Ionicons name={dropdowns[category] ? 'chevron-up' : 'chevron-down'} size={20} color={settings.highContrast ? 'white' : "#009688"} />
                         </TouchableOpacity>
                         {/* List of symptoms in the category */}
                         {dropdowns[category] && (
@@ -230,8 +230,8 @@ const Track = () => {
             
 
             {/* Save button */}
-            <View style={styles.footer}>
-                <Button title="Save" onPress={handleSave} color='#009688'/>
+            <View style={[styles.footer, {backgroundColor: settings.highContrast ? '#009688' : '#f8f8f8', borderTopColor: settings.highContrast ? '#000' : '#ddd'}]}>
+                <Button title="Save" onPress={handleSave} color={settings.highContrast ? 'white' : '#009688'}/>
             </View>
         </View>
     );
