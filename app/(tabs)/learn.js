@@ -58,6 +58,9 @@ const Learn = () => {
             case "Trending":
                 return Object.values(articles).filter(article => article.keywords.includes("symptoms"))
             case "Recent":
+                return Object.values(articles)
+                .filter(article => article.Date) // Exclude articles without a date
+                .sort((a, b) => new Date(b.Date) - new Date(a.Date));
                 // return articles in order of date with most recent first
             case "Symptom Relief":
                 return Object.values(articles).filter(article => article.keywords.includes("symptoms"))
