@@ -2,13 +2,17 @@
 
 ## Get started
 
-1. Install dependencies
+1. Clone this project 
+
+2. cd into this project 
+
+3. Install dependencies
 
    ```bash
    npm install
    ```
 
-2. Start the app
+4. Start the app
 
    ```bash
     npx expo start
