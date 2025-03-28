@@ -163,11 +163,11 @@ const Track = () => {
     
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: settings.highContrast ? '#000' : '#fff'}]}>
             {/* Dropdown for selecting another day */}
 
             <TouchableOpacity onPress={toggleDayDropdown} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: 10, alignItems: 'center' }}>
-                <Text style={[styles.dateText, { fontSize: settings.largeText ? 23 : 18 }]}>{currentDate}</Text>
+                <Text style={[styles.dateText, { fontSize: settings.largeText ? 23 : 18, color: settings.highContrast ? 'white' : 'black' }]}>{currentDate}</Text>
                 <Ionicons name={isCalendarVisible ? 'chevron-up' : 'chevron-down'} size={settings.largeText ? 23 : 18} color="#009688" />
             </TouchableOpacity>
             {isCalendarVisible && (
@@ -208,7 +208,7 @@ const Track = () => {
                         </TouchableOpacity>
                         {/* List of symptoms in the category */}
                         {dropdowns[category] && (
-                            <View style={styles.symptomList}>
+                            <View style={[styles.symptomList, {backgroundColor: settings.highContrast ? '#000' : '#f9f9f9'}]}>
                                 {categories[category].map((symptom, index) => {
                                     const symptomKey = symptom.toLowerCase().replace(' ', '');
                                     return (
