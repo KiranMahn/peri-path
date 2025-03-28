@@ -1,7 +1,4 @@
-- make large text work 
-- make high contrast work 
-
-- adjust button backgroud for charts
+- handle cases with no data
 - fix detail view in calendar 
 
 - JEST testing 
