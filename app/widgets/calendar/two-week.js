@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Entypo';
+import { SettingsContext } from '../../settings-context'; // Import SettingsContext
 
 const TwoWeek = () => {
     const navigation = useNavigation();
@@ -10,6 +11,7 @@ const TwoWeek = () => {
     const [userData, setUserData] = useState({});
     const [dateRange, setDateRange] = useState('');
     const [username, setUsername] = useState('Unknown User');
+    const { settings } = useContext(SettingsContext); // Access settings from context
 
     useEffect(() => {
         const loadUserData = async () => {
@@ -77,7 +79,7 @@ const TwoWeek = () => {
 
         return (
             <TouchableOpacity key={dateString} onPress={() => navigation.navigate('Calendar')} style={styles.dayBox}>
-                <Text style={styles.dayText}>{day.getDate()}</Text>
+                <Text style={[styles.dayText, { fontSize: settings.largeText ? 17 : 14 }]}>{day.getDate()}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
                 <View style={styles.symptomIndicators}>
                     {symptomDots}
@@ -89,7 +91,7 @@ const TwoWeek = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.header}>{dateRange}</Text>
+            <Text style={[styles.header, { fontSize: settings.largeText ? 23 : 20 }]}>{dateRange}</Text>
             <View style={styles.grid}>{daysInTwoWeeks.map((day) => renderDayBox(day))}</View>
         </ScrollView>
     );
