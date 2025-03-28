@@ -44,10 +44,10 @@ const MostCommon = ({ onTrack, sliderValues }) => {
                     onPress={() => handleButtonClick(item.symptom, item.level, index)}
                     style={[
                         styles.button,
-                        selectedButtons.includes(index) ? styles.selectedButton : styles.unselectedButton
+                        selectedButtons.includes(index) ? styles.selectedButton : settings.highContrast ? styles.highContrastButton : styles.unselectedButton
                     ]}
                 >
-                    <Text style={[styles.buttonText, selectedButtons.includes(index) ? styles.selectedText : styles.unselectedText, { fontSize: settings.largeText ? 17 : 15 }]}>
+                    <Text style={[styles.buttonText, selectedButtons.includes(index) ? styles.selectedText : settings.highContrast ? styles.highContrastText : styles.unselectedText, { fontSize: settings.largeText ? 17 : 15 }]}>
                         {item.level} {item.symptom}
                     </Text>
                 </TouchableOpacity>
@@ -75,6 +75,12 @@ const styles = StyleSheet.create({
     },
     selectedButton: {
         backgroundColor: '#009688',
+    },
+    highContrastButton: {
+        backgroundColor: '#555',
+    },
+    highContrastText: {
+        color: 'white'
     },
     unselectedButton: {
         backgroundColor: '#f0f0f0',

@@ -182,7 +182,7 @@ const Track = () => {
             
 
             <ScrollView>
-            <Text style={styles.sectionTitle}>Period</Text>
+            <Text style={[styles.sectionTitle, {color: settings.highContrast ? 'white' : 'black'}]}>Period</Text>
             <View style={styles.periodContainer}>
                 <PeriodSquare level="Light" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Light'} />
                 <PeriodSquare level="Medium" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Medium'} />
@@ -191,11 +191,11 @@ const Track = () => {
             </View>
 
             {/* Quick add section */}
-            <Text style={styles.sectionTitle}>Quick Add</Text>
+            <Text style={[styles.sectionTitle, {color: settings.highContrast ? 'white' : 'black'}]}>Quick Add</Text>
             <MostCommon onTrack={handleTrackCommon} sliderValues={sliderValues} />
 
             {/* Symptoms tracking section */}
-            <Text style={styles.sectionTitle}>Symptoms</Text>
+            <Text style={[styles.sectionTitle, {color: settings.highContrast ? 'white' : 'black'}]}>Symptoms</Text>
             <ScrollView style={styles.scrollView}>
                 {Object.keys(categories).map(category => (
                     <View key={category} style={styles.categoryContainer}>
