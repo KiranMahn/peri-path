@@ -19,6 +19,9 @@ const Learn = () => {
                     padding: 10,
                     // height: 'min-content',
                 }}
+                onPress={() => {
+                    setSelected(text);
+                }}
             >
                 <Text
                     style={{
