@@ -10,7 +10,7 @@ const PeriodChart = () => {
     const [startDate, setStartDate] = useState(new Date(new Date().setDate(new Date().getDate() - 14)));
     const [endDate, setEndDate] = useState(new Date());
     const [selectedRange, setSelectedRange] = useState('2weeks');
-
+    const [maxYValue, setMaxYValue] = useState(0); 
     const handleDateRangeChange = (range) => {
         const newEndDate = new Date();
         let newStartDate = new Date();
@@ -145,11 +145,17 @@ const PeriodChart = () => {
                     }
                 ]
             });
+            console.log("SymptomsCount", symptomsCount);
+            let max = Math.max(...symptomsCount);
+            console.log("max", max);
+            let integerMax = Math.ceil(max);
+            console.log("integerMax", integerMax);
+            setMaxYValue(integerMax); 
+
         };
 
         loadUserData();
         logAsyncStorage(); // Log AsyncStorage data
-
     }, [startDate, endDate]);
 
     const formatYLabel = (value) => {
@@ -159,17 +165,16 @@ const PeriodChart = () => {
             if (numVal == 0){
                 console.log("no period")
                 return 'None';
-            } else if(numVal < 1){
+            } else if(numVal <= 1){
                 console.log("spotting")
                 return 'Spotting';
-            }
-            else if(numVal < 2){
+            } else if(numVal <= 2){
                 console.log("light period")
                 return 'Light';
-            } else if(numVal < 3){
+            } else if(numVal <= 3){
                 console.log("medium period")
                 return 'Medium';
-            } else if(numVal < 4){
+            } else if(numVal <= 4){
                 console.log("heavy period")
                 return 'Heavy';
             }
@@ -235,7 +240,7 @@ const PeriodChart = () => {
                         marginVertical: 8,
                         borderRadius: 16
                     }}
-                    segments={4}
+                    segments={maxYValue | 1}
                 />
             ) : (
                 <Text>Loading...</Text>
