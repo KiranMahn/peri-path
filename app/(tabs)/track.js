@@ -168,13 +168,14 @@ const Track = () => {
 
             <TouchableOpacity onPress={toggleDayDropdown} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: 10, alignItems: 'center' }}>
                 <Text style={[styles.dateText, { fontSize: settings.largeText ? 23 : 18 }]}>{currentDate}</Text>
-                <Ionicons name={isCalendarVisible ? 'chevron-up' : 'chevron-down'} size={settings.largeText ? 23 : 120} color="#009688" />
+                <Ionicons name={isCalendarVisible ? 'chevron-up' : 'chevron-down'} size={settings.largeText ? 23 : 18} color="#009688" />
             </TouchableOpacity>
             {isCalendarVisible && (
                 <DateTimePicker
                     mode='date'
                     value={date}
                     onChange={onChange}
+                    style={{ width: '100%', backgroundColor: '#fff', borderRadius: 10, backgroundColor: '#009688', alignSelf: 'center', TextAlign: 'center' }}
                 />            
             )}
 
@@ -230,7 +231,7 @@ const Track = () => {
 
             {/* Save button */}
             <View style={styles.footer}>
-                <Button title="Save" onPress={handleSave} />
+                <Button title="Save" onPress={handleSave} color='#009688'/>
             </View>
         </View>
     );
@@ -287,6 +288,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8f8f8',
         borderTopWidth: 1,
         borderTopColor: '#ddd',
+        marginBottom: 15,
     },
 });
 

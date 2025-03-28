@@ -32,10 +32,10 @@ const SliderComponent = ({ sliderText, onChange, value }) => {
                     thumbTintColor="#009688"
                 />
                 <View style={styles.levels}>
-                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 10}]}>None</Text>
-                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 10}]}>Low</Text>
-                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 10}]}>Medium</Text>
-                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 10}]}>High</Text>
+                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 12}]}>None</Text>
+                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 12}]}>Low</Text>
+                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 12}]}>Medium</Text>
+                    <Text style={[styles.levelText, {fontSize: settings.largeText ? 15 : 12}]}>High</Text>
                 </View>
             </View>
         </View>
