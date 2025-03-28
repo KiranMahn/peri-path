@@ -98,10 +98,23 @@ const Track = () => {
     // Handle quick add of common symptoms
     const handleTrackCommon = (symptom, level) => {
         const levels = ['None', 'Low', 'Medium', 'High'];
-        setSliderValues(prevValues => ({
-            ...prevValues,
-            [symptom.toLowerCase().replace(' ', '')]: levels.indexOf(level)
-        }));
+        const symptomKey = symptom.toLowerCase().replace(' ', '');
+
+        setSliderValues(prevValues => {
+            // If the symptom is already set to the same level, unselect it (set to "None")
+            if (levels[prevValues[symptomKey]] === level) {
+                return {
+                    ...prevValues,
+                    [symptomKey]: 0, // Set to "None"
+                };
+            }
+
+            // Otherwise, set the symptom to the new level
+            return {
+                ...prevValues,
+                [symptomKey]: levels.indexOf(level),
+            };
+        });
     };
 
     // Toggle dropdown visibility for symptom categories
