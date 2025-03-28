@@ -69,7 +69,7 @@ const Calendar = () => {
                                 </View>
                             ))}
                     </ScrollView>
-                    <TouchableOpacity style={styles.trackMoreButton} onPress={() => navigation.navigate('TrackSymptoms')}>
+                    <TouchableOpacity style={styles.trackMoreButton} onPress={() => navigation.navigate('Track')}>
                         <Text style={[styles.trackMoreText, { fontSize: settings.largeText ? 20 : 15 }]}>Edit</Text>
                     </TouchableOpacity>
                 </View>
@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: '50%',
         alignItems: 'center',
+        marginBottom: 15
     },
     trackMoreText: {
         color: 'white',
