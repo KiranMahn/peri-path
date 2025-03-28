@@ -55,8 +55,6 @@ const Learn = () => {
         switch (selected) {
             case "For You":
                 return Object.values(articles);
-            case "Trending":
-                return Object.values(articles).filter(article => article.keywords.includes("symptoms"))
             case "Recent":
                 return Object.values(articles)
                 .filter(article => article.Date) // Exclude articles without a date
@@ -78,7 +76,6 @@ const Learn = () => {
             {/* Horizontal Tab Buttons */}
             <ScrollView style={styles.headings} horizontal={true} showsHorizontalScrollIndicator={false}>
                 <TabButton text={"For You"} isSelected={selected === "For You"} />
-                <TabButton text={"Trending"} isSelected={selected === "Trending"} />
                 <TabButton text={"Recent"} isSelected={selected === "Recent"} />
                 <TabButton text={"Symptom Relief"} isSelected={selected === "Symptom Relief"} />
                 <TabButton text={"Menopause Stages"} isSelected={selected === "Menopause Stages"} />
