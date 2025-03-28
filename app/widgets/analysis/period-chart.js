@@ -153,20 +153,28 @@ const PeriodChart = () => {
     }, [startDate, endDate]);
 
     const formatYLabel = (value) => {
-        switch (value) {
-            case '0.0':
+       
+        let numVal = parseFloat(value);
+        console.log("float value", numVal);
+            if (numVal == 0){
+                console.log("no period")
                 return 'None';
-            case '1.0':
+            } else if(numVal < 1){
+                console.log("spotting")
                 return 'Spotting';
-            case '2.0':
+            }
+            else if(numVal < 2){
+                console.log("light period")
                 return 'Light';
-            case '3.0':
+            } else if(numVal < 3){
+                console.log("medium period")
                 return 'Medium';
-            case '4.0':
+            } else if(numVal < 4){
+                console.log("heavy period")
                 return 'Heavy';
-            default:
-                return '';
-        }
+            }
+               
+        
     };
 
     return (
