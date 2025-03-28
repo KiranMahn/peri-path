@@ -143,7 +143,8 @@ const PeriodChart = () => {
                         color: (opacity = 1) => `rgba(337, 106, 94, ${opacity})`, // optional
                         strokeWidth: 2 // optional
                     }
-                ]
+                ], 
+                legend: ["Period Flow Over Time"] // optional
             });
             console.log("SymptomsCount", symptomsCount);
             let max = Math.max(...symptomsCount);

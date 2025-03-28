@@ -149,7 +149,9 @@ const SymptomChart = () => {
                     {
                         data: symptomsCount,
                     }
-                ]
+                ], 
+                legend: ["Symptom Severity Over Time"] // optional
+
             });
             console.log("chart data", chartData);
             console.log("symptomsCount", symptomsCount);
