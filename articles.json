@@ -1,0 +1,49 @@
+{
+    "1" : {
+        "Title": "Menopause",
+        "Author": "NHS",
+        "URL": "https://www.nhs.uk/conditions/menopause/",
+        "keywords": [
+            "menopause"
+        ]
+    }, 
+    "2" : {
+        "Title": "Perimenopause & Menopause Symptoms",
+        "Author": "NHS",
+        "URL": "https://www.nhs.uk/conditions/menopause/symptoms/",
+        "keywords": [
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "3" : {
+        "Title": "Menopause Symptoms",
+        "Author": "Mayo Clinic",
+        "URL": "https://www.mayoclinic.org/healthy-lifestyle/womens-health/in-depth/menopause-symptoms/art-20045795",
+        "keywords": [
+            "menopause"
+        ]
+    },
+    "4" : {
+        "Title": "Perimenopause & Menopause Treatment",
+        "Author": "NHS",
+        "URL": "https://www.nhs.uk/conditions/menopause/treatment/",
+        "keywords": [
+            "menopause",
+            "treatment",
+            "perimenopause"
+        ]
+    },
+    "5" : {
+        "Title": "Perimenopause",
+        "Author": "Johns Hopkins Medicine",
+        "URL": "https://www.hopkinsmedicine.org/health/conditions-and-diseases/perimenopause",
+        "keywords": [
+            "perimenopause",
+            "symptoms",
+            "treatment"
+        ]
+    }
+    
+    
+}
