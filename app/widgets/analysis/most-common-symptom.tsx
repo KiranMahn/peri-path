@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AnalysisWigi from './analysis-wigi';
-
+import { SettingsContext } from '../../settings-context'; // Import SettingsContext
 const MostCommonSymptom: React.FC = () => {
     const [mostCommonSymptom, setMostCommonSymptom] = useState<string | null>(null);
-
+    const settings = useContext(SettingsContext); // Access settings from context
     useEffect(() => {
         const fetchUserData = async () => {
             try {

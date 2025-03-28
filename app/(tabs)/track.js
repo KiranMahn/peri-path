@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Button, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import symptoms from '../../symptoms.json'; // Import symptoms data
 import MostCommon from '../widgets/track/MostCommon'; // Component for quick add of common symptoms
@@ -10,9 +10,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage'; // For dat
 import TwoWeek from '../widgets/calendar/two-week';
 import Calendar from './calendar';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { SettingsContext } from '../settings-context'; // Import SettingsContext
 
 const Track = () => {
     const navigation = useNavigation(); // Navigation instance
+    const { settings } = useContext(SettingsContext); // Access settings from context
     const [currentDate, setCurrentDate] = useState(''); // Current date in string format
     const [sliderValues, setSliderValues] = useState({}); // State for slider values
     const [selectedPeriod, setSelectedPeriod] = useState(''); // State for selected period severity
@@ -163,9 +165,10 @@ const Track = () => {
     return (
         <View style={styles.container}>
             {/* Dropdown for selecting another day */}
-            <TouchableOpacity onPress={toggleDayDropdown} style={styles.dayDropdown}>
-                <Text style={styles.dayDropdownText}>Select Another Day</Text>
-                <Ionicons name={isCalendarVisible ? 'chevron-up' : 'chevron-down'} size={20} color="#009688" />
+
+            <TouchableOpacity onPress={toggleDayDropdown} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: 10, alignItems: 'center' }}>
+                <Text style={[styles.dateText, { fontSize: settings.largeText ? 23 : 18 }]}>{currentDate}</Text>
+                <Ionicons name={isCalendarVisible ? 'chevron-up' : 'chevron-down'} size={settings.largeText ? 23 : 120} color="#009688" />
             </TouchableOpacity>
             {isCalendarVisible && (
                 <DateTimePicker
@@ -175,8 +178,7 @@ const Track = () => {
                 />            
             )}
 
-            {/* Display current date */}
-            <Text style={styles.dateText}>{currentDate}</Text>
+            
 
             {/* Period tracking section */}
             <Text style={styles.sectionTitle}>Period</Text>
@@ -239,10 +241,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     dateText: {
-        fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 8,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginRight: 5
     },
     sectionTitle: {
         fontSize: 18,

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-
+import { SettingsContext } from '../../settings-context'; // Import SettingsContext
 const MostCommon = ({ onTrack, sliderValues }) => {
     const [selectedButtons, setSelectedButtons] = useState([]);
-
+    const { settings } = useContext(SettingsContext); // Access settings from context
     const commonSymptoms = [
         { symptom: 'Anxiety', level: 'Medium' },
         { symptom: 'Brain Fog', level: 'High' },
@@ -47,7 +47,7 @@ const MostCommon = ({ onTrack, sliderValues }) => {
                         selectedButtons.includes(index) ? styles.selectedButton : styles.unselectedButton
                     ]}
                 >
-                    <Text style={[styles.buttonText, selectedButtons.includes(index) ? styles.selectedText : styles.unselectedText]}>
+                    <Text style={[styles.buttonText, selectedButtons.includes(index) ? styles.selectedText : styles.unselectedText, { fontSize: settings.largeText ? 17 : 15 }]}>
                         {item.level} {item.symptom}
                     </Text>
                 </TouchableOpacity>
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         textAlign: 'center',
+        fontWeight: 'bold',
     },
     selectedText: {
         color: '#ffffff',
