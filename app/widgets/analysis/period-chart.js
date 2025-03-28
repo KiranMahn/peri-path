@@ -67,26 +67,76 @@ const PeriodChart = () => {
                 const severity = dayData['period'] ? severityLevels[dayData['period']] : 0;
                 return severity;
             });
-
+            console.log("Averaged symptomsCount", symptomsCount);
+            let averagedSymptomsCount = [];
+            let averagedLabels = [];
+            let labels = [];
             if (selectedRange === '2weeks') {
                 // Average data for every 2 days
-                const averagedSymptomsCount = [];
+                averagedSymptomsCount = [];
                 for (let i = 0; i < symptomsCount.length; i += 2) {
                     const avg = (symptomsCount[i] + (symptomsCount[i + 1] || 0)) / 2;
                     averagedSymptomsCount.push(avg);
                 }
                 symptomsCount = averagedSymptomsCount;
+                console.log("Averaged symptomsCount", symptomsCount);
+
+                labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+                averagedLabels = [];
+                for (let i = 0; i < labels.length; i += 2) {
+                    averagedLabels.push(labels[i]);
+                }
             }
 
-            const labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
-            const averagedLabels = [];
-            for (let i = 0; i < labels.length; i += 2) {
-                averagedLabels.push(labels[i]);
+            if (selectedRange === '2months') {
+                // Average data for every 2 days
+                averagedSymptomsCount = [];
+                for (let i = 0; i < symptomsCount.length; i += 7) {
+                    const chunk = symptomsCount.slice(i, i + 7); // Get a chunk of 7 days
+                    const avg = chunk.reduce((sum, val) => sum + val, 0) / chunk.length;
+                    averagedSymptomsCount.push(avg);
+                }
+                symptomsCount = averagedSymptomsCount;
+                console.log("Averaged symptomsCount", symptomsCount);
+
+                labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+                for (let i = 0; i < labels.length; i += 7) {
+                    averagedLabels.push(labels[i]); // Use the first label of each 4-day interval
+                }
             }
+
+            if (selectedRange === '1year') {
+                // Average period data for each month in the past year
+                const monthlySymptomsCount = [];
+                const monthlyLabels = [];
+            
+                for (let month = 0; month < 12; month++) {
+                    const monthData = dateArray.filter(date => date.getMonth() === month && date <= endDate); // Filter dates up to endDate
+                    const monthSymptoms = monthData.map(date => {
+                        const dateString = date.toDateString();
+                        const dayData = userData[dateString] || {};
+                        return dayData['period'] ? severityLevels[dayData['period']] : 0;
+                    });
+            
+                    if (monthSymptoms.length > 0) {
+                        const avg = monthSymptoms.reduce((sum, val) => sum + val, 0) / monthSymptoms.length;
+                        monthlySymptomsCount.push(avg);
+                        monthlyLabels.push(`${monthData[0].toLocaleString('default', { month: 'short' })}`);
+                    } else {
+                        // If no data for the month, push 0
+                        monthlySymptomsCount.push(0);
+                        const year = startDate.getFullYear();
+                        monthlyLabels.push(new Date(year, month).toLocaleString('default', { month: 'short' }));
+                    }
+                }
+            
+                symptomsCount = monthlySymptomsCount;
+                averagedLabels = monthlyLabels;
+            }            
 
             console.log("symptomsCount", symptomsCount);
             setChartData({
-                labels: selectedRange === '2weeks' ? averagedLabels : labels,
+                labels: averagedLabels,
                 datasets: [
                     {
                         data: symptomsCount,
