@@ -78,7 +78,7 @@ const TwoWeek = () => {
         const showPlus = symptomKeys.length > 4;
 
         return (
-            <TouchableOpacity key={dateString} onPress={() => navigation.navigate('Calendar')} style={styles.dayBox}>
+            <TouchableOpacity key={dateString} onPress={() => navigation.navigate('Calendar')} style={styles.dayBox} testID='dayBox'>
                 <Text style={[styles.dayText, { fontSize: settings.largeText ? 17 : 14, color: settings.highContrast ? '#fff' : '#000'  }]}>{day.getDate()}</Text>
                 {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
                 <View style={styles.symptomIndicators}>

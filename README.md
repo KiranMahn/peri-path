@@ -17,10 +17,6 @@
    ```bash
     npx expo start
    ```
+5. Make sure the expo app is installed on your phone 
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+6. scan the QR code with your phone and the app will open in the expo app

@@ -1,4 +1,5 @@
-
+- get calendar to take you straight to track with date as prop
+- make bottom nav bigger 
 - JEST testing 
 
 - Figma sketches 
