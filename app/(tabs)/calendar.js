@@ -4,6 +4,8 @@ import Month from '../widgets/calendar/month';
 import { useNavigation } from '@react-navigation/native';
 import { SettingsContext } from '../settings-context'; // Import SettingsContext
 import Nav from '../widgets/nav';
+import symptomsData from '../../symptoms.json'; // Import symptoms.json
+
 const Calendar = () => {
     const date = new Date();
     const [currentMonth, setCurrentMonth] = useState(date.getMonth());
@@ -38,6 +40,12 @@ const Calendar = () => {
         console.log("dateString: ", dateString);
     };
 
+    // Map slider keys to symptom names
+    const getSymptomName = (sliderKey) => {
+        const symptom = symptomsData.symptoms.find((symptom) => symptom.key === sliderKey);
+        return symptom ? symptom.symptom : sliderKey; // Fallback to the key if no match is found
+    };
+
     return (
         <View style={[styles.container, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
             <View style={styles.navigation}>
@@ -61,7 +69,7 @@ const Calendar = () => {
                             .map((slider) => (
                                 <View key={slider} style={[styles.dayDataItem]}>
                                     <Text style={[styles.dayDataText, { fontSize: settings.largeText ? 22 : 17 }]}>
-                                        {slider}:
+                                        {getSymptomName(slider)}:
                                     </Text>
                                     <Text style={[styles.dayDataValue, { fontSize: settings.largeText ? 22 : 17 }]}>
                                         {selectedDayData[slider]}

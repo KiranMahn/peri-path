@@ -1,8 +1,5 @@
-- grey out future dates and make them not pressable
-
-- Figma sketches 
-- gantt chart 
-- netowork diagram 
+- fix naming on detail view
+- fix most common
 
 - add notifications option
 - add tutorial 
