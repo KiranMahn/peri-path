@@ -29,7 +29,7 @@ const NavButton: React.FC<NavButtonProps> = ({ screen, label, icon }) => {
 
     return (
         <TouchableOpacity onPress={() => navigation.navigate(screen)} style={styles.navButton}>
-            <Icon name={icon} size={20} style={[styles.icon, {color: settings.highContrast ? 'white' : 'black'}]} />
+            <Icon name={icon} size={screen === "Track" ? 35 : 25} style={[styles.icon, {color: settings.highContrast ? 'white' : screen === 'Track' ? '#009668' : 'black'}]} />
             <Text style={{color: settings.highContrast ? 'white' : 'black', fontWeight: 'bold'}}>{label}</Text>
         </TouchableOpacity>
     );
@@ -46,7 +46,7 @@ const Nav = () => {
         <View style={[styles.navContainer, { backgroundColor: settings.highContrast ? '#555' : 'white', borderTopColor: settings.highContrast ? '#444' : '#ddd' }]}>
             <NavButton screen="Home" label="Home" icon="home" />
             <NavButton screen="Calendar" label="Calendar" icon="calendar" />
-            <NavButton screen="Track" label="Track" icon="plus" />
+            <NavButton screen="Track" label="Track" icon="plus-circle" />
             <NavButton screen="Analysis" label="Analysis" icon="line-chart" />
             <NavButton screen="Learn" label="Learn" icon="book" />
         </View>
@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     navContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
+        alignItems: 'flex-end',
         backgroundColor: '#f8f8f8',
         paddingVertical: 10,
         borderTopWidth: 1,
