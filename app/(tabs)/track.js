@@ -5,41 +5,38 @@ import MostCommon from '../widgets/track/MostCommon'; // Component for quick add
 import PeriodSquare from '../widgets/track/PeriodSquare'; // Component for tracking period severity
 import Slider from '../widgets/track/Slider'; // Component for tracking symptoms with sliders
 import { useNavigation } from '@react-navigation/native'; // Navigation hook
-import { Ionicons } from '@expo/vector-icons'; // Icons for dropdowns
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For data persistence
 import TwoWeek from '../widgets/calendar/two-week';
 import Calendar from './calendar';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { SettingsContext } from '../settings-context'; // Import SettingsContext
+import { Ionicons } from '@expo/vector-icons';
+import { SettingsContext } from '../settings-context';
 
-const Track = () => {
-    const navigation = useNavigation(); // Navigation instance
-    const { settings } = useContext(SettingsContext); // Access settings from context
-    const [currentDate, setCurrentDate] = useState(''); // Current date in string format
+const Track = ({ route }) => {
+    const navigation = useNavigation();
+    const { settings } = useContext(SettingsContext);
+    const { date: initialDateProp } = route.params || {}; // Destructure the date from route.params
+    const [currentDate, setCurrentDate] = useState('');
+    const [date, setDate] = useState(initialDateProp ? new Date(initialDateProp) : new Date());
     const [sliderValues, setSliderValues] = useState({}); // State for slider values
     const [selectedPeriod, setSelectedPeriod] = useState(''); // State for selected period severity
     const [dropdowns, setDropdowns] = useState({ // State for dropdown visibility
         mental: false,
         physical: false,
         other: false
-    });
-    const [isCalendarVisible, setIsCalendarVisible] = useState(false); // State for calendar visibility
-    const [date, setDate] = useState(new Date()); // State for selected date
+    });    const [isCalendarVisible, setIsCalendarVisible] = useState(false);
 
     const onChange = (event, selectedDate) => {
         if (selectedDate) {
-            const formattedDate = selectedDate.toDateString(); // Format the date to match AsyncStorage format
-            console.log("Selected date: ", formattedDate);
-    
-            setDate(selectedDate); // Update the selected date state
-            setCurrentDate(formattedDate); // Update the current date display
-            setIsCalendarVisible(false); // Hide the calendar dropdown
-    
-            // Load the data for the selected date
+            const formattedDate = selectedDate.toDateString();
+            setDate(selectedDate);
+            setCurrentDate(formattedDate);
+            setIsCalendarVisible(false);
             loadUserData(formattedDate);
+
         }
     };
-    
+
     // Load user data and initialize state on component mount or when the date changes
     const loadUserData = async (dateString) => {
         const user = JSON.parse(await AsyncStorage.getItem('user')); // Get current user
@@ -68,7 +65,7 @@ const Track = () => {
     
     // Call `loadUserData` on component mount with the current date
     useEffect(() => {
-        const dateString = date.toDateString(); // Format current date as a string
+        const dateString = date.toDateString();
         setCurrentDate(dateString);
         loadUserData(dateString); // Load data for the current date
     }, []);
@@ -159,24 +156,29 @@ const Track = () => {
         setIsCalendarVisible(!isCalendarVisible);
     };
 
-
-    
-
     return (
-        <View style={[styles.container, {backgroundColor: settings.highContrast ? '#000' : '#fff'}]}>
-            {/* Dropdown for selecting another day */}
-
-            <TouchableOpacity onPress={toggleDayDropdown} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: 10, alignItems: 'center' }}>
-                <Text style={[styles.dateText, { fontSize: settings.largeText ? 23 : 18, color: settings.highContrast ? 'white' : 'black' }]}>{currentDate}</Text>
+        <View style={[styles.container, { backgroundColor: settings.highContrast ? '#000' : '#fff' }]}>
+            <TouchableOpacity
+                onPress={toggleDayDropdown}
+                style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: 10, alignItems: 'center' }}
+            >
+                <Text
+                    style={[
+                        styles.dateText,
+                        { fontSize: settings.largeText ? 23 : 18, color: settings.highContrast ? 'white' : 'black' },
+                    ]}
+                >
+                    {currentDate}
+                </Text>
                 <Ionicons name={isCalendarVisible ? 'chevron-up' : 'chevron-down'} size={settings.largeText ? 23 : 18} color="#009688" />
             </TouchableOpacity>
             {isCalendarVisible && (
                 <DateTimePicker
-                    mode='date'
+                    mode="date"
                     value={date}
                     onChange={onChange}
-                    style={{ width: '100%', backgroundColor: '#fff', borderRadius: 10, backgroundColor: '#009688', alignSelf: 'center', TextAlign: 'center' }}
-                />            
+                    style={{ width: '100%', backgroundColor: '#fff', borderRadius: 10, alignSelf: 'center', textAlign: 'center' }}
+                />
             )}
 
             

@@ -74,7 +74,7 @@ const Calendar = () => {
                             </Text>
                         } 
                     </ScrollView>
-                    <TouchableOpacity style={styles.trackMoreButton} onPress={() => navigation.navigate('Track')}>
+                    <TouchableOpacity style={styles.trackMoreButton} onPress={() => navigation.navigate('Track', { date: selectedDate })}>
                         <Text style={[styles.trackMoreText, { fontSize: settings.largeText ? 20 : 15 }]}>Edit</Text>
                     </TouchableOpacity>
                 </View>
