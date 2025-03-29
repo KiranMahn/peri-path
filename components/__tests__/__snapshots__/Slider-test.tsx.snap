@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "marginVertical": 10,
+      "width": "100%",
+    }
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "marginRight": 10,
+          "minWidth": 100,
+        },
+        {
+          "color": "#555",
+          "fontSize": 15,
+        },
+      ]
+    }
+  >
+    Test Slider
+  </Text>
+  <View
+    style={
+      {
+        "flex": 1,
+        "maxWidth": "80%",
+      }
+    }
+  >
+    <View
+      onLayout={[Function]}
+      style={
+        [
+          [
+            {
+              "width": "100%",
+            },
+            {
+              "height": 40,
+            },
+          ],
+          {
+            "justifyContent": "center",
+          },
+        ]
+      }
+    >
+      <RNCSlider
+        disabled={false}
+        inverted={false}
+        lowerLimit={-9007199254740991}
+        maximumTrackTintColor="#ccc"
+        maximumValue={3}
+        minimumTrackTintColor="#009688"
+        minimumValue={0}
+        onChange={[Function]}
+        onRNCSliderAccessibilityAction={null}
+        onRNCSliderSlidingComplete={null}
+        onRNCSliderSlidingStart={null}
+        onRNCSliderValueChange={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        step={1}
+        style={
+          [
+            {
+              "width": 0,
+              "zIndex": 1,
+            },
+            {
+              "height": 40,
+            },
+            {
+              "alignContent": "center",
+              "alignItems": "center",
+            },
+          ]
+        }
+        tapToSeek={false}
+        thumbTintColor="#009688"
+        upperLimit={9007199254740991}
+        value={50}
+      />
+    </View>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "marginTop": 5,
+        }
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "#555",
+              "fontSize": 12,
+            },
+            {
+              "color": "#555",
+              "fontSize": 12,
+            },
+          ]
+        }
+      >
+        None
+      </Text>
+      <Text
+        style={
+          [
+            {
+              "color": "#555",
+              "fontSize": 12,
+            },
+            {
+              "color": "#555",
+              "fontSize": 12,
+            },
+          ]
+        }
+      >
+        Low
+      </Text>
+      <Text
+        style={
+          [
+            {
+              "color": "#555",
+              "fontSize": 12,
+            },
+            {
+              "color": "#555",
+              "fontSize": 12,
+            },
+          ]
+        }
+      >
+        Medium
+      </Text>
+      <Text
+        style={
+          [
+            {
+              "color": "#555",
+              "fontSize": 12,
+            },
+            {
+              "color": "#555",
+              "fontSize": 12,
+            },
+          ]
+        }
+      >
+        High
+      </Text>
+    </View>
+  </View>
+</View>
+`;
