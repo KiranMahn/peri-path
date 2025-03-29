@@ -26,7 +26,6 @@ const Month = ({ month, year, onDayClick }) => {
 
                 const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
                 setUserData(allUsersData[username] || {});
-                console.log("userdata", userData);
 
                 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
                 setMonthYear(`${monthNames[month]} ${year}`);
@@ -70,13 +69,31 @@ const Month = ({ month, year, onDayClick }) => {
         ));
         const showPlus = symptomKeys.length > 4;
 
+        const isFutureDate = day > new Date(); // Check if the date is in the future
+
         return (
-            <TouchableOpacity key={dateString} onPress={() => onDayClick(dayClickData)} style={styles.dayBox}>
-                <Text style={[styles.dayText, { fontSize: settings.largeText ? 19 : 14, color: settings.highContrast ? 'white' : 'black'  }]}>{day.getDate()}</Text>
-                {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
+            <TouchableOpacity
+                key={dateString}
+                onPress={!isFutureDate ? () => onDayClick(dayClickData) : null} // Disable onPress for future dates
+                style={[
+                    styles.dayBox,
+                    isFutureDate && styles.futureDayBox, // Apply greyed-out style for future dates
+                ]}
+            >
+                <Text
+                    style={[
+                        styles.dayText,
+                        { fontSize: settings.largeText ? 19 : 14, color: isFutureDate ? '#ccc' : settings.highContrast ? 'white' : 'black' }, // Grey out text for future dates
+                    ]}
+                >
+                    {day.getDate()}
+                </Text>
+                {!isFutureDate && periodLevel && (
+                    <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />
+                )}
                 <View style={styles.symptomIndicators}>
-                    {symptomDots}
-                    {showPlus && <Ionicons name="circle-with-plus" size={8} color="red" />}
+                    {!isFutureDate && symptomDots}
+                    {!isFutureDate && showPlus && <Ionicons name="circle-with-plus" size={8} color="red" />}
                 </View>
             </TouchableOpacity>
         );
@@ -84,7 +101,7 @@ const Month = ({ month, year, onDayClick }) => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={[styles.header, { fontSize: settings.largeText ? 25 : 20, color: settings.highContrast ? 'white' : 'black'  }]}>{monthYear}</Text>
+            <Text style={[styles.header, { fontSize: settings.largeText ? 25 : 20, color: settings.highContrast ? 'white' : 'black' }]}>{monthYear}</Text>
             <View style={styles.grid}>{daysInMonth.map((day) => renderDayBox(day))}</View>
         </ScrollView>
     );
@@ -116,6 +133,10 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 8,
         position: 'relative',
+    },
+    futureDayBox: {
+        backgroundColor: '#f0f0f0', // Greyed-out background for future dates
+        borderColor: '#ddd', // Lighter border for future dates
     },
     dayText: {
         fontSize: 14,
