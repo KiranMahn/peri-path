@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         width: '100%',
         bottom: 10,
+        paddingHorizontal: 17,
     },
     navButton: {
         alignItems: 'center',

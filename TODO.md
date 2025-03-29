@@ -1,3 +1,4 @@
+- add reload
 - Figma sketches 
 - gantt chart 
 - netowork diagram 
