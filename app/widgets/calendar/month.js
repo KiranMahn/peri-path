@@ -78,12 +78,13 @@ const Month = ({ month, year, onDayClick }) => {
                 style={[
                     styles.dayBox,
                     isFutureDate && styles.futureDayBox, // Apply greyed-out style for future dates
+                    isFutureDate && settings.highContrast && styles.hcfutureDayBox, // Apply greyed-out style for future dates
                 ]}
             >
                 <Text
                     style={[
                         styles.dayText,
-                        { fontSize: settings.largeText ? 19 : 14, color: isFutureDate ? '#ccc' : settings.highContrast ? 'white' : 'black' }, // Grey out text for future dates
+                        { fontSize: settings.largeText ? 19 : 14, color: settings.highContrast && isFutureDate ? 'rgb(142, 142, 142)' : settings.highContrast ? 'white' : isFutureDate ? '#ccc' : 'black' }, // Grey out text for future dates
                     ]}
                 >
                     {day.getDate()}
@@ -137,6 +138,10 @@ const styles = StyleSheet.create({
     futureDayBox: {
         backgroundColor: '#f0f0f0', // Greyed-out background for future dates
         borderColor: '#ddd', // Lighter border for future dates
+    },
+    hcfutureDayBox: {
+        backgroundColor: 'rgb(66, 66, 66)', // Greyed-out background for future dates
+        borderColor: 'rgb(39, 39, 39)', // Lighter border for future dates
     },
     dayText: {
         fontSize: 14,
