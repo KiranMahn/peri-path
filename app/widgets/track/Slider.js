@@ -22,6 +22,7 @@ const SliderComponent = ({ sliderText, onChange, value }) => {
             <View style={styles.sliderWrapper}>
                 <Slider
                     style={styles.slider}
+                    testID='slider'
                     minimumValue={0}
                     maximumValue={3}
                     step={1}
