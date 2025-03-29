@@ -18,26 +18,12 @@ const getStartDates = (periodDates) => {
     return periodStartDates.sort((a, b) => a - b);
 };
 
-const getEndDates = (periodDates) => {
-    let periodEndDates = [];
-    for (let i = 1; i < periodDates.length; i++) {
-        const prevDate = new Date(periodDates[i - 1]);
-        const currentDate = new Date(periodDates[i]);
-        const daysBetween = (currentDate - prevDate) / (1000 * 60 * 60 * 24);
-        if (daysBetween > 1) {
-            periodEndDates.push(prevDate);
-        }
-    }
-    periodEndDates.push(new Date(periodDates[periodDates.length - 1]));
-    return periodEndDates.sort((a, b) => a - b);
-};
-
-const getPeriodLength = (periodStartDates, periodEndDates) => {
+const getAverageCycleLength = (periodStartDates) => {
     let totalDays = 0;
     for (let i = 1; i < periodStartDates.length; i++) {
-        const endDate = periodEndDates[i - 1];
-        const startDate = periodStartDates[i];
-        const daysBetween = (startDate - endDate) / (1000 * 60 * 60 * 24);
+        const prevStartDate = periodStartDates[i - 1];
+        const currentStartDate = periodStartDates[i];
+        const daysBetween = (currentStartDate - prevStartDate) / (1000 * 60 * 60 * 24);
         totalDays += daysBetween;
     }
     return totalDays / (periodStartDates.length - 1);
@@ -69,14 +55,13 @@ const CycleLength = () => {
                 }
 
                 const periodStartDates = getStartDates(periodDates);
-                const periodEndDates = getEndDates(periodDates);
 
-                if (periodEndDates.length < 2 || periodStartDates.length < 2) {
+                if (periodStartDates.length < 2) {
                     setMessage('Not enough data to calculate cycle length.');
                     return;
                 }
 
-                const average = getPeriodLength(periodStartDates, periodEndDates);
+                const average = getAverageCycleLength(periodStartDates);
                 setAverageCycleLength(Math.round(average));
             } catch (error) {
                 console.error('Error fetching data from AsyncStorage:', error);
@@ -87,7 +72,11 @@ const CycleLength = () => {
     }, []);
 
     return (
-        <AnalysisWigi title="Average Cycle Length" value={averageCycleLength ? `${averageCycleLength} days` : ''} altMsg={message} />
+        <AnalysisWigi
+            title="Average Cycle Length"
+            value={averageCycleLength ? `${averageCycleLength} days` : ''}
+            altMsg={message}
+        />
     );
 };
 

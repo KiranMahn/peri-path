@@ -14,5 +14,5 @@ export const getLastPeriodStartDate = (periodDates: string[]): string => {
         }
     }
 
-    return new Date(lastPeriodStart).toDateString();
+    return new Date(lastPeriodStart).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
 };
