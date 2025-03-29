@@ -72,7 +72,7 @@ const Calendar = () => {
                                         {getSymptomName(slider)}:
                                     </Text>
                                     <Text style={[styles.dayDataValue, { fontSize: settings.largeText ? 22 : 17 }]}>
-                                        {selectedDayData[slider]}
+                                         {" " + selectedDayData[slider]}
                                     </Text>
                                 </View>
                             ))}
