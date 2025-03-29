@@ -143,7 +143,7 @@ const SymptomChart = () => {
                         data: symptomsCount,
                     }
                 ], 
-                legend: ["Symptom Severity Over Time"] // optional
+                legend: ["Average # of Symptoms Tracked Over Time"] // optional
 
             });
             console.log("chart data", chartData);

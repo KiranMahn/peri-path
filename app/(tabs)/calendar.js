@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-nati
 import Month from '../widgets/calendar/month';
 import { useNavigation } from '@react-navigation/native';
 import { SettingsContext } from '../settings-context'; // Import SettingsContext
-
+import Nav from '../widgets/nav';
 const Calendar = () => {
     const date = new Date();
     const [currentMonth, setCurrentMonth] = useState(date.getMonth());
@@ -79,6 +79,8 @@ const Calendar = () => {
                     </TouchableOpacity>
                 </View>
             }
+            <Nav />
+            
         </View>
     );
 };

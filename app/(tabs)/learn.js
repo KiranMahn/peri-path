@@ -1,9 +1,9 @@
-import { SafeAreaView, StyleSheet, TouchableOpacity, Text, Linking } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text, Linking } from "react-native";
 import { useState, useContext } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import articles from '../../articles.json'; // Import articles.json
 import { SettingsContext } from '../settings-context';
-
+import Nav from "../widgets/nav";
 const Learn = () => {
     const [selected, setSelected] = useState("For You");
     const { settings } = useContext(SettingsContext);
@@ -70,7 +70,7 @@ const Learn = () => {
     let tabarticles = getArticlesForTab();
 
     return (
-        <SafeAreaView style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: settings.highContrast ? '#000' : '#fff' }}>
+        <View style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: settings.highContrast ? '#000' : '#fff' }}>
             {/* Horizontal Tab Buttons */}
             <ScrollView style={[styles.headings, {backgroundColor: settings.highContrast ? 'black' : 'white'}]} horizontal={true} showsHorizontalScrollIndicator={false}>
                 <TabButton text={"For You"} isSelected={selected === "For You"} />
@@ -90,7 +90,9 @@ const Learn = () => {
                     />
                 ))}
             </ScrollView>
-        </SafeAreaView>
+            <Nav />
+            
+        </View>
     );
 };
 

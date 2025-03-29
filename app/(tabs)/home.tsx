@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, RefreshControl } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FontAwesome, FontAwesome6 } from '@expo/vector-icons';
 import TwoWeek from '../widgets/calendar/two-week';
@@ -14,38 +14,50 @@ const Home = () => {
     const [username, setUsername] = useState('');
     const [selectedChart, setSelectedChart] = useState<'symptoms' | 'period'>('symptoms');
     const [user, setUser] = useState<any>({});
+    const [refreshing, setRefreshing] = useState(false); // State for pull-to-refresh
     const settingsContext = useContext(SettingsContext); // Access settings from context
     const settings = settingsContext?.settings || { largeText: false, highContrast: false }; // Provide a fallback with default largeText value
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const storedUser = await AsyncStorage.getItem('user');
-                const storedUsers = await AsyncStorage.getItem('users');
+    const fetchUserData = async () => {
+        try {
+            const storedUser = await AsyncStorage.getItem('user');
+            const storedUsers = await AsyncStorage.getItem('users');
+            
+            if (storedUser) {
+                const parsedUser = JSON.parse(storedUser);
+                setUsername(parsedUser.username);
                 
-                if (storedUser) {
-                    const parsedUser = JSON.parse(storedUser);
-                    setUsername(parsedUser.username);
-                    
-                    if (storedUsers) {
-                        const parsedUsers = JSON.parse(storedUsers);
-                        const foundUser = parsedUsers.find((u: any) => u.username === parsedUser.username);
-                        if (foundUser) {
-                            setUser(foundUser);
-                        }
+                if (storedUsers) {
+                    const parsedUsers = JSON.parse(storedUsers);
+                    const foundUser = parsedUsers.find((u: any) => u.username === parsedUser.username);
+                    if (foundUser) {
+                        setUser(foundUser);
                     }
                 }
-            } catch (error) {
-                console.error('Error fetching user data:', error);
             }
-        };
-        
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+    useEffect(() => {
         fetchUserData();
     }, []);
 
+    const onRefresh = async () => {
+        setRefreshing(true); // Start the refreshing animation
+        await fetchUserData(); // Reload the user data
+        setRefreshing(false); // Stop the refreshing animation
+    };
+
     return (
-        <View style={[styles.container, {backgroundColor: settings.highContrast ? '#000' : '#fff'}]}>
-            <ScrollView style={styles.content}>
+        <View style={[styles.container, { backgroundColor: settings.highContrast ? '#000' : '#fff' }]}>
+            <ScrollView
+                style={styles.content}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+            >
                 {/* Mini Calendar View */}
                 <TwoWeek />
 
