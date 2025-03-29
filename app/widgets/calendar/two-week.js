@@ -19,8 +19,10 @@ const TwoWeek = () => {
                 const currentUser = JSON.parse(await AsyncStorage.getItem('user'));
                 setUsername(currentUser ? currentUser.username : 'Unknown User');
 
-                const date = new Date();
-                const start = new Date(date.setDate(date.getDate() - date.getDay()));
+                // Calculate the last 14 days from today
+                const today = new Date();
+                const start = new Date(today);
+                start.setDate(today.getDate() - 13); // Go back 13 days to include today
                 const daysArray = Array.from({ length: 14 }, (_, i) => {
                     const newDate = new Date(start);
                     newDate.setDate(start.getDate() + i);
@@ -31,14 +33,11 @@ const TwoWeek = () => {
                 const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
                 setUserData(allUsersData[username] || {});
 
-                const end = new Date(start);
-                end.setDate(start.getDate() + 13);
-
                 const formatDate = (date) => {
                     return date.toLocaleDateString('en-US', { month: 'short', day: '2-digit' });
                 };
 
-                setDateRange(`${formatDate(start)} to ${formatDate(end)}`);
+                setDateRange(`${formatDate(start)} to ${formatDate(today)}`);
             } catch (error) {
                 console.error('Error loading user data:', error);
             }
@@ -65,7 +64,7 @@ const TwoWeek = () => {
             default: return 'transparent';
         }
     };
-    
+
     const renderDayBox = (day) => {
         const dateString = day.toDateString();
         const dayData = userData[dateString] || {};
@@ -77,13 +76,38 @@ const TwoWeek = () => {
         ));
         const showPlus = symptomKeys.length > 4;
 
+        const isFutureDate = day > new Date(); // Check if the date is in the future
+
+        // Get the first letter of the day of the week (e.g., "M" for Monday)
+        const dayOfWeek = day.toLocaleDateString('en-US', { weekday: 'short' }).charAt(0);
+
         return (
-            <TouchableOpacity key={dateString} onPress={() => navigation.navigate('Track', {date: day})} style={styles.dayBox} testID='dayBox'>
-                <Text style={[styles.dayText, { fontSize: settings.largeText ? 17 : 14, color: settings.highContrast ? '#fff' : '#000'  }]}>{day.getDate()}</Text>
-                {periodLevel && <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />}
+            <TouchableOpacity
+                key={dateString}
+                onPress={!isFutureDate ? () => navigation.navigate('Track', { date: day }) : null} // Disable onPress for future dates
+                style={[
+                    styles.dayBox,
+                    isFutureDate && styles.futureDayBox, // Apply greyed-out style for future dates
+                ]}
+                testID="dayBox"
+            >
+                {/* Day of the week in the top-left corner */}
+                <Text style={[styles.dayOfWeek, {color: settings.highContrast ? 'white' : 'rgb(173, 173, 173)'}]}>{dayOfWeek}</Text>
+
+                <Text
+                    style={[
+                        styles.dayText,
+                        { fontSize: settings.largeText ? 17 : 14, color: isFutureDate ? '#ccc' : settings.highContrast ? '#fff' : '#000' }, // Grey out text for future dates
+                    ]}
+                >
+                    {day.getDate()}
+                </Text>
+                {!isFutureDate && periodLevel && (
+                    <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />
+                )}
                 <View style={styles.symptomIndicators}>
-                    {symptomDots}
-                    {showPlus && <Ionicons name="circle-with-plus" size={8} color="red"/>}
+                    {!isFutureDate && symptomDots}
+                    {!isFutureDate && showPlus && <Ionicons name="circle-with-plus" size={8} color="red" />}
                 </View>
             </TouchableOpacity>
         );
@@ -124,10 +148,21 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         position: 'relative',
     },
+    futureDayBox: {
+        backgroundColor: '#f0f0f0', // Greyed-out background for future dates
+        borderColor: '#ddd', // Lighter border for future dates
+    },
     dayText: {
         fontSize: 14,
         fontWeight: 'bold',
-        top: 0
+    },
+    dayOfWeek: {
+        position: 'absolute',
+        top: 2,
+        left: 2,
+        fontSize: 10,
+        fontWeight: 'bold',
+        color: '#666', // Color for the day of the week
     },
     periodIndicator: {
         position: 'absolute',
