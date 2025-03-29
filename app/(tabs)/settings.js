@@ -16,26 +16,29 @@ const Settings = () => {
                 Alert.alert("No data to export.");
                 return;
             }
-
+    
             const data = JSON.parse(allUsersData);
             const csvRows = ["Date,User,Key,Value"]; // CSV header
-
+    
             // Convert data to CSV rows
             Object.keys(data).forEach((user) => {
                 Object.keys(data[user]).forEach((date) => {
                     const dayData = data[user][date];
                     Object.keys(dayData).forEach((key) => {
-                        csvRows.push(`${date},${user},${key},${dayData[key]}`);
+                        if (dayData[key] !== "None") { // Only include data where the value is not "None"
+                            console.log("daydata[key] ", dayData[key]);
+                            csvRows.push(`${date},${user},${key},${dayData[key]}`);
+                        }
                     });
                 });
             });
-
+    
             const csvString = csvRows.join("\n");
             const fileUri = FileSystem.documentDirectory + "exported_data.csv";
-
+    
             // Write CSV to file
             await FileSystem.writeAsStringAsync(fileUri, csvString);
-
+    
             // Share the file
             await Sharing.shareAsync(fileUri);
         } catch (error) {
