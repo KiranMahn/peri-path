@@ -20,3 +20,8 @@
 5. Make sure the expo app is installed on your phone 
 
 6. scan the QR code with your phone and the app will open in the expo app
+
+
+## Project Stucture 
+
+## Further Documentation 

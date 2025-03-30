@@ -1,11 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './(tabs)/home';
 import Calendar from './(tabs)/calendar';
 import Track from './(tabs)/track';
-import { RouteProp } from '@react-navigation/native';
 import Analysis from './(tabs)/analysis';
-import Profile from './(tabs)/profile';
 import Learn from './(tabs)/learn';
 import Settings from './(tabs)/settings';
 import { TouchableOpacity } from 'react-native';

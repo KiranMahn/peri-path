@@ -6,8 +6,6 @@ import PeriodSquare from '../widgets/track/PeriodSquare'; // Component for track
 import Slider from '../widgets/track/Slider'; // Component for tracking symptoms with sliders
 import { useNavigation } from '@react-navigation/native'; // Navigation hook
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For data persistence
-import TwoWeek from '../widgets/calendar/two-week';
-import Calendar from './calendar';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
 import { SettingsContext } from '../settings-context';
