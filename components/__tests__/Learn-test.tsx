@@ -39,7 +39,7 @@ describe('Learn Component', () => {
     expect(getByText('For You')).toBeTruthy();
     expect(getByText('Recent')).toBeTruthy();
     expect(getByText('Symptom Relief')).toBeTruthy();
-    expect(getByText('Menopause Stages')).toBeTruthy();
+    expect(getByText('All Articles')).toBeTruthy();
   });
 
   test('switches tabs when a tab is pressed', () => {
