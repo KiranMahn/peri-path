@@ -1,0 +1,58 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "patternProperties": {
+      ".*": {
+        "type": "object",
+        "patternProperties": {
+          "^[A-Za-z]{3} [A-Za-z]{3} \\d{2} \\d{4}$": {
+            "type": "object",
+            "properties": {
+              "anxiety": { "type": "string" },
+              "bloating": { "type": "string" },
+              "bodyodor": { "type": "string" },
+              "bonefractures": { "type": "string" },
+              "brainfog": { "type": "string" },
+              "brittlenails": { "type": "string" },
+              "depression": { "type": "string" },
+              "digestiveproblems": { "type": "string" },
+              "dizzyspells": { "type": "string" },
+              "drymouth": { "type": "string" },
+              "dryskin": { "type": "string" },
+              "exhaustion": { "type": "string" },
+              "fatigue": { "type": "string" },
+              "foodintoleranceandbloating": { "type": "string" },
+              "formication": { "type": "string" },
+              "gumdisease": { "type": "string" },
+              "hairloss": { "type": "string" },
+              "headaches": { "type": "string" },
+              "heartpalpitations": { "type": "string" },
+              "hotflushes": { "type": "string" },
+              "irritability": { "type": "string" },
+              "itchinglegs": { "type": "string" },
+              "lossoflibido": { "type": "string" },
+              "memoryloss": { "type": "string" },
+              "migraines": { "type": "string" },
+              "moodswings": { "type": "string" },
+              "musclepain": { "type": "string" },
+              "nightsweats": { "type": "string" },
+              "panicattacks": { "type": "string" },
+              "period": { "type": "string" },
+              "poorconcentration": { "type": "string" },
+              "sleeplessness": { "type": "string" },
+              "sorebreasts": { "type": "string" },
+              "stressincontinence": { "type": "string" },
+              "tinnitus": { "type": "string" },
+              "utis": { "type": "string" },
+              "vaginaldryness": { "type": "string" },
+              "weightgain": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  }
+  

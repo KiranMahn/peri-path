@@ -18,6 +18,7 @@ const Settings = () => {
             }
     
             const data = JSON.parse(allUsersData);
+            console.log(data);
             const csvRows = ["Date,User,Key,Value"]; // CSV header
     
             // Convert data to CSV rows

@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "patternProperties": {
+      "^\\d+$": {
+        "type": "object",
+        "properties": {
+          "Title": { "type": "string" },
+          "Author": { "type": "string" },
+          "Date": { "type": "string", "format": "date" },
+          "URL": { "type": "string", "format": "uri" },
+          "keywords": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["Title", "Author", "URL", "keywords"],
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  }

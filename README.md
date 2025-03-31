@@ -15,7 +15,7 @@
 4. Start the app
 
    ```bash
-    npx expo start
+    npm start
    ```
 5. Make sure the expo app is installed on your phone 
 
