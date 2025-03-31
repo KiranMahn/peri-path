@@ -125,6 +125,8 @@ const Learn = () => {
                     .sort((a, b) => new Date(b.Date) - new Date(a.Date));
             case "Symptom Relief":
                 return Object.values(articles).filter((article) => article.keywords.includes("symptoms"));
+            case "Perimenopause":
+                return Object.values(articles).filter((article) => article.keywords.includes("perimenopause"));
             case "Menopause Stages":
                 return Object.values(articles).filter((article) => article.keywords.includes("stages"));
             default:
@@ -140,6 +142,7 @@ const Learn = () => {
             <ScrollView style={[styles.headings, { backgroundColor: settings.highContrast ? 'black' : 'white' }]} horizontal={true} showsHorizontalScrollIndicator={false}>
                 <TabButton text={"All Articles"} isSelected={selected === "All Articles"} />
                 <TabButton text={"For You"} isSelected={selected === "For You"} />
+                <TabButton text={"Perimenopause"} isSelected={selected === "Perimenopause"} />
                 <TabButton text={"Recent"} isSelected={selected === "Recent"} />
                 <TabButton text={"Symptom Relief"} isSelected={selected === "Symptom Relief"} />
             </ScrollView>
