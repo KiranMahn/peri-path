@@ -7,7 +7,7 @@ import { SettingsContext } from '../settings-context';
 import Nav from "../widgets/nav";
 
 const Learn = () => {
-    const [selected, setSelected] = useState("For You");
+    const [selected, setSelected] = useState("All Articles");
     const [userSymptoms, setUserSymptoms] = useState([]);
     const [topCommonSymptoms, setTopCommonSymptoms] = useState([]);
     const [topSevereSymptoms, setTopSevereSymptoms] = useState([]);
@@ -138,8 +138,8 @@ const Learn = () => {
         <View style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', backgroundColor: settings.highContrast ? '#000' : '#fff' }}>
             {/* Horizontal Tab Buttons */}
             <ScrollView style={[styles.headings, { backgroundColor: settings.highContrast ? 'black' : 'white' }]} horizontal={true} showsHorizontalScrollIndicator={false}>
+                <TabButton text={"All Articles"} isSelected={selected === "All Articles"} />
                 <TabButton text={"For You"} isSelected={selected === "For You"} />
-                <TabButton text={"All Articles"} isSelected={selected === "All"} />
                 <TabButton text={"Recent"} isSelected={selected === "Recent"} />
                 <TabButton text={"Symptom Relief"} isSelected={selected === "Symptom Relief"} />
             </ScrollView>
@@ -193,7 +193,8 @@ const styles = StyleSheet.create({
         flex: 0.9,
         width: '100%',
         padding: 10,
-        bottom: 20
+        bottom: 20,
+        top: 5
     },
     articleButton: {
         backgroundColor: '#f0f0f0',
