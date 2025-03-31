@@ -24,4 +24,7 @@
 
 ## Project Stucture 
 
+## Tests 
+Run `jest` in the root of the project to run the tests which are located in `components/__tests__`
+
 ## Further Documentation 

@@ -89,7 +89,7 @@ const TwoWeek = () => {
                     styles.dayBox,
                     isFutureDate && styles.futureDayBox, // Apply greyed-out style for future dates
                 ]}
-                testID="dayBox"
+                testID="day-box"
             >
                 {/* Day of the week in the top-left corner */}
                 <Text style={[styles.dayOfWeek, {color: settings.highContrast ? 'white' : 'rgb(173, 173, 173)'}]}>{dayOfWeek}</Text>
@@ -115,7 +115,7 @@ const TwoWeek = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={[styles.header, { fontSize: settings.largeText ? 23 : 20, color: settings.highContrast ? '#fff' : '#000' }]}>{dateRange}</Text>
+            <Text style={[styles.header, { fontSize: settings.largeText ? 23 : 20, color: settings.highContrast ? '#fff' : '#000' }]} testID='date-range'>{dateRange}</Text>
             <View style={styles.grid}>{daysInTwoWeeks.map((day) => renderDayBox(day))}</View>
         </ScrollView>
     );

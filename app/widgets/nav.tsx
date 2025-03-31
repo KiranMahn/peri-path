@@ -29,7 +29,7 @@ const NavButton: React.FC<NavButtonProps> = ({ screen, label, icon }) => {
 
     return (
         <TouchableOpacity onPress={() => navigation.navigate(screen)} style={[styles.navButton, { width: screen === 'Track' ? '12%' : undefined }]}>
-            <Icon name={icon} size={screen === "Track" ? 50 : 25} style={[styles.icon, {color: settings.highContrast ? 'white' : screen === 'Track' ? '#009668' : 'black'}, {position: screen === 'Track' ? 'absolute' : undefined}, {bottom:screen === 'Track' ? 20 : undefined}]} />
+            <Icon name={icon} size={screen === "Track" ? 50 : 25} style={[styles.icon, {color: settings.highContrast ? 'white' : screen === 'Track' ? '#009668' : 'black'}, {position: screen === 'Track' ? 'absolute' : undefined}, {bottom:screen === 'Track' ? 15 : undefined}]} />
             <Text style={{color: settings.highContrast ? 'white' : 'black', fontWeight: 'bold'}}>{label}</Text>
         </TouchableOpacity>
     );
