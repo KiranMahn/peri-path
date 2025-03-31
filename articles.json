@@ -71,7 +71,1181 @@
             "symptoms",
             "treatment"
         ]
+    }, 
+    "7" : {
+        "Title": "Did I just have a hot flash? I'm 44!",
+        "Author": "Johns Hopkins Medicine",
+        "Date": "",
+        "URL": "https://www.hopkinsmedicine.org/health/wellness-and-prevention/did-i-just-have-a-hot-flash-im-44",
+        "keywords": [
+            "hotflushes",
+            "perimenopause",
+            "symptoms", 
+            "treatment", 
+            "nightsweats"
+        ]
+    },
+    "8": {
+        "Title": "Hot Flashes: What Can I Do?",
+        "Author": "National Institute on Aging",
+        "Date": "",
+        "URL": "https://www.nia.nih.gov/health/menopause/hot-flashes-what-can-i-do",
+        "keywords": [
+            "hotflushes",
+            "menopause",
+            "treatment", 
+            "nightsweats"
+        ]
+    }, 
+    "9": {
+        "Title": "Hot Flashes",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://my.clevelandclinic.org/health/symptoms/15223-hot-flashes",
+        "keywords": [
+            "hotflushes",
+            "menopause",
+            "symptoms",
+            "treatment", 
+            "nightsweats"
+        ]
+    }, "10": {
+        "Title": "Managing Menopause",
+        "Author": "The Royal Women's Hospital",
+        "Date": "",
+        "URL": "https://www.thewomens.org.au/health-information/menopause-information/managing-menopause",
+        "keywords": [
+            "menopause",
+            "treatment",
+            "management",
+            "hotflushes", 
+            "nightsweats"
+        ]
+    }, "11": {
+        "Title": "How to Combat Menopausal Brain Fog",
+        "Author": "Healthdirect",
+        "Date": "",
+        "URL": "https://www.healthdirect.gov.au/blog/how-to-combat-menopausal-brain-fog",
+        "keywords": [
+            "menopause",
+            "brainfog",
+            "symptoms",
+            "treatment",
+            "poorconcentration"
+        ]
+    }, "12": {
+        "Title": "Menopause and Brain Fog: What's the Link?",
+        "Author": "Harvard Health",
+        "Date": "",
+        "URL": "https://www.health.harvard.edu/womens-health/menopause-and-brain-fog-whats-the-link",
+        "keywords": [
+            "menopause",
+            "brainfog",
+            "symptoms",
+            "treatment",
+            "poorconcentration"
+        ]
+     }, "13": {
+        "Title": "How to Handle Menopause Brain Fog",
+        "Author": "National Council on Aging",
+        "Date": "",
+        "URL": "https://www.ncoa.org/article/how-to-handle-menopause-brain-fog/",
+        "keywords": [
+            "menopause",
+            "brainfog",
+            "symptoms",
+            "treatment",
+            "poorconcentration"
+        ]
+    }, "14": {
+        "Title": "Sleep, Stress, or Hormones? Brain Fog During Perimenopause",
+        "Author": "Harvard Health",
+        "Date": "",
+        "URL": "https://www.health.harvard.edu/blog/sleep-stress-or-hormones-brain-fog-during-perimenopause-202104092429",
+        "keywords": [
+            "perimenopause",
+            "brainfog",
+            "symptoms",
+            "treatment",
+            "poorconcentration"
+        ]
+    }, "15": {
+        "Title": "Menopause Brain Fog: What You Need to Know",
+        "Author": "AARP",
+        "Date": "",
+        "URL": "https://www.aarp.org/health/conditions-treatments/menopause-brain-fog/",
+        "keywords": [
+            "menopause",
+            "brainfog",
+            "symptoms",
+            "treatment",
+            "poorconcentration"
+        ]
+    }, "16": {
+            "Title": "Postmenopausal Bleeding",
+            "Author": "Yale Medicine",
+            "Date": "",
+            "URL": "https://www.yalemedicine.org/conditions/postmenopausal-bleeding",
+            "keywords": [
+                "postmenopause",
+                "bleeding",
+                "symptoms",
+                "treatment",
+                "period"
+            ]
+    }, "17": {
+        "Title": "Menorrhagia (Heavy Menstrual Bleeding)",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://www.mayoclinic.org/diseases-conditions/menorrhagia/symptoms-causes/syc-20352829",
+        "keywords": [
+            "menorrhagia",
+            "bleeding",
+            "symptoms",
+            "treatment",
+            "period"
+        ]
+    }, "18": {
+        "Title": "Perimenopausal Bleeding and Bleeding After Menopause",
+        "Author": "ACOG",
+        "Date": "",
+        "URL": "https://www.acog.org/womens-health/faqs/perimenopausal-bleeding-and-bleeding-after-menopause",
+        "keywords": [
+            "perimenopause",
+            "bleeding",
+            "symptoms",
+            "treatment",
+            "period"
+        ]
+    }, "19": {
+        "Title": "Menorrhagia (Heavy Menstrual Bleeding)",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://my.clevelandclinic.org/health/diseases/17734-menorrhagia-heavy-menstrual-bleeding",
+        "keywords": [
+            "menorrhagia",
+            "bleeding",
+            "symptoms",
+            "treatment",
+            "period"
+        ]
+    }, "20": {
+        "Title": "Heavy Menstrual Bleeding",
+        "Author": "Centers for Disease Control and Prevention (CDC)",
+        "Date": "",
+        "URL": "https://www.cdc.gov/female-blood-disorders/about/heavy-menstrual-bleeding.html",
+        "keywords": [
+            "menstrual bleeding",
+            "bleeding",
+            "symptoms",
+            "treatment",
+            "period"
+        ]
+    }, "21": {
+        "Title": "Menorrhagia (Heavy Menstrual Bleeding)",
+        "Author": "Johns Hopkins Medicine",
+        "Date": "",
+        "URL": "https://www.hopkinsmedicine.org/health/conditions-and-diseases/menorrhagia",
+        "keywords": [
+            "menorrhagia",
+            "bleeding",
+            "symptoms",
+            "treatment",
+            "period"
+        ]
+    }, "22": {
+        "Title": "Heavy Bleeding and Painful Periods",
+        "Author": "UT Southwestern Medical Center",
+        "Date": "",
+        "URL": "https://utswmed.org/conditions-treatments/heavy-bleeding-and-painful-periods/",
+        "keywords": [
+            "heavybleeding",
+            "painfulperiods",
+            "symptoms",
+            "treatment",
+            "period"
+        ]
+    }, "23": {
+        "Title": "Anxiety Disorders",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://my.clevelandclinic.org/health/diseases/9536-anxiety-disorders",
+        "keywords": [
+            "anxiety",
+            "disorders",
+            "symptoms",
+            "treatment", 
+            "moodswings", 
+            "panicattacks", 
+            "irritability"
+        ]
+    }, "24": {
+        "Title": "Mood Changes During Perimenopause Are Real: Here’s What to Know",
+        "Author": "ACOG",
+        "Date": "",
+        "URL": "https://www.acog.org/womens-health/experts-and-stories/the-latest/mood-changes-during-perimenopause-are-real-heres-what-to-know",
+        "keywords": [
+            "perimenopause",
+            "moodchanges",
+            "symptoms",
+            "treatment", 
+            "anxiety", 
+            "depression", 
+            "moodswings", 
+            "panicattacks", 
+            "irritability"
+        ]
+    }, "25": {
+        "Title": "Can Menopause Cause Depression?",
+        "Author": "Johns Hopkins Medicine",
+        "Date": "",
+        "URL": "https://www.hopkinsmedicine.org/health/wellness-and-prevention/can-menopause-cause-depression",
+        "keywords": [
+            "menopause",
+            "depression",
+            "symptoms",
+            "treatment", 
+            "anxiety", 
+            "moodswings", 
+            "panicattacks", 
+            "irritability"
+        ]
+    }, "26": {
+        "Title": "Women and Menopause",
+        "Author": "Anxiety and Depression Association of America (ADAA)",
+        "Date": "",
+        "URL": "https://adaa.org/find-help-for/women-menopause",
+        "keywords": [
+            "menopause",
+            "anxiety",
+            "depression",
+            "symptoms",
+            "treatment", 
+            "moodswings", 
+            "panicattacks", 
+            "irritability"
+        ]
+    }, "27": {
+        "Title": "The Relationship Between Menopause, Perimenopause, and Anxiety",
+        "Author": "Trauma Research UK",
+        "Date": "",
+        "URL": "https://traumaresearchuk.org/blog/the-relationship-between-menopause-perimenopause-and-anxiety/",
+        "keywords": [
+            "menopause",
+            "perimenopause",
+            "anxiety",
+            "symptoms",
+            "treatment", 
+            "moodswings", 
+            "panicattacks", 
+            "irritability"
+        ]
+    }, "28": {
+        "Title": "Dealing with Perimenopause: 7 Things to Know",
+        "Author": "Michigan Medicine",
+        "Date": "",
+        "URL": "https://www.michiganmedicine.org/health-lab/dealing-perimenopause-7-things-know",
+        "keywords": [
+            "perimenopause",
+            "symptoms",
+            "treatment",
+            "menopause",
+            "moodswings", 
+            "irritability"
+        ]
+    }, "29": {
+        "Title": "Is It Depression or Menopause?",
+        "Author": "The Menopause Charity",
+        "Date": "2023-05-03",
+        "URL": "https://themenopausecharity.org/2023/05/03/is-it-depression-or-menopause/",
+        "keywords": [
+            "menopause",
+            "depression",
+            "symptoms",
+            "treatment",
+            "moodswings", 
+            "irritability"
+        ]
+    }, "30": {
+        "Title": "Perimenopausal Depression",
+        "Author": "Feinberg School of Medicine",
+        "Date": "",
+        "URL": "https://www.feinberg.northwestern.edu/sites/asher-center/mood-disorders/depression/perimenopausal.html",
+        "keywords": [
+            "perimenopause",
+            "depression",
+            "symptoms",
+            "treatment",
+            "moodswings", 
+            "irritability"
+        ]
+    }, "31": {
+        "Title": "Depression and Mood Swings During Menopause",
+        "Author": "BreastCancer.org",
+        "Date": "",
+        "URL": "https://www.breastcancer.org/treatment-side-effects/menopause/depression-mood-swings",
+        "keywords": [
+            "menopause",
+            "depression",
+            "moodswings",
+            "symptoms",
+            "treatment", 
+            "irritability"
+        ]
+    }, "32": {
+        "Title": "More Than Just Hot Flashes: Other Menopause Symptoms Can Also Impact Your Quality of Life",
+        "Author": "NYU Langone Health",
+        "Date": "",
+        "URL": "https://nyulangone.org/news/more-just-hot-flashes-other-Menopause-symptoms-can-also-impact-your-quality-life",
+        "keywords": [
+            "menopause",
+            "symptoms",
+            "heartpalpitations",
+            "treatment"
+        ]
+    }, "33": {
+        "Title": "Heart Palpitations: Identifying Possible Causes and Managing Triggers",
+        "Author": "Harvard Health",
+        "Date": "",
+        "URL": "https://www.health.harvard.edu/heart-health/heart-palpitations-identifying-possible-causes-and-managing-triggers",
+        "keywords": [
+            "heartpalpitations",
+            "symptoms",
+            "causes",
+            "treatment"
+        ]
+    }, "34": {
+        "Title": "How Heart Disease Is Different After Menopause",
+        "Author": "University Hospitals",
+        "Date": "2023-04",
+        "URL": "https://www.uhhospitals.org/blog/articles/2023/04/how-heart-disease-is-different-after-menopause",
+        "keywords": [
+            "menopause",
+            "heartdisease",
+            "symptoms",
+            "treatment"
+        ]
+    }, "35": {
+        "Title": "Mayo Clinic Minute: Menopause and the Heart Connection",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-minute-menopause-and-the-heart-connection/",
+        "keywords": [
+            "menopause",
+            "heartdisease",
+            "symptoms",
+            "treatment"
+        ]
+    }, "36": {
+        "Title": "Migraine and Perimenopause",
+        "Author": "The Migraine Trust",
+        "Date": "",
+        "URL": "https://migrainetrust.org/migraine-and-perimenopause/",
+        "keywords": [
+            "perimenopause",
+            "migraines",
+            "symptoms",
+            "treatment", 
+            "headaches"
+        ]
+    }, "37": {
+        "Title": "Menopause, Perimenopause, and Migraine",
+        "Author": "Society for Women's Health Research",
+        "Date": "",
+        "URL": "https://swhr.org/menopause-perimenopause-and-migraine/",
+        "keywords": [
+            "menopause",
+            "perimenopause",
+            "migraines",
+            "symptoms",
+            "treatment", 
+            "headaches"
+        ]
+    }, "39": {
+        "Title": "Perimenopause and Menopause",
+        "Author": "Migraine Disorders",
+        "Date": "",
+        "URL": "https://www.migrainedisorders.org/perimenopause-and-menopause/",
+        "keywords": [
+            "perimenopause",
+            "menopause",
+            "migraines",
+            "symptoms",
+            "treatment", 
+            "headaches"
+        ]
+    }, "40": {
+        "Title": "Migraine and Menopause",
+        "Author": "American Migraine Foundation",
+        "Date": "",
+        "URL": "https://americanmigrainefoundation.org/resource-library/migraine-and-menopause/",
+        "keywords": [
+            "migraine",
+            "menopause",
+            "symptoms",
+            "treatment", 
+            "headaches"
+        ]
+    }, "41": {
+        "Title": "Menopause, Weight Gain and Hormone Therapy",
+        "Author": "University of Chicago Medicine",
+        "Date": "2023-04",
+        "URL": "https://www.uchicagomedicine.org/forefront/womens-health-articles/2023/april/menopause-weight-gain-hormone-therapy",
+        "keywords": [
+            "menopause",
+            "weightgain",
+            "hormonetherapy",
+            "symptoms",
+            "treatment",
+            "bloating",
+            "foodintoleranceandbloating"
+        ]
+    },  "42": {
+        "Title": "Bloated Stomach",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://my.clevelandclinic.org/health/symptoms/21740-bloated-stomach",
+        "keywords": [
+            "bloating",
+            "symptoms",
+            "treatment",
+            "foodintoleranceandbloating"
+        ]
+    }, "43": {
+        "Title": "The Connection Between Menopause and Belly Fat",
+        "Author": "University Hospitals",
+        "Date": "2023-08",
+        "URL": "https://www.uhhospitals.org/blog/articles/2023/08/the-connection-between-menopause-and-belly-fat",
+        "keywords": [
+            "menopause",
+            "bellyfat",
+            "symptoms",
+            "treatment", 
+            "bloating",
+            "weightgain",
+            "foodintoleranceandbloating"
+        ]
+    }, "44": {
+        "Title": "Brain Fog",
+        "Author": "The Menopause Charity",
+        "Date": "2021-10-21",
+        "URL": "https://www.themenopausecharity.org/2021/10/21/brain-fog/",
+        "keywords": [
+            "brainfog",
+            "symptoms",
+            "memoryloss",
+            "brainfog",
+            "treatment",
+            "poorconcentration"
+        ]
+    }, "45": {
+        "Title": "Menopause and Memory: Know the Facts",
+        "Author": "Harvard Health",
+        "Date": "2021-11-03",
+        "URL": "https://www.health.harvard.edu/blog/menopause-and-memory-know-the-facts-202111032630",
+        "keywords": [
+            "menopause",
+            "memoryloss",
+            "brainfog",
+            "symptoms",
+            "treatment", 
+            "brainfog",
+            "poorconcentration"
+        ]
+    }, "46": {
+        "Title": "Perimenopause and Menopause",
+        "Author": "Dementia UK",
+        "Date": "",
+        "URL": "https://www.dementiauk.org/information-and-support/young-onset-dementia/living-with-young-onset-dementia/perimenopause-and-menopause/",
+        "keywords": [
+            "perimenopause",
+            "menopause",
+            "brainfog",
+            "memoryloss",
+            "symptoms",
+            "treatment",
+            "poorconcentration"
+        ]
+    }, "47": {
+        "Title": "Managing Tinnitus",
+        "Author": "UW Medicine",
+        "Date": "",
+        "URL": "https://rightasrain.uwmedicine.org/well/health/managing-tinnitus",
+        "keywords": [
+            "tinnitus",
+            "symptoms",
+            "treatment"
+        ]
+    }, "49": {
+        "Title": "How Does Menopause Affect My Sleep?",
+        "Author": "Johns Hopkins Medicine",
+        "Date": "",
+        "URL": "https://www.hopkinsmedicine.org/health/wellness-and-prevention/how-does-menopause-affect-my-sleep",
+        "keywords": [
+            "menopause",
+            "sleeplessness",
+            "insomnia",
+            "symptoms",
+            "treatment"
+        ]
+    },
+    "50": {
+        "Title": "Get a Better Night’s Sleep During Menopause",
+        "Author": "Piedmont Healthcare",
+        "Date": "",
+        "URL": "https://www.piedmont.org/living-real-change/get-a-better-nights-sleep-during-menopause",
+        "keywords": [
+            "menopause",
+            "sleeplessness",
+            "insomnia",
+            "symptoms",
+            "treatment"
+        ]
+    },
+    "51": {
+        "Title": "Mayo Clinic Minute: Managing Sleep During Menopause",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-minute-managing-sleep-during-menopause/",
+        "keywords": [
+            "menopause",
+            "sleeplessness",
+            "insomnia",
+            "symptoms",
+            "treatment"
+        ]
+    }, "52": {
+        "Title": "Chronic Daily Headaches",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://www.mayoclinic.org/diseases-conditions/chronic-daily-headaches/in-depth/headaches/art-20046729",
+        "keywords": [
+            "headaches",
+            "migranes",
+            "symptoms",
+            "treatment"
+        ]
+    },  "53": {
+        "Title": "Uncover Perimenopause Fatigue: 10 Ultimate Fixes Now",
+        "Author": "Harvard Catalyst",
+        "Date": "",
+        "URL": "https://shrine-dev-node02.catalyst.harvard.edu/uncover-perimenopause-fatigue-10-ultimate-fixes-now",
+        "keywords": [
+            "fatigue",
+            "perimenopause",
+            "symptoms",
+            "treatment"
+        ]
+    }, "54": {
+        "Title": "Perimenopause Extreme Fatigue",
+        "Author": "Mayo Clinic Connect",
+        "Date": "",
+        "URL": "https://connect.mayoclinic.org/discussion/perimenopause-extreme-fatigue/",
+        "keywords": [
+            "fatigue",
+            "perimenopause",
+            "symptoms",
+            "treatment"
+        ]
+    },  "55": {
+        "Title": "Menopause-Related Musculoskeletal Pain",
+        "Author": "Loyola Medicine",
+        "Date": "",
+        "URL": "https://www.loyolamedicine.org/newsroom/blog-articles/menopause-related-musculoskeletal-pain",
+        "keywords": [
+            "menopause",
+            "musclepain",
+            "symptoms",
+            "treatment"
+        ]
+    }, "56": {
+        "Title": "Joint Pain and Muscles",
+        "Author": "The Menopause Charity",
+        "Date": "2021-10-21",
+        "URL": "https://www.themenopausecharity.org/2021/10/21/joint-pain-and-muscles/",
+        "keywords": [
+            "menopause",
+            "musclepain",
+            "symptoms",
+            "treatment"
+        ]
+    }, "57": {
+        "Title": "Deepika's Menopause Muscle Weakness Experience & Tips",
+        "Author": "Muscular Dystrophy UK",
+        "Date": "",
+        "URL": "https://www.musculardystrophyuk.org/about-us/stories/detail/deepika-menopause-muscle-weakness-experience-tips/",
+        "keywords": [
+            "menopause",
+            "musclepain",
+            "muscleweakness",
+            "symptoms",
+            "treatment"
+        ]
+    }, "58": {
+        "Title": "Menopause with Joint & Muscle Pain",
+        "Author": "Sutter Health",
+        "Date": "",
+        "URL": "https://www.sutterhealth.org/ask-an-expert/answers/menopause-with-joint-muscle-pain-1051061098",
+        "keywords": [
+            "menopause",
+            "musclepain",
+            "jointpain",
+            "symptoms",
+            "treatment"
+        ]
+    }, "59": {
+        "Title": "Menopause and Joint Pain",
+        "Author": "AARP",
+        "Date": "2024",
+        "URL": "https://www.aarp.org/health/conditions-treatments/info-2024/menopause-joint-pain.html",
+        "keywords": [
+            "menopause",
+            "jointpain",
+            "musclepain",
+            "symptoms",
+            "treatment", 
+            "nightsweats"
+        ]
+    }, "60": {
+        "Title": "How Libido Changes After Menopause",
+        "Author": "Johns Hopkins Medicine",
+        "Date": "",
+        "URL": "https://www.hopkinsmedicine.org/health/wellness-and-prevention/how-sex-changes-after-menopause",
+        "keywords": [
+            "menopause",
+            "lossoflibido",
+            "symptoms",
+            "treatment"
+        ]
+    }, "61": {
+        "Title": "Low Libido (Low Sex Drive)",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://my.clevelandclinic.org/health/diseases/15216-low-libido-low-sex-drive",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "symptoms",
+            "treatment"
+        ]
+    }, "62": {
+        "Title": "Yes, You Can Have Better Sex in Midlife and in the Years Beyond",
+        "Author": "Harvard Health",
+        "Date": "",
+        "URL": "https://www.health.harvard.edu/womens-health/yes-you-can-have-better-sex-in-midlife-and-in-the-years-beyond",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "sex",
+            "symptoms",
+            "treatment"
+        ]
+    }, "63": {
+        "Title": "Menopause and Sexuality",
+        "Author": "WomensHealth.gov",
+        "Date": "",
+        "URL": "https://womenshealth.gov/menopause/menopause-and-sexuality",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "sex",
+            "symptoms",
+            "treatment"
+        ]
+    }, "64": {
+        "Title": "Testosterone Therapy for Menopause",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://www.mayoclinic.org/diseases-conditions/menopause/expert-answers/testosterone-therapy/faq-20057935",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "testosterone",
+            "symptoms",
+            "treatment"
+        ]
+    }, "65": {
+        "Title": "Vyleesi, Addyi: How Women Can Get Help for Low Sexual Desire",
+        "Author": "University of Chicago Medicine",
+        "Date": "2019-06",
+        "URL": "https://www.uchicagomedicine.org/forefront/womens-health-articles/2019/june/vyleesi-addyi-how-women-can-get-help-for-low-sexual-desire",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "sex",
+            "symptoms",
+            "treatment"
+        ]
+    }, "66": {
+        "Title": "Vaginal Dryness and Menopause",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://www.mayoclinic.org/diseases-conditions/menopause/expert-answers/vaginal-dryness/faq-20115086",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "vaginaldryness",
+            "symptoms",
+            "treatment"
+        ]
+    }, "67": {
+        "Title": "Don't Ignore Vaginal Dryness and Pain",
+        "Author": "Harvard Health",
+        "Date": "",
+        "URL": "https://www.health.harvard.edu/womens-health/dont-ignore-vaginal-dryness-and-pain",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "vaginaldryness",
+            "symptoms",
+            "treatment"
+        ]
+    },
+    "68": {
+        "Title": "Vaginal Dryness",
+        "Author": "The Menopause Charity",
+        "Date": "2021-04-24",
+        "URL": "https://themenopausecharity.org/2021/04/24/vaginal-dryness/",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "vaginaldryness",
+            "symptoms",
+            "treatment"
+        ]
+    },
+    "69": {
+        "Title": "Vaginal Atrophy",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://my.clevelandclinic.org/health/diseases/15500-vaginal-atrophy",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "vaginaldryness",
+            "symptoms",
+            "treatment"
+        ]
+    },
+    "70": {
+        "Title": "Vaginal Dryness",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://my.clevelandclinic.org/health/symptoms/21027-vaginal-dryness",
+        "keywords": [
+            "lossoflibido",
+            "menopause",
+            "vaginaldryness",
+            "symptoms",
+            "treatment"
+        ]
+    }, "71": {
+        "Title": "Why Has My Natural Scent Changed During Perimenopause?",
+        "Author": "Harvard Health",
+        "Date": "",
+        "URL": "https://www.health.harvard.edu/womens-health/why-has-my-natural-scent-changed-during-perimenopause",
+        "keywords": [
+            "bodyodor",
+            "perimenopause",
+            "symptoms"
+        ]
+    }, "72": {
+        "Title": "Ultimate Guide: 6 Hacks to Tackle Perimenopause Body Odor Now",
+        "Author": "Case Western Reserve University",
+        "Date": "",
+        "URL": "https://rdp-gw-e1a.dc3.case.edu/ultimate-guide-6-hacks-to-tackle-perimenopause-body-odor-now",
+        "keywords": [
+            "bodyodor",
+            "perimenopause",
+            "symptoms"
+        ]
+    },
+    "73": {
+        "Title": "Understanding Sensory Processing and Menopause",
+        "Author": "National Sensory Network",
+        "Date": "",
+        "URL": "https://www.nationalsensorynetwork.org/pages/understanding-sensory-processing-and-menopause",
+        "keywords": [
+            "bodyodor",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "74": {
+        "Title": "Here's How Menopause Affects Your Skin and Hair",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://health.clevelandclinic.org/heres-how-menopause-affects-your-skin-and-hair",
+        "keywords": [
+            "bodyodor",
+            "menopause",
+            "symptoms",
+            "skin",
+            "hair", 
+            "brittlenails", 
+            "dryskin", 
+            "hairloss",
+            "itchinglegs"
+        ]
+    }, "75": {
+        "Title": "Dry or Itchy Skin, Nails Brittle, Losing Hair",
+        "Author": "OHSU",
+        "Date": "",
+        "URL": "https://www.ohsu.edu/womens-health/dry-or-itchy-skin-nails-brittle-losing-hair",
+        "keywords": [
+            "brittlenails",
+            "menopause",
+            "symptoms", 
+            "dryskin", 
+            "hairloss",
+            "formication",
+            "itchinglegs"
+        ]
+    }, "76": {
+        "Title": "Burning Mouth Syndrome (BMS)",
+        "Author": "The Menopause Charity",
+        "Date": "2021-04-24",
+        "URL": "https://themenopausecharity.org/2021/04/24/burning-mouth-syndrome-bms/",
+        "keywords": [
+            "drymouth",
+            "menopause",
+            "symptoms"
+        ]
+    }, "77": {
+        "Title": "Burning Mouth Syndrome Affects Women at a Much Higher Rate",
+        "Author": "UCLA Health",
+        "Date": "",
+        "URL": "https://www.uclahealth.org/news/article/burning-mouth-syndrome-affects-women-much-higher-rate",
+        "keywords": [
+            "drymouth",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "78": {
+        "Title": "Oral Health and Menopause",
+        "Author": "Penn Dentist",
+        "Date": "2024-05-02",
+        "URL": "https://mypenndentist.org/dental-tips/2024/05/02/oral-health-and-menopause/",
+        "keywords": [
+            "drymouth",
+            "menopause",
+            "symptoms", 
+            "gumdisease"
+        ]
+    },
+    "79": {
+        "Title": "Burning Mouth Syndrome: Why Doctors Sometimes Fight Its Fire with Fire",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://newsnetwork.mayoclinic.org/discussion/burning-mouth-syndrome-why-doctors-sometimes-fight-its-fire-with-fire/",
+        "keywords": [
+            "drymouth",
+            "menopause",
+            "symptoms"
+        ]
+    }, "80": {
+        "Title": "Gut Health",
+        "Author": "The Menopause Charity",
+        "Date": "2021-04-24",
+        "URL": "https://themenopausecharity.org/2021/04/24/gut-health/",
+        "keywords": [
+            "digestiveproblems",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "81": {
+        "Title": "Be Well: The Hormone-Digestion Connection",
+        "Author": "Northwestern Health",
+        "Date": "",
+        "URL": "https://www.nwhealth.edu/news/be-well-the-hormone-digestion-connection/",
+        "keywords": [
+            "digestiveproblems",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "82": {
+        "Title": "Menopause and Constipation",
+        "Author": "Revive Research",
+        "Date": "",
+        "URL": "https://www.reviveresearch.org/blog/menopause-constipation/",
+        "keywords": [
+            "digestiveproblems",
+            "menopause",
+            "symptoms"
+        ]
+    }, "83": {
+        "Title": "Hormone Replacement Therapy Shown to Be Highly Effective in Reducing Gum Disease",
+        "Author": "Dental Health",
+        "Date": "",
+        "URL": "https://www.dentalhealth.org/news/hormone-replacement-therapy-shown-to-be-highly-effective-in-reducing-gum-disease",
+        "keywords": [
+            "gumdisease",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "84": {
+        "Title": "Gum Disease and Women",
+        "Author": "Perio",
+        "Date": "",
+        "URL": "https://www.perio.org/for-patients/gum-disease-information/gum-disease-and-women/",
+        "keywords": [
+            "gumdisease",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "85": {
+        "Title": "Hormones and Oral Health",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://health.clevelandclinic.org/hormones-and-oral-health",
+        "keywords": [
+            "gumdisease",
+            "menopause",
+            "symptoms"
+        ]
+    }, "86": {
+        "Title": "Menopause Weight Gain",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://www.mayoclinic.org/healthy-lifestyle/womens-health/in-depth/menopause-weight-gain/art-20046058",
+        "keywords": [
+            "weightgain",
+            "menopause",
+            "symptoms", 
+            "bellyfat"
+        ]
+    },
+    "87": {
+        "Title": "Menopause Weight Gain & Hormone Therapy",
+        "Author": "University of Chicago Medicine",
+        "Date": "2023-04",
+        "URL": "https://www.uchicagomedicine.org/forefront/womens-health-articles/2023/april/menopause-weight-gain-hormone-therapy",
+        "keywords": [
+            "weightgain",
+            "menopause",
+            "symptoms", 
+            "bellyfat"
+        ]
+    },
+    "88": {
+        "Title": "Weight Gain in Perimenopause",
+        "Author": "University of Maryland Medical System",
+        "Date": "2023-04-04",
+        "URL": "https://health.umms.org/2023/04/04/weight-gain-perimenopause/",
+        "keywords": [
+            "weightgain",
+            "menopause",
+            "symptoms", 
+            "bellyfat"
+        ]
+    }, "89": {
+        "Title": "How Does Dizziness Change with Menopause?",
+        "Author": "Vestibular Disorders Association",
+        "Date": "",
+        "URL": "https://vestibular.org/blog/how-does-dizziness-change-with-menopause/",
+        "keywords": [
+            "dizzyspells",
+            "menopause",
+            "symptoms"
+        ]
+    }, "90": {
+        "Title": "Reasons for Dizziness",
+        "Author": "UW Medicine",
+        "Date": "",
+        "URL": "https://rightasrain.uwmedicine.org/well/health/reasons-for-dizziness",
+        "keywords": [
+            "dizzyspells",
+            "menopause",
+            "symptoms"
+        ]
+    }, "91": {
+        "Title": "Menopause and Urine Incontinence",
+        "Author": "The Menopause Charity",
+        "Date": "2023-06-22",
+        "URL": "https://www.themenopausecharity.org/2023/06/22/menopause-and-urine-incontinence/",
+        "keywords": [
+            "stressincontinence",
+            "menopause",
+            "symptoms"
+        ]
+    }, "92": {
+        "Title": "Menopause and the Bladder",
+        "Author": "Bladder and Bowel",
+        "Date": "",
+        "URL": "https://www.bladderandbowel.org/news/menopause-and-the-bladder/",
+        "keywords": [
+            "stressincontinence",
+            "menopause",
+            "symptoms"
+        ]
+    }, "93": {
+        "Title": "Menopause and Incontinence",
+        "Author": "National Association for Continence",
+        "Date": "",
+        "URL": "https://nafc.org/bhealth-blog/menopause-and-incontinence/",
+        "keywords": [
+            "stressincontinence",
+            "menopause",
+            "symptoms"
+        ]
+    }, "94": {
+        "Title": "Mayo Clinic Q and A: What is Overactive Bladder?",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-q-and-a-what-is-overactive-bladder/",
+        "keywords": [
+            "stressincontinence",
+            "menopause",
+            "symptoms"
+        ]
+    }, "95": {
+        "Title": "UTIs After Menopause: Why They're Common and What to Do About Them",
+        "Author": "ACOG",
+        "Date": "",
+        "URL": "https://www.acog.org/womens-health/experts-and-stories/the-latest/utis-after-menopause-why-theyre-common-and-what-to-do-about-them",
+        "keywords": [
+            "utis",
+            "menopause",
+            "symptoms"
+        ]
+    }, "96": {
+        "Title": "Not Again! When UTIs Won't Quit at Midlife",
+        "Author": "Harvard Health Blog",
+        "Date": "2015-09-25",
+        "URL": "https://www.health.harvard.edu/blog/not-again-when-utis-wont-quit-at-midlife-201509258353",
+        "keywords": [
+            "utis",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "97": {
+        "Title": "Do Your UTIs Keep Returning?",
+        "Author": "Michigan Medicine",
+        "Date": "",
+        "URL": "https://www.michiganmedicine.org/health-lab/do-your-utis-keep-returning",
+        "keywords": [
+            "utis",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "98": {
+        "Title": "Recurrent UTI",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://my.clevelandclinic.org/health/diseases/recurrent-uti",
+        "keywords": [
+            "utis",
+            "menopause",
+            "symptoms"
+        ]
+    }, "99": {
+        "Title": "Breast Pain: Not Just a Premenopausal Complaint",
+        "Author": "Harvard Health",
+        "Date": "",
+        "URL": "https://www.health.harvard.edu/pain/breast-pain-not-just-a-premenopausal-complaint",
+        "keywords": [
+            "sorebreasts",
+            "menopause",
+            "symptoms"
+        ]
+    }, "100": {
+        "Title": "Breast Pain and Menopause",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://health.clevelandclinic.org/breast-pain-menopause",
+        "keywords": [
+            "sorebreasts",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "101": {
+        "Title": "Breast Pain (Mastalgia)",
+        "Author": "Cleveland Clinic",
+        "Date": "",
+        "URL": "https://my.clevelandclinic.org/health/diseases/15469-breast-pain-mastalgia",
+        "keywords": [
+            "sorebreasts",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "102": {
+        "Title": "Mayo Clinic Minute: Breast Health During Menopause",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-minute-breast-health-during-menopause/",
+        "keywords": [
+            "sorebreasts",
+            "menopause",
+            "symptoms"
+        ]
+    },
+    "103": {
+        "Title": "Breast Pain: Symptoms, Causes",
+        "Author": "Mayo Clinic",
+        "Date": "",
+        "URL": "https://www.mayoclinic.org/diseases-conditions/breast-pain/symptoms-causes/syc-20350423",
+        "keywords": [
+            "sorebreasts",
+            "menopause",
+            "symptoms"
+        ]
+    }, "104": {
+        "Title": "Menopause and Bone Loss",
+        "Author": "Endocrine Society",
+        "Date": "",
+        "URL": "https://www.endocrine.org/patient-engagement/endocrine-library/menopause-and-bone-loss",
+        "keywords": [
+            "bonefractures",
+            "menopause",
+            "symptoms"
+        ]
+    },  "105": {
+        "Title": "Speeding Up Bone Healing in Menopausal Females",
+        "Author": "Stanford Human Performance",
+        "Date": "",
+        "URL": "https://humanperformance.stanford.edu/news/speeding-up-bone-healing-in-menopausal-females/",
+        "keywords": [
+            "bonefractures",
+            "menopause",
+            "treatment"
+        ]
+    },
+    "106": {
+        "Title": "What Women Need to Know About Bone Health and Preventing Fractures",
+        "Author": "Bone Health and Osteoporosis Foundation",
+        "Date": "",
+        "URL": "https://www.bonehealthandosteoporosis.org/preventing-fractures/general-facts/what-women-need-to-know/",
+        "keywords": [
+            "bonefractures",
+            "osteoporosis",
+            "menopause"
+        ]
+    },
+    "107": {
+        "Title": "Bone Health and Menopause: A Review of the Literature",
+        "Author": "Oxford Journals",
+        "Date": "",
+        "URL": "http://humupd.oxfordjournals.org/content/16/6/761.long",
+        "keywords": [
+            "bonefractures",
+            "menopause",
+            "osteoporosis"
+        ]
     }
+    
+    
+    
+    
+    
     
     
 }

@@ -36,6 +36,7 @@
     { "symptom": "sore breasts", "key": "sorebreasts" },
     { "symptom": "food intolerance and bloating", "key": "foodintoleranceandbloating" },
     { "symptom": "itching legs", "key": "itchinglegs" },
-    { "symptom": "bone fractures", "key": "bonefractures" }
+    { "symptom": "bone fractures", "key": "bonefractures" }, 
+    { "symptom": "Periods", "key": "period" }
   ]
 }
