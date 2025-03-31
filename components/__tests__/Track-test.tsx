@@ -20,10 +20,7 @@ describe('Track Component', () => {
     it('renders correctly', () => {
         const { getByText } = render(
             <SettingsContext.Provider value={{ settings: mockSettings, saveSettings: jest.fn() }}>
-                {/* <NavigationContainer> */}
                     <Track route={{ params: { date: new Date().toISOString() } }} />
-                {/* </NavigationContainer> */}
-                {/* <Track route={{ params: { date: new Date().toISOString() } }} /> */}
             </SettingsContext.Provider>
         );
 
@@ -49,9 +46,7 @@ describe('Track Component', () => {
 
         const { getByText } = render(
             <SettingsContext.Provider value={{ settings: mockSettings, saveSettings: jest.fn() }}>
-                {/* <NavigationContainer> */}
                     <Track route={{ params: { date: new Date().toISOString() } }} />
-                {/* </NavigationContainer> */}
             </SettingsContext.Provider>
         );
 

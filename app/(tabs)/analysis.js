@@ -15,7 +15,7 @@ const Analysis = () => {
     const { settings } = useContext(SettingsContext);
     return (
         <View style={[styles.container, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
-            <ScrollView style={styles.content}>
+            <ScrollView style={styles.content} testID='analysis-container'>
                 <SymptomChart />
                 {/* <ChartLoadingWidget /> */}
                 

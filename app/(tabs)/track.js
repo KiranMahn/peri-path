@@ -92,10 +92,10 @@ const Track = ({ route }) => {
         const user = JSON.parse(await AsyncStorage.getItem('user')); // Get current user
         const username = user ? user.username : 'Unknown User'; // Default to 'Unknown User' if no user
         const sliderStatuses = symptoms.symptoms.reduce((acc, symptom) => {
-            console.log("symptom from sliderStatuses: ", symptom);
+            // console.log("symptom from sliderStatuses: ", symptom);
             acc[symptom.key] = ['None', 'Low', 'Medium', 'High'][sliderValues[symptom.key]];
-            console.log("acc: ", acc);
-            console.log("acc[symptom.key]: ", acc[symptom.key]);
+            // console.log("acc: ", acc);
+            // console.log("acc[symptom.key]: ", acc[symptom.key]);
             return acc;
         }, {});
 
