@@ -23,6 +23,7 @@ const Learn = () => {
                 onPress={() => {
                     setSelected(text);
                 }}
+                testID="tabButton"
             >
                 <Text
                     style={{
