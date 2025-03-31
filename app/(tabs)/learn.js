@@ -135,13 +135,13 @@ const Learn = () => {
     let tabarticles = getArticlesForTab();
 
     return (
-        <View style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: settings.highContrast ? '#000' : '#fff' }}>
+        <View style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', backgroundColor: settings.highContrast ? '#000' : '#fff' }}>
             {/* Horizontal Tab Buttons */}
             <ScrollView style={[styles.headings, { backgroundColor: settings.highContrast ? 'black' : 'white' }]} horizontal={true} showsHorizontalScrollIndicator={false}>
                 <TabButton text={"For You"} isSelected={selected === "For You"} />
+                <TabButton text={"All Articles"} isSelected={selected === "All"} />
                 <TabButton text={"Recent"} isSelected={selected === "Recent"} />
                 <TabButton text={"Symptom Relief"} isSelected={selected === "Symptom Relief"} />
-                <TabButton text={"Menopause Stages"} isSelected={selected === "Menopause Stages"} />
             </ScrollView>
 
             {/* Conditional View for "For You" Tab */}
