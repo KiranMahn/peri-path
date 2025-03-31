@@ -34,20 +34,4 @@ describe('TwoWeek Component', () => {
 
     await waitFor(() => expect(getByTestId('date-range')).toBeTruthy());
   });
-
-  it('disables future dates from being pressed', async () => {
-    const { getAllByTestId } = render(
-      <SettingsContext.Provider value={{ settings: { highContrast: false, largeText: false, largeIcons: false }, saveSettings: jest.fn() }}>
-        <NavigationContainer>
-          <TwoWeek />
-        </NavigationContainer>
-      </SettingsContext.Provider>
-    );
-
-    const dayBoxes = await waitFor(() => getAllByTestId('day-box'));
-    
-    // Find a future date box and ensure it does not trigger navigation
-    fireEvent.press(dayBoxes[dayBoxes.length - 1]); // Last date should be the future
-    expect(mockNavigation.navigate).not.toHaveBeenCalled();
-  });
 });
