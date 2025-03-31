@@ -147,9 +147,15 @@ const Learn = () => {
             {/* Conditional View for "For You" Tab */}
             {selected === "For You" && (
                 <View style={styles.forYouMessage}>
-                    <Text style={[styles.forYouText, { fontSize: settings.largeText ? 20 : 16 }]}>
-                        Because you tracked {topCommonSymptoms.map(formatSymptomName).join(", ")} frequently, and {topSevereSymptoms.map(formatSymptomName).join(", ")} severely.
-                    </Text>
+                    {topCommonSymptoms.length === 0 && topSevereSymptoms.length === 0 ? (
+                        <Text style={[styles.forYouText, { fontSize: settings.largeText ? 20 : 16 }]}>
+                            Track some data to get recommended articles.
+                        </Text>
+                    ) : (
+                        <Text style={[styles.forYouText, { fontSize: settings.largeText ? 20 : 16 }]}>
+                            Because you tracked {topCommonSymptoms.map(formatSymptomName).join(", ")} frequently, and {topSevereSymptoms.map(formatSymptomName).join(", ")} severely.
+                        </Text>
+                    )}
                 </View>
             )}
 
