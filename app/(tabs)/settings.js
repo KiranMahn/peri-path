@@ -4,9 +4,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 import { SettingsContext } from '../settings-context';
+import symptomsData from '../../symptoms.json'; 
 
 const Settings = () => {
     const { settings, saveSettings } = useContext(SettingsContext);
+
+    const getFormattedValue = (sliderValue) => {
+        const symptom = symptomsData.symptoms.find((item) => item.key === sliderValue);
+        return symptom ? symptom.symptom : sliderValue; // Fallback to the raw value if no match is found
+    };
 
     // Export AsyncStorage data to CSV
     const exportDataToCSV = async () => {
@@ -19,7 +25,7 @@ const Settings = () => {
     
             const data = JSON.parse(allUsersData);
             console.log(data);
-            const csvRows = ["Date,User,Key,Value"]; // CSV header
+            const csvRows = ["Date,Key,Value"]; // CSV header
     
             // Convert data to CSV rows
             Object.keys(data).forEach((user) => {
@@ -27,8 +33,9 @@ const Settings = () => {
                     const dayData = data[user][date];
                     Object.keys(dayData).forEach((key) => {
                         if (dayData[key] !== "None" && key !== "period" ) { // Only include data where the value is not "None"
-                            console.log("daydata[key] ", dayData[key]);
-                            csvRows.push(`${date},${user},${key},${dayData[key]}`);
+                            const formattedValue = getFormattedValue(key); // Get the formatted value
+                            console.log(formattedValue);
+                            csvRows.push(`${date},${formattedValue},${dayData[key]}`);
                         }
                     });
                 });
