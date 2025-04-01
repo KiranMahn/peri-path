@@ -10,28 +10,33 @@ import MostCommonSymptom from "../widgets/analysis/most-common-symptom";
 import SymptomChart from "../widgets/analysis/symptom-chart";
 import PeriodChart from "../widgets/analysis/period-chart";
 import { SettingsContext } from '../settings-context';
+
+// The Analysis screen
 const Analysis = () => {
     const navigation = useNavigation();
     const { settings } = useContext(SettingsContext);
+
     return (
         <View style={[styles.container, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
             <ScrollView style={styles.content} testID='analysis-container'>
-                <SymptomChart />
-                {/* <ChartLoadingWidget /> */}
                 
-                <View style={styles.row}>
+                <SymptomChart />  {/* Symptom Line Chart Widget */}
+
+                <View style={styles.row}> {/* Period Widgets for average Cycle Length and average Period Length*/}
                     <CycleLength />
                     <PeriodLength />
                 </View>
-                <View style={styles.row}>
+
+                <View style={styles.row}> {/* Widgets for Last Period start date and Most Common Symptom */}
                     <LastPeriod />
                     <MostCommonSymptom />
                 </View>
-                <PeriodChart />
-    
+
+                <PeriodChart />  {/* Period Line Chart Widget */}
+
             </ScrollView>
 
-            <Nav navigate={navigation.navigate} />
+            <Nav navigate={navigation.navigate} />   {/* Handles Navigating between screens */}
         </View>
     );
 };
