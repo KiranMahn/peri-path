@@ -26,19 +26,28 @@ const Settings = () => {
             const data = JSON.parse(allUsersData);
             console.log(data);
             const csvRows = ["Date,Key,Value"]; // CSV header
+            const dataRows = []; // Array to store rows for sorting
     
             // Convert data to CSV rows
             Object.keys(data).forEach((user) => {
                 Object.keys(data[user]).forEach((date) => {
                     const dayData = data[user][date];
                     Object.keys(dayData).forEach((key) => {
-                        if (dayData[key] !== "None" && key !== "period" ) { // Only include data where the value is not "None"
+                        if (dayData[key] !== "None" && key !== "period") { // Only include data where the value is not "None"
                             const formattedValue = getFormattedValue(key); // Get the formatted value
                             console.log(formattedValue);
-                            csvRows.push(`${date},${formattedValue},${dayData[key]}`);
+                            dataRows.push({ date, key: formattedValue, value: dayData[key] });
                         }
                     });
                 });
+            });
+    
+            // Sort rows by date
+            dataRows.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+            // Add sorted rows to the CSV
+            dataRows.forEach((row) => {
+                csvRows.push(`${row.date},${row.key},${row.value}`);
             });
     
             const csvString = csvRows.join("\n");
