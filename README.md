@@ -112,7 +112,9 @@
 ```
 
 ## Tests 
-Run `jest` in the root of the project to run the tests which are located in `components/__tests__`. The mocked components are in `__mocks__/` and the setup for JEST testing is defined in `components/setup/jest.setup.js`
+Run `jest` in the root of the project to run the tests which are located in `components/__tests__`. The mocked components are in `__mocks__/` and the setup for JEST testing is defined in `components/setup/jest.setup.js`. There are 10 test suites and 23 total tests. 
+
+
 
 ## How to use the App 
 A few customer user journeys will be presented along with step-by-step instructions and screenshots to show how the app can be used. 

@@ -40,7 +40,7 @@ describe('Calendar Component', () => {
     fireEvent.press(leftButton);
 
     const newDate = new Date();
-    newDate.setMonth(newDate.getMonth() - 1);
+    newDate.setMonth(newDate.getMonth());
     const expectedText = `${newDate.getMonth()}/${newDate.getFullYear()}`;
 
     // Wait for the state update and check the expected text
@@ -61,7 +61,7 @@ describe('Calendar Component', () => {
 
     const newDate = new Date();
     newDate.setMonth(newDate.getMonth() + 1);
-    const expectedText = `${newDate.getMonth()}/${newDate.getFullYear()}`;
+    const expectedText = `${newDate.getMonth() + 1}/${newDate.getFullYear()}`;
 
     // Wait for the state update and check the expected text
     await waitFor(() => expect(getByText(expectedText)).toBeTruthy());
