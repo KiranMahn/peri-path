@@ -2,19 +2,22 @@ import React, { useState, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Month from '../widgets/calendar/month';
 import { useNavigation } from '@react-navigation/native';
-import { SettingsContext } from '../settings-context'; // Import SettingsContext
+import { SettingsContext } from '../settings-context'; 
 import Nav from '../widgets/nav';
-import symptomsData from '../../symptoms.json'; // Import symptoms.json
+import symptomsData from '../../symptoms.json'; 
 
+// The Calendar screen
 const Calendar = () => {
     const date = new Date();
     const [currentMonth, setCurrentMonth] = useState(date.getMonth());
     const [currentYear, setCurrentYear] = useState(date.getFullYear());
     const [selectedDayData, setSelectedDayData] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
-    const navigation = useNavigation();
-    const { settings } = useContext(SettingsContext); // Access settings from context
 
+    const navigation = useNavigation();
+    const { settings } = useContext(SettingsContext);
+
+    // Handles when the user clickes on the left arrow to display the previous month
     const handlePrevMonth = () => {
         if (currentMonth === 0) {
             setCurrentMonth(11);
@@ -24,6 +27,7 @@ const Calendar = () => {
         }
     };
 
+    // Handles when the user clickes on the right arrow to display the previous month
     const handleNextMonth = () => {
         if (currentMonth === 11) {
             setCurrentMonth(0);
@@ -33,6 +37,7 @@ const Calendar = () => {
         }
     };
 
+    // Handles the user clicking on a day in the calendar and retreives the users tracked data for that day to display in the detail view
     const handleDayClick = ([dateString, dayData]) => {
         setSelectedDayData(dayData);
         setSelectedDate(dateString);
@@ -40,53 +45,88 @@ const Calendar = () => {
         console.log("dateString: ", dateString);
     };
 
-    // Map slider keys to symptom names
+    // Get the formatted symptom name from the slider key eg. "brainfog" -> "Brain Fog"
     const getSymptomName = (sliderKey) => {
         const symptom = symptomsData.symptoms.find((symptom) => symptom.key === sliderKey);
-        return symptom ? symptom.symptom : sliderKey; // Fallback to the key if no match is found
+        return symptom ? symptom.symptom : sliderKey; 
     };
 
     return (
         <View style={[styles.container, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
+
+            {/* Header of the calendar page with left right buttons and the current date */}
             <View style={styles.navigation}>
+
+                {/* Previous month button */}
                 <TouchableOpacity onPress={handlePrevMonth} style={[styles.navButton, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
                     <Text style={[styles.navButtonText, { fontSize: settings.largeText ? 19 : 14, color: settings.highContrast ? 'white' : 'black' }]}>{'<'}</Text>
                 </TouchableOpacity>
+                
+                {/* Displays current date */}
                 <Text style={[styles.navText, { fontSize: settings.largeText ? 25 : 20, color: settings.highContrast ? 'white' : 'black'  }]}>{`${currentMonth + 1}/${currentYear}`}</Text>
+
+                {/* Next month button */}
                 <TouchableOpacity onPress={handleNextMonth} style={[styles.navButton, { backgroundColor: settings.highContrast ? 'black' : 'white' }]}>
                     <Text style={[styles.navButtonText, { fontSize: settings.largeText ? 19 : 14, color: settings.highContrast ? 'white' : 'black'  }]}>{'>'}</Text>
                 </TouchableOpacity>
+
             </View>
+
+
+            {/* Calendar month Widget in the middle of the screen */}
             <Month month={currentMonth} year={currentYear} onDayClick={handleDayClick} />
+
+
+            {/* Detail view of the selected day that pops up on the bottom third of the screen when a day is pressed */}
             {selectedDayData && 
                 <View style={styles.detailView}>
+
+                    {/* Header of the detail view with the day the symptom was tracked */}
                     <Text style={[styles.detailHeader, { fontSize: settings.largeText ? 25 : 20 }]}>
                         Tracked on {selectedDate}
                     </Text>
+
                     <ScrollView contentContainerStyle={styles.dayDataContainer}>
+
+                        {/* For each tracked symptom that day */}
                         {Object.keys(selectedDayData)
                             .filter(slider => (selectedDayData[slider] !== 'None') && (selectedDayData[slider] !== ''))
                             .map((slider) => (
+
                                 <View key={slider} style={[styles.dayDataItem]}>
+
+                                    {/* Displays the symptom name */}
                                     <Text style={[styles.dayDataText, { fontSize: settings.largeText ? 22 : 17 }]}>
                                         {getSymptomName(slider)}:
                                     </Text>
+
+                                    {/* Displays the symptom value */}   
                                     <Text style={[styles.dayDataValue, { fontSize: settings.largeText ? 22 : 17 }]}>
                                          {" " + selectedDayData[slider]}
                                     </Text>
+
                                 </View>
+
                             ))}
+
+                        {/* Handle no data case */}
                          {(Object.keys(selectedDayData).length === 0)  &&
                             <Text style={[styles.dayDataValue, { fontSize: settings.largeText ? 22 : 17 }]}>
                                 No data tracked on this day.
                             </Text>
                         } 
+
                     </ScrollView>
+
+                    {/* Edit button takes user straight to track with the date of the box they clicked on preset */}
                     <TouchableOpacity style={styles.trackMoreButton} onPress={() => navigation.navigate('Track', { date: selectedDate })}>
                         <Text style={[styles.trackMoreText, { fontSize: settings.largeText ? 20 : 15 }]}>Edit</Text>
                     </TouchableOpacity>
+
                 </View>
             }
+
+            {/* Navigation bar */}
             <Nav />
             
         </View>
