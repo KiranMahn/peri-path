@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { SettingsContext } from '../../settings-context'; // Import SettingsContext
+import { SettingsContext } from '../../settings-context'; 
+
+// most common symptom widget 
+
 const MostCommon = ({ onTrack, sliderValues }) => {
+
     const [selectedButtons, setSelectedButtons] = useState([]);
-    const { settings } = useContext(SettingsContext); // Access settings from context
+    const { settings } = useContext(SettingsContext); 
+
     const commonSymptoms = [
         { symptom: 'Anxiety', level: 'Medium' },
         { symptom: 'Brain Fog', level: 'High' },
@@ -15,23 +20,29 @@ const MostCommon = ({ onTrack, sliderValues }) => {
 
     useEffect(() => {
         const initialSelectedButtons = commonSymptoms.reduce((acc, item, index) => {
+
             const sliderValue = sliderValues[item.symptom.toLowerCase().replace(' ', '')];
             const levels = ['None', 'Low', 'Medium', 'High'];
+
             if (sliderValue !== undefined && levels[sliderValue] === item.level) {
                 acc.push(index);
             }
+
             return acc;
+            
         }, []);
         setSelectedButtons(initialSelectedButtons);
     }, [sliderValues]);
 
     const handleButtonClick = (symptom, level, index) => {
         setSelectedButtons(prevSelected => {
+
             if (prevSelected.includes(index)) {
                 return prevSelected.filter(i => i !== index);
             } else {
                 return [...prevSelected, index];
             }
+
         });
         onTrack(symptom, level);
     };
@@ -39,6 +50,7 @@ const MostCommon = ({ onTrack, sliderValues }) => {
     return (
         <View style={styles.container}>
             {commonSymptoms.map((item, index) => (
+
                 <TouchableOpacity
                     key={index}
                     onPress={() => handleButtonClick(item.symptom, item.level, index)}
@@ -47,10 +59,13 @@ const MostCommon = ({ onTrack, sliderValues }) => {
                         selectedButtons.includes(index) ? styles.selectedButton : settings.highContrast ? styles.highContrastButton : styles.unselectedButton
                     ]}
                 >
+
                     <Text style={[styles.buttonText, selectedButtons.includes(index) ? styles.selectedText : settings.highContrast ? styles.highContrastText : styles.unselectedText, { fontSize: settings.largeText ? 17 : 15 }]}>
                         {item.level} {item.symptom}
                     </Text>
+                    
                 </TouchableOpacity>
+
             ))}
         </View>
     );

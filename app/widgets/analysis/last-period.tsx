@@ -3,6 +3,7 @@ import { getLastPeriodStartDate } from './getLastPeriodStartDate';
 import AnalysisWigi from './analysis-wigi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// last period start date widget 
 const LastPeriod = () => {
     const [lastPeriodStartDate, setLastPeriodStartDate] = useState<string | null>(null);
 

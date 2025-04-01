@@ -1,29 +1,31 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Button, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
-import symptoms from '../../symptoms.json'; // Import symptoms data
-import MostCommon from '../widgets/track/MostCommon'; // Component for quick add of common symptoms
-import PeriodSquare from '../widgets/track/PeriodSquare'; // Component for tracking period severity
-import Slider from '../widgets/track/Slider'; // Component for tracking symptoms with sliders
-import { useNavigation } from '@react-navigation/native'; // Navigation hook
-import AsyncStorage from '@react-native-async-storage/async-storage'; // For data persistence
+import symptoms from '../../symptoms.json'; 
+import MostCommon from '../widgets/track/MostCommon'; 
+import PeriodSquare from '../widgets/track/PeriodSquare'; 
+import Slider from '../widgets/track/Slider'; 
+import { useNavigation } from '@react-navigation/native'; 
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from '@expo/vector-icons';
 import { SettingsContext } from '../settings-context';
 
+// Track Screen 
 const Track = ({ route }) => {
     const navigation = useNavigation();
     const { settings } = useContext(SettingsContext);
-    const { date: initialDateProp } = route.params || {}; // Destructure the date from route.params
+    const { date: initialDateProp } = route.params || {}; 
     const [currentDate, setCurrentDate] = useState('');
     const [date, setDate] = useState(initialDateProp ? new Date(initialDateProp) : new Date());
-    const [sliderValues, setSliderValues] = useState({}); // State for slider values
-    const [selectedPeriod, setSelectedPeriod] = useState(''); // State for selected period severity
-    const [dropdowns, setDropdowns] = useState({ // State for dropdown visibility
+    const [sliderValues, setSliderValues] = useState({}); 
+    const [selectedPeriod, setSelectedPeriod] = useState(''); 
+    const [dropdowns, setDropdowns] = useState({ 
         mental: false,
         physical: false,
         other: false
     });    const [isCalendarVisible, setIsCalendarVisible] = useState(false);
 
+    // handles the user pressing the date picker
     const onChange = (event, selectedDate) => {
         if (selectedDate) {
             const formattedDate = selectedDate.toDateString();
@@ -35,21 +37,19 @@ const Track = ({ route }) => {
         }
     };
 
-    // Load user data and initialize state on component mount or when the date changes
+    // load user data for selected date
     const loadUserData = async (dateString) => {
-        const user = JSON.parse(await AsyncStorage.getItem('user')); // Get current user
-        const username = user ? user.username : 'Unknown User'; // Default to 'Unknown User' if no user
-        const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {}; // Get all users' data
-        const userData = allUsersData[username] || {}; // Get current user's data
-        const savedData = userData[dateString] || {}; // Get saved data for the specified date
+        const user = JSON.parse(await AsyncStorage.getItem('user')); 
+        const username = user ? user.username : 'Unknown User'; 
+        const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {}; 
+        const userData = allUsersData[username] || {}; 
+        const savedData = userData[dateString] || {}; 
     
-        // Initialize slider values with default values (0)
         const initialSliderValues = symptoms.symptoms.reduce((acc, symptom) => {
             acc[symptom.key] = 0;
             return acc;
         }, {});
     
-        // Update slider values with saved data
         const updatedSliderValues = { ...initialSliderValues };
         symptoms.symptoms.forEach(symptom => {
             updatedSliderValues[symptom.key] = ['None', 'Low', 'Medium', 'High'].indexOf(savedData[symptom.key]) !== -1
@@ -57,18 +57,17 @@ const Track = ({ route }) => {
                 : 0;
         });
     
-        setSliderValues(updatedSliderValues); // Set slider values
-        setSelectedPeriod(savedData.period || ''); // Set selected period severity
+        setSliderValues(updatedSliderValues); 
+        setSelectedPeriod(savedData.period || ''); 
     };
     
-    // Call `loadUserData` on component mount with the current date
     useEffect(() => {
         const dateString = date.toDateString();
         setCurrentDate(dateString);
-        loadUserData(dateString); // Load data for the current date
+        loadUserData(dateString); 
     }, []);
     
-    // Handle slider value changes
+    // handle slider changes
     const handleSliderChange = (name, value) => {
         setSliderValues(prevValues => ({
             ...prevValues,
@@ -76,57 +75,51 @@ const Track = ({ route }) => {
         }));
     };
 
-    // Handle period tracking
+    // handle period tracking
     const handleTrackPeriod = (level) => {
         if (selectedPeriod === level) {
-            // If the same period square is pressed, unselect it
-            setSelectedPeriod(''); // Clear the selected period
+            setSelectedPeriod(''); 
         } else {
-            // Otherwise, select the new period level
             setSelectedPeriod(level);
         }
     };
 
-    // Save the tracked data to AsyncStorage
+    // save tracked data and go to home screen 
     const handleSave = async () => {
-        const user = JSON.parse(await AsyncStorage.getItem('user')); // Get current user
-        const username = user ? user.username : 'Unknown User'; // Default to 'Unknown User' if no user
+        const user = JSON.parse(await AsyncStorage.getItem('user')); 
+        const username = user ? user.username : 'Unknown User'; 
         const sliderStatuses = symptoms.symptoms.reduce((acc, symptom) => {
-            // console.log("symptom from sliderStatuses: ", symptom);
             acc[symptom.key] = ['None', 'Low', 'Medium', 'High'][sliderValues[symptom.key]];
-            // console.log("acc: ", acc);
-            // console.log("acc[symptom.key]: ", acc[symptom.key]);
             return acc;
         }, {});
 
-        const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {}; // Get all users' data
+        const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {}; 
         if (!allUsersData[username]) {
-            allUsersData[username] = {}; // Initialize user data if not present
+            allUsersData[username] = {}; 
         }
         allUsersData[username][currentDate] = {
             ...sliderStatuses,
             period: selectedPeriod
         };
-        await AsyncStorage.setItem('allUsersData', JSON.stringify(allUsersData)); // Save updated data
 
-        navigation.navigate('Home'); // Navigate to the Calendar screen
+        await AsyncStorage.setItem('allUsersData', JSON.stringify(allUsersData)); 
+
+        navigation.navigate('Home');
     };
 
-    // Handle quick add of common symptoms
+    // quick add button handling 
     const handleTrackCommon = (symptom, level) => {
         const levels = ['None', 'Low', 'Medium', 'High'];
         const symptomKey = symptom.toLowerCase().replace(' ', '');
 
         setSliderValues(prevValues => {
-            // If the symptom is already set to the same level, unselect it (set to "None")
             if (levels[prevValues[symptomKey]] === level) {
                 return {
                     ...prevValues,
-                    [symptomKey]: 0, // Set to "None"
+                    [symptomKey]: 0, 
                 };
             }
 
-            // Otherwise, set the symptom to the new level
             return {
                 ...prevValues,
                 [symptomKey]: levels.indexOf(level),
@@ -134,7 +127,6 @@ const Track = ({ route }) => {
         });
     };
 
-    // Toggle dropdown visibility for symptom categories
     const toggleDropdown = (category) => {
         setDropdowns(prevDropdowns => ({
             ...prevDropdowns,
@@ -142,7 +134,6 @@ const Track = ({ route }) => {
         }));
     };
 
-    // Symptom categories and their respective symptoms
     const categories = {
         cognitive: ['Brain Fog', 'Poor Concentration', 'Memory Loss'],
         emotional: ['Anxiety', 'Mood Swings', 'Depression', 'Panic Attacks', 'Irritability'],
@@ -150,16 +141,20 @@ const Track = ({ route }) => {
         dermatological: ['Hair Loss', 'Dry Skin', 'Dry Mouth', 'Gum Disease', 'Body Odor', 'Brittle Nails'],
         other: ['Sleeplessness', 'Tinnitus', 'UTIs']
     };
+
     const toggleDayDropdown = () => {
         setIsCalendarVisible(!isCalendarVisible);
     };
 
     return (
         <View style={[styles.container, { backgroundColor: settings.highContrast ? '#000' : '#fff' }]}>
+
+            {/** Displays date */}
             <TouchableOpacity
                 onPress={toggleDayDropdown}
                 style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', padding: 10, alignItems: 'center' }}
             >
+
                 <Text
                     style={[
                         styles.dateText,
@@ -168,8 +163,12 @@ const Track = ({ route }) => {
                 >
                     {currentDate}
                 </Text>
+
                 <Ionicons name={isCalendarVisible ? 'chevron-up' : 'chevron-down'} size={settings.largeText ? 23 : 18} color="#009688" />
+
             </TouchableOpacity>
+
+            {/** date picker */}
             {isCalendarVisible && (
                 <DateTimePicker
                     mode="date"
@@ -179,57 +178,65 @@ const Track = ({ route }) => {
                 />
             )}
 
-            
-
             <ScrollView>
-            <Text style={[styles.sectionTitle, {color: settings.highContrast ? 'white' : 'black'}]}>Period</Text>
-            <View style={styles.periodContainer}>
-                <PeriodSquare level="Light" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Light'} />
-                <PeriodSquare level="Medium" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Medium'} />
-                <PeriodSquare level="Heavy" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Heavy'} />
-                <PeriodSquare level="Spotting" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Spotting'} />
-            </View>
 
-            {/* Quick add section */}
-            <Text style={[styles.sectionTitle, {color: settings.highContrast ? 'white' : 'black'}]}>Quick Add</Text>
-            <MostCommon onTrack={handleTrackCommon} sliderValues={sliderValues} />
+                {/** period tracking */}
+                <Text style={[styles.sectionTitle, {color: settings.highContrast ? 'white' : 'black'}]}>Period</Text>
+                <View style={styles.periodContainer}>
+                    <PeriodSquare level="Light" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Light'} />
+                    <PeriodSquare level="Medium" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Medium'} />
+                    <PeriodSquare level="Heavy" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Heavy'} />
+                    <PeriodSquare level="Spotting" onTrack={handleTrackPeriod} selected={selectedPeriod === 'Spotting'} />
+                </View>
 
-            {/* Symptoms tracking section */}
-            <Text style={[styles.sectionTitle, {color: settings.highContrast ? 'white' : 'black'}]}>Symptoms</Text>
-            <ScrollView style={styles.scrollView}>
-                {Object.keys(categories).map(category => (
-                    <View key={category} style={styles.categoryContainer}>
-                        {/* Dropdown for symptom category */}
-                        <TouchableOpacity onPress={() => toggleDropdown(category)} style={[styles.categoryButton, {backgroundColor: settings.highContrast ? '#555' : '#f0f0f0'}]}>
-                            <Text style={[styles.categoryButtonText, {fontSize: settings.largeText ? 20 : 15, fontWeight: settings.largeText ? 'bold' : 'normal', color: settings.highContrast ? 'white' : 'black'}]}>
-                                {category.charAt(0).toUpperCase() + category.slice(1)}
-                            </Text>
-                            <Ionicons name={dropdowns[category] ? 'chevron-up' : 'chevron-down'} size={20} color={settings.highContrast ? 'white' : "#009688"} />
-                        </TouchableOpacity>
-                        {/* List of symptoms in the category */}
-                        {dropdowns[category] && (
-                            <View style={[styles.symptomList, {backgroundColor: settings.highContrast ? '#000' : '#f9f9f9'}]}>
-                                {categories[category].map((symptom, index) => {
-                                    const symptomKey = symptom.toLowerCase().replace(' ', '');
-                                    return (
-                                        <Slider
-                                            key={index}
-                                            sliderText={symptom}
-                                            onChange={(value) => handleSliderChange(symptomKey, value)}
-                                            value={sliderValues[symptomKey]}
-                                        />
-                                    );
-                                })}
-                            </View>
-                        )}
-                    </View>
-                ))}
-            </ScrollView>
-            </ScrollView>
-            {/* Period tracking section */}
-            
+                {/* quick add */}
+                <Text style={[styles.sectionTitle, {color: settings.highContrast ? 'white' : 'black'}]}>Quick Add</Text>
+                <MostCommon onTrack={handleTrackCommon} sliderValues={sliderValues} />
 
-            {/* Save button */}
+                {/* Symptoms tracking slider section */}
+                <Text style={[styles.sectionTitle, {color: settings.highContrast ? 'white' : 'black'}]}>Symptoms</Text>
+                <ScrollView style={styles.scrollView}>
+
+                    {/* categories */}  
+                    {Object.keys(categories).map(category => (
+                        <View key={category} style={styles.categoryContainer}>
+
+                            {/** category dropdown */}
+                            <TouchableOpacity onPress={() => toggleDropdown(category)} style={[styles.categoryButton, {backgroundColor: settings.highContrast ? '#555' : '#f0f0f0'}]}>
+
+                                <Text style={[styles.categoryButtonText, {fontSize: settings.largeText ? 20 : 15, fontWeight: settings.largeText ? 'bold' : 'normal', color: settings.highContrast ? 'white' : 'black'}]}>
+                                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                                </Text>
+                                <Ionicons name={dropdowns[category] ? 'chevron-up' : 'chevron-down'} size={20} color={settings.highContrast ? 'white' : "#009688"} />
+
+                            </TouchableOpacity>
+
+
+                            {/* sliders */}
+                            {dropdowns[category] && (
+                                <View style={[styles.symptomList, {backgroundColor: settings.highContrast ? '#000' : '#f9f9f9'}]}>
+                                    {categories[category].map((symptom, index) => {
+                                        const symptomKey = symptom.toLowerCase().replace(' ', '');
+                                        return (
+                                            <Slider
+                                                key={index}
+                                                sliderText={symptom}
+                                                onChange={(value) => handleSliderChange(symptomKey, value)}
+                                                value={sliderValues[symptomKey]}
+                                            />
+                                        );
+                                    })}
+                                </View>
+                            )}
+
+                        </View>
+                    ))}
+
+                </ScrollView>
+
+            </ScrollView>            
+
+            {/* save btn */}
             <View style={[styles.footer, {backgroundColor: settings.highContrast ? '#009688' : '#f8f8f8', borderTopColor: settings.highContrast ? '#000' : '#ddd'}]}>
                 <Button title="Save" onPress={handleSave} color={settings.highContrast ? 'white' : '#009688'}/>
             </View>

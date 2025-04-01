@@ -3,9 +3,12 @@ import { Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AnalysisWigi from './analysis-wigi';
 
+// period average cycle length widget 
+
 const getStartDates = (periodDates) => {
     let periodStartDates = [];
     for (let i = 1; i < periodDates.length; i++) {
+
         const prevDate = new Date(periodDates[i - 1]);
         const currentDate = new Date(periodDates[i]);
         const daysBetween = (currentDate - prevDate) / (1000 * 60 * 60 * 24);
@@ -13,20 +16,28 @@ const getStartDates = (periodDates) => {
         if (daysBetween > 1) {
             periodStartDates.push(currentDate);
         }
+
     }
+
     periodStartDates.push(new Date(periodDates[0]));
     return periodStartDates.sort((a, b) => a - b);
 };
 
 const getAverageCycleLength = (periodStartDates) => {
+
     let totalDays = 0;
+
     for (let i = 1; i < periodStartDates.length; i++) {
+
         const prevStartDate = periodStartDates[i - 1];
         const currentStartDate = periodStartDates[i];
         const daysBetween = (currentStartDate - prevStartDate) / (1000 * 60 * 60 * 24);
         totalDays += daysBetween;
+        
     }
+
     return totalDays / (periodStartDates.length - 1);
+
 };
 
 const CycleLength = () => {
@@ -63,6 +74,7 @@ const CycleLength = () => {
 
                 const average = getAverageCycleLength(periodStartDates);
                 setAverageCycleLength(Math.round(average));
+
             } catch (error) {
                 console.error('Error fetching data from AsyncStorage:', error);
             }

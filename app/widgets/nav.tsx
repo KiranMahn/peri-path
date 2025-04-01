@@ -3,6 +3,9 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SettingsContext } from '../settings-context';
+
+// Nav Bar
+
 type RootStackParamList = {
     Home: undefined;
     Calendar: undefined;
@@ -13,13 +16,15 @@ type RootStackParamList = {
 };
 
 type NavButtonProps = {
-    screen: keyof RootStackParamList; // Restrict screen names to valid navigation keys
+    screen: keyof RootStackParamList; 
     label: string;
     icon: string;
 };
 
 const NavButton: React.FC<NavButtonProps> = ({ screen, label, icon }) => {
+
     const context = useContext(SettingsContext);
+
     if (!context) {
         throw new Error('SettingsContext is not provided');
     }
@@ -29,14 +34,17 @@ const NavButton: React.FC<NavButtonProps> = ({ screen, label, icon }) => {
 
     return (
         <TouchableOpacity onPress={() => navigation.navigate(screen)} style={[styles.navButton, { width: screen === 'Track' ? '12%' : undefined }]}>
+
             <Icon name={icon} size={screen === "Track" ? 50 : 25} style={[styles.icon, {color: settings.highContrast ? 'white' : screen === 'Track' ? '#009668' : 'black'}, {position: screen === 'Track' ? 'absolute' : undefined}, {bottom:screen === 'Track' ? 15 : undefined}]} />
             <Text style={{color: settings.highContrast ? 'white' : 'black', fontWeight: 'bold'}}>{label}</Text>
+
         </TouchableOpacity>
     );
 };
 
 const Nav = () => {
     const context = useContext(SettingsContext);
+    
     if (!context) {
         throw new Error('SettingsContext is not provided');
     }

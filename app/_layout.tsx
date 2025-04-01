@@ -10,11 +10,14 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { SettingsProvider } from './settings-context';
 
+// root of app 
+
+// configure nav 
 const Stack = createStackNavigator();
 type RootStackParamList = {
   Home: undefined;
   Calendar: undefined;
-  Track: { date?: string }; // Add date as an optional parameter
+  Track: { date?: string }; 
   Analysis: undefined;
   Learn: undefined;
   Settings: undefined;
@@ -47,6 +50,7 @@ const App = () => {
             ),
           }}
         />
+
         <Stack.Screen 
           name="Calendar" 
           component={Calendar} 
@@ -68,6 +72,7 @@ const App = () => {
             ),
           }}
         />
+
         <Stack.Screen 
           name="Learn" 
           component={Learn} 
@@ -89,6 +94,7 @@ const App = () => {
             ),
           }}
         />
+
         <Stack.Screen 
           name="Track" 
           component={Track} 
@@ -104,8 +110,9 @@ const App = () => {
             },
             headerTitleAlign: 'center',
           }}
-          initialParams={{ date: new Date().toISOString() }} // Pass the current date as the default prop
+          initialParams={{ date: new Date().toISOString() }} 
         />
+
         <Stack.Screen 
           name="Analysis" 
           component={Analysis} 
@@ -127,6 +134,7 @@ const App = () => {
             ),
           }}
         />
+
         <Stack.Screen 
           name="Settings" 
           component={Settings} 
@@ -143,6 +151,7 @@ const App = () => {
             headerTitleAlign: 'center',
           }}
         />
+        
       </Stack.Navigator>  
     </SettingsProvider>
   );

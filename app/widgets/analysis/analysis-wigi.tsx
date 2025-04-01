@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { SettingsContext } from '../../settings-context'; // Import SettingsContext
+import { SettingsContext } from '../../settings-context'; 
 
 type AnalysisWigiProps = {
     title: string;
@@ -8,11 +8,14 @@ type AnalysisWigiProps = {
     altMsg: string;
 };
 
+// used for last period date, most common symptom, cycle length, and period length
 const AnalysisWigi: React.FC<AnalysisWigiProps> = ({ title, value, altMsg }) => {
-    const context = useContext(SettingsContext); // Access settings from context
+    const context = useContext(SettingsContext); 
+
     if (!context || !context.settings) {
         throw new Error('SettingsContext is not properly provided.');
     }
+
     const { settings } = context;
 
     if(!altMsg || altMsg === '') {
@@ -22,16 +25,21 @@ const AnalysisWigi: React.FC<AnalysisWigiProps> = ({ title, value, altMsg }) => 
     if(value === null || value === '') {
         value = altMsg;
     }
+
     return (
         <View style={[styles.container, {backgroundColor: settings.highContrast ? '#555' : '#f4f3f3'}]}>
+
             {value !== null ? (
                 <View>
+
                     <Text style={[styles.title, { fontSize: settings.largeText ? 23 : 18, color: settings.highContrast ? 'white' : 'black' }]}>{title}</Text>
                     <Text style={[styles.value, { fontSize: settings.largeText ? 27 : 22 }]}>{value}</Text>
+
                 </View>
             ) : (
                 <Text style={[styles.altMsg, { fontSize: settings.largeText ? 25 : 20 }]}>{altMsg}</Text>
             )}
+
         </View>
     );
 };

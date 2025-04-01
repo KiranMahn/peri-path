@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Linking, ScrollView } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import articles from '../../articles.json'; // Import articles.json
-import symptomsData from '../../symptoms.json'; // Import symptoms.json
+import articles from '../../articles.json'; 
+import symptomsData from '../../symptoms.json'; 
 import { SettingsContext } from '../settings-context';
 import Nav from "../widgets/nav";
 
+// Learn Screen 
 const Learn = () => {
     const [selected, setSelected] = useState("All Articles");
     const [userSymptoms, setUserSymptoms] = useState([]);
@@ -13,8 +14,10 @@ const Learn = () => {
     const [topSevereSymptoms, setTopSevereSymptoms] = useState([]);
     const { settings } = useContext(SettingsContext);
 
+    // get articles and user data
     useEffect(() => {
         const fetchUserData = async () => {
+
             try {
                 const currentUser = JSON.parse(await AsyncStorage.getItem('user'));
                 const username = currentUser?.username || 'Unknown User';
@@ -22,18 +25,18 @@ const Learn = () => {
                 const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
                 const userData = allUsersData[username] || {};
 
-                // Aggregate symptom data
                 const symptomCounts = {};
                 const symptomSeverities = {};
 
+                // count num of occurences of each symptom and severity
                 Object.keys(userData).forEach((date) => {
                     const dayData = userData[date];
                     Object.keys(dayData).forEach((symptom) => {
                         if (dayData[symptom] !== "None" && dayData[symptom] !== "") {
-                            // Count occurrences
+
                             symptomCounts[symptom] = (symptomCounts[symptom] || 0) + 1;
 
-                            // Track severity (e.g., Low = 1, Medium = 2, High = 3)
+                            // 1 = low severity, 3 = high severity
                             const severityMap = { Low: 1, Medium: 2, High: 3 };
                             const severity = severityMap[dayData[symptom]] || 0;
                             symptomSeverities[symptom] = Math.max(severity, symptomSeverities[symptom] || 0);
@@ -41,21 +44,21 @@ const Learn = () => {
                     });
                 });
 
-                // Find top 3 most common symptoms
+                // top 3 most common symptoms
                 const topCommon = Object.keys(symptomCounts)
                     .sort((a, b) => symptomCounts[b] - symptomCounts[a])
                     .slice(0, 3);
 
-                // Find top 3 most severe symptoms
+                // top 3 most severe symptoms
                 const topSevere = Object.keys(symptomSeverities)
                     .sort((a, b) => symptomSeverities[b] - symptomSeverities[a])
                     .slice(0, 3);
 
-                    console.log("Top Common Symptoms:", topCommon);
-                    console.log("Top Severe Symptoms:", topSevere);
                 setTopCommonSymptoms(topCommon);
                 setTopSevereSymptoms(topSevere);
-                setUserSymptoms([...new Set([...topCommon, ...topSevere])]); // Combine and remove duplicates
+
+                setUserSymptoms([...new Set([...topCommon, ...topSevere])]); 
+
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }
@@ -64,6 +67,7 @@ const Learn = () => {
         fetchUserData();
     }, []);
 
+    // article type tab switcher buttons 
     const TabButton = ({ text, isSelected }) => {
         return (
             <TouchableOpacity
@@ -81,6 +85,7 @@ const Learn = () => {
                 }}
                 testID="tabButton"
             >
+
                 <Text
                     style={{
                         color: isSelected ? '#009688' : settings.highContrast ? 'white' : 'grey',
@@ -90,29 +95,32 @@ const Learn = () => {
                 >
                     {text}
                 </Text>
+
             </TouchableOpacity>
         );
     };
 
+    // article button 
     const ArticleButton = ({ title, author, url }) => {
         return (
             <TouchableOpacity
                 style={[styles.articleButton, { backgroundColor: settings.highContrast ? 'rgb(57, 57, 57)' : '#f0f0f0' }]}
                 onPress={() => Linking.openURL(url)}
             >
+
                 <Text style={[styles.articleTitle, { fontSize: settings.largeText ? 21 : 16 }]}>{title}</Text>
                 <Text style={[styles.articleAuthor, { fontSize: settings.largeText ? 19 : 14, color: settings.highContrast ? 'white' : '#555' }]}>By: {author}</Text>
+
             </TouchableOpacity>
         );
     };
 
-    // Helper function to format symptom names
     const formatSymptomName = (symptomKey) => {
         const symptom = symptomsData.symptoms.find((item) => item.key === symptomKey);
         return symptom ? symptom.symptom : symptomKey; // Fallback to the key if no match is found
     };
 
-    // Filter articles based on the selected tab
+    // gets articles based on selected tab
     const getArticlesForTab = () => {
         switch (selected) {
             case "For You":
@@ -138,18 +146,23 @@ const Learn = () => {
 
     return (
         <View style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', backgroundColor: settings.highContrast ? '#000' : '#fff' }}>
-            {/* Horizontal Tab Buttons */}
+
+            {/* Horizontal article switcher tab buttons */}
             <ScrollView style={[styles.headings, { backgroundColor: settings.highContrast ? 'black' : 'white' }]} horizontal={true} showsHorizontalScrollIndicator={false}>
+                
                 <TabButton text={"All Articles"} isSelected={selected === "All Articles"} />
                 <TabButton text={"For You"} isSelected={selected === "For You"} />
                 <TabButton text={"Perimenopause"} isSelected={selected === "Perimenopause"} />
                 <TabButton text={"Recent"} isSelected={selected === "Recent"} />
                 <TabButton text={"Symptom Relief"} isSelected={selected === "Symptom Relief"} />
+
             </ScrollView>
 
-            {/* Conditional View for "For You" Tab */}
+            {/* For you explanation popup */}
             {selected === "For You" && (
+
                 <View style={styles.forYouMessage}>
+
                     {topCommonSymptoms.length === 0 && topSevereSymptoms.length === 0 ? (
                         <Text style={[styles.forYouText, { fontSize: settings.largeText ? 20 : 16 }]}>
                             Track some data to get recommended articles.
@@ -159,10 +172,12 @@ const Learn = () => {
                             Because you tracked {topCommonSymptoms.map(formatSymptomName).join(", ")} frequently, and {topSevereSymptoms.map(formatSymptomName).join(", ")} severely.
                         </Text>
                     )}
+
                 </View>
+
             )}
 
-            {/* Articles Section */}
+            {/* articles */}
             <ScrollView style={styles.articlesContainer}>
                 {tabarticles.map((article, index) => (
                     <ArticleButton
@@ -173,7 +188,10 @@ const Learn = () => {
                     />
                 ))}
             </ScrollView>
+
+            {/* navigation bar */}
             <Nav />
+
         </View>
     );
 };

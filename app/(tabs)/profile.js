@@ -4,6 +4,11 @@ import { useEffect, useState } from 'react';
 import TableRow from '../widgets/TableRow';
 import { View, Text, Button, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 
+
+{/* DEPRECATED, MAY BE USED IN FUTURE */}
+
+
+
 const Profile = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState([]);

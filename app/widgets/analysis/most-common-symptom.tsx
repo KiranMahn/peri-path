@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AnalysisWigi from './analysis-wigi';
-import { SettingsContext } from '../../settings-context'; // Import SettingsContext
-import symptomsData from '../../../symptoms.json'; // Import symptoms.json
+import { SettingsContext } from '../../settings-context'; 
+import symptomsData from '../../../symptoms.json'; 
 
 const MostCommonSymptom: React.FC = () => {
     const [mostCommonSymptom, setMostCommonSymptom] = useState<string | null>(null);
-    const settings = useContext(SettingsContext); // Access settings from context
+    const settings = useContext(SettingsContext); 
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -23,12 +23,15 @@ const MostCommonSymptom: React.FC = () => {
                 const symptomCounts: Record<string, number> = {};
 
                 Object.keys(userData[username]).forEach(date => {
+
                     const dayData = userData[username][date];
+
                     Object.keys(dayData).forEach(symptom => {
                         if (symptom !== 'period' && dayData[symptom] !== "None") {
                             symptomCounts[symptom] = (symptomCounts[symptom] || 0) + 1;
                         }
                     });
+
                 });
 
                 const mostCommon = Object.keys(symptomCounts).reduce(
@@ -37,6 +40,7 @@ const MostCommonSymptom: React.FC = () => {
                 );
 
                 setMostCommonSymptom(mostCommon || null);
+
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -47,7 +51,7 @@ const MostCommonSymptom: React.FC = () => {
 
     const formatSymptomName = (symptomKey: string): string => {
         const symptom = symptomsData.symptoms.find((item) => item.key === symptomKey);
-        return symptom ? symptom.symptom : symptomKey; // Fallback to the key if no match is found
+        return symptom ? symptom.symptom : symptomKey; 
     };
 
     return (

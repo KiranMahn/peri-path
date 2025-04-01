@@ -3,15 +3,16 @@ import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import symptomsData from '../../../symptoms.json';
-import { SettingsContext } from '../../settings-context'; // Import SettingsContext
+import { SettingsContext } from '../../settings-context'; 
 
 const screenWidth = Dimensions.get('window').width;
 
+// symptom line chart 
+
 const SymptomChart = () => {
     const [chartData, setChartData] = useState(null);
-    const { settings } = useContext(SettingsContext); // Access settings from context
+    const { settings } = useContext(SettingsContext); 
 
-    // Set the default date range to the past two weeks
     const today = new Date();
     const twoWeeksAgo = new Date();
     twoWeeksAgo.setDate(today.getDate() - 14);
@@ -19,9 +20,12 @@ const SymptomChart = () => {
     const [endDate, setEndDate] = useState(today);
     const [selectedRange, setSelectedRange] = useState('2weeks');
     const [maxSymptomValue, setMaxSymptomValue] = useState(0);
+
     const handleDateRangeChange = (range) => {
+
         const newEndDate = new Date();
         let newStartDate = new Date();
+
         if (range === '2weeks') {
             newStartDate.setDate(newEndDate.getDate() - 14);
         } else if (range === '2months') {
@@ -29,21 +33,28 @@ const SymptomChart = () => {
         } else if (range === '1year') {
             newStartDate.setFullYear(newEndDate.getFullYear() - 1);
         }
+
         setStartDate(newStartDate);
         setEndDate(newEndDate);
         setSelectedRange(range);
+
     };
 
     const logAsyncStorage = async () => {
+
         try {
+
             const keys = await AsyncStorage.getAllKeys();
             const result = await AsyncStorage.multiGet(keys);
+
             result.forEach(([key, value]) => {
                 console.log(`${key}: ${value}`);
             });
+
         } catch (error) {
             console.error('Error logging AsyncStorage data:', error);
         }
+
     };
 
     useEffect(() => {
@@ -62,67 +73,83 @@ const SymptomChart = () => {
             }
 
             let symptomsCount = dateArray.map(date => {
+
                 const dateString = date.toDateString();
                 const dayData = userData[dateString] || {};
                 const symptomsTracked = Object.keys(dayData).filter(symptom => symptom !== 'period' && symptom !== 'symptoms' && dayData[symptom] !== 'None').length;
                 return symptomsTracked;
+
             });
 
             let averagedLabels = [];
             let labels = [];
 
             if (selectedRange === '2weeks') {
-                // Average data for every 2 days
+
                 const averagedSymptomsCount = [];
                 for (let i = 0; i < symptomsCount.length; i += 2) {
+
                     const avg = (symptomsCount[i] + (symptomsCount[i + 1] || 0)) / 2;
                     averagedSymptomsCount.push(avg);
-                }
-                symptomsCount = averagedSymptomsCount;
 
+                }
+
+                symptomsCount = averagedSymptomsCount;
                 labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+
                 for (let i = 0; i < labels.length; i += 2) {
                     averagedLabels.push(labels[i]);
                 }
             }
 
             if (selectedRange === '2months') {
-                // Average data for every 7 days
+
                 const averagedSymptomsCount = [];
                 for (let i = 0; i < symptomsCount.length; i += 7) {
-                    const chunk = symptomsCount.slice(i, i + 7); // Get a chunk of 7 days
-                    const avg = chunk.reduce((sum, val) => sum + val, 0) / chunk.length; // Calculate the average
+
+                    const chunk = symptomsCount.slice(i, i + 7); 
+                    const avg = chunk.reduce((sum, val) => sum + val, 0) / chunk.length; 
                     averagedSymptomsCount.push(avg);
+
                 }
+
                 symptomsCount = averagedSymptomsCount;
-            
                 labels = dateArray.map(date => `${date.getMonth() + 1}/${date.getDate()}`);
+
                 for (let i = 0; i < labels.length; i += 7) {
-                    averagedLabels.push(labels[i]); // Use the first label of each 4-day interval
+                    averagedLabels.push(labels[i]); 
                 }
             }
 
             if (selectedRange === '1year') {
-                // Average data for each month in the past 12 months
+
                 const monthlySymptomsCount = [];
                 const monthlyLabels = [];
             
                 for (let month = 0; month < 12; month++) {
-                    const monthData = dateArray.filter(date => date.getMonth() === month && date <= endDate); // Filter dates up to endDate
+
+                    const monthData = dateArray.filter(date => date.getMonth() === month && date <= endDate); 
+
                     const monthSymptoms = monthData.map(date => {
+
                         const dateString = date.toDateString();
                         const dayData = userData[dateString] || {};
+
                         return Object.keys(dayData).filter(symptom => symptom !== 'period' && symptom !== 'symptoms' && dayData[symptom] !== 'None').length;
+
                     });
             
                     if (monthSymptoms.length > 0) {
+
                         const avg = monthSymptoms.reduce((sum, val) => sum + val, 0) / monthSymptoms.length;
                         monthlySymptomsCount.push(avg);
                         monthlyLabels.push(`${monthData[0].toLocaleString('default', { month: 'short' })}`);
+
                     } else {
-                        // If no data for the month, push 0
+
                         monthlySymptomsCount.push(0);
                         monthlyLabels.push(new Date(startDate.getFullYear(), month).toLocaleString('default', { month: 'short' }));
+                    
                     }
                 }
             
@@ -130,12 +157,6 @@ const SymptomChart = () => {
                 averagedLabels = monthlyLabels;
             }
 
-           
-            
-
-            
-
-            console.log("averageLabels", averagedLabels);
             setChartData({
                 labels: averagedLabels,
                 datasets: [
@@ -143,20 +164,17 @@ const SymptomChart = () => {
                         data: symptomsCount,
                     }
                 ], 
-                legend: ["Average # of Symptoms Tracked Over Time"] // optional
+                legend: ["Average # of Symptoms Tracked Over Time"] 
 
             });
-            console.log("chart data", chartData);
-            console.log("symptomsCount", symptomsCount);
+            
             setMaxSymptomValue(Math.max(...symptomsCount));
         };
 
         loadUserData();
-        logAsyncStorage(); // Log AsyncStorage data
+        logAsyncStorage(); 
 
     }, [startDate, endDate]);
-
-    console.log("maxSymptomValue", maxSymptomValue);
 
     return (
         <View style={{display: "flex", flexDirection: 'column', alignItems: 'center'}}>
@@ -182,16 +200,18 @@ const SymptomChart = () => {
                     />
                 </View>
             </View>
+
+
             {chartData ? (
                 <LineChart
                     data={chartData}
-                    width={screenWidth * 0.95} // from react-native
+                    width={screenWidth * 0.95} 
                     height={220}
                     chartConfig={{
                         backgroundColor: settings.highContrast ? 'rgb(55, 55, 55)': '#f4f3f3',
                         backgroundGradientFrom: settings.highContrast ? 'rgb(55, 55, 55)': '#f4f3f3',
                         backgroundGradientTo: settings.highContrast ? 'rgb(55, 55, 55)': '#f4f3f3',
-                        decimalPlaces: 0, // optional, defaults to 2dp
+                        decimalPlaces: 0, 
                         color: settings.highContrast ? (opacity = 1) => `rgba(0, 150, 136, 1)` : (opacity = 1) => `rgba(0, 150, 136, ${opacity})`,
                         labelColor: settings.highContrast ? (opacity = 1) => `rgb(255, 255, 255)` : (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                         style: {
@@ -203,12 +223,13 @@ const SymptomChart = () => {
                             stroke: '#009688'
                         },
                         propsForBackgroundLines: {
-                            strokeDasharray: '', // solid background lines with no dashes
+                            strokeDasharray: '', 
                         },
                         formatXLabel: (label, index) => {
                             if (selectedRange === '2weeks') {
-                                // Show only every 2nd label to match the averaged data points
+                                
                                 return index % 2 === 0 ? label : '';
+
                             }
                             return label;
                         },
@@ -223,6 +244,7 @@ const SymptomChart = () => {
             ) : (
                 <Text>Loading...</Text>
             )}
+            
         </View>
     );
 };

@@ -2,14 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from '@expo/vector-icons/Entypo';
-import { SettingsContext } from '../../settings-context'; // Import SettingsContext
+import { SettingsContext } from '../../settings-context'; 
 
+// used in the calendar screen to show the month 
 const Month = ({ month, year, onDayClick }) => {
     const [daysInMonth, setDaysInMonth] = useState([]);
     const [userData, setUserData] = useState({});
     const [monthYear, setMonthYear] = useState('');
     const [username, setUsername] = useState('Unknown User');
-    const { settings } = useContext(SettingsContext); // Access settings from context
+    const { settings } = useContext(SettingsContext); 
 
     useEffect(() => {
         const loadUserData = async () => {
@@ -17,11 +18,11 @@ const Month = ({ month, year, onDayClick }) => {
                 const currentUser = JSON.parse(await AsyncStorage.getItem('user'));
                 setUsername(currentUser ? currentUser.username : 'Unknown User');
 
-                // Calculate the number of days in the given month
                 const days = new Date(year, month + 1, 0).getDate();
                 const daysArray = Array.from({ length: days }, (_, i) => {
                     return new Date(year, month, i + 1);
                 });
+
                 setDaysInMonth(daysArray);
 
                 const allUsersData = JSON.parse(await AsyncStorage.getItem('allUsersData')) || {};
@@ -29,6 +30,7 @@ const Month = ({ month, year, onDayClick }) => {
 
                 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
                 setMonthYear(`${monthNames[month]} ${year}`);
+
             } catch (error) {
                 console.error('Error loading user data:', error);
             }
@@ -67,9 +69,9 @@ const Month = ({ month, year, onDayClick }) => {
         const symptomDots = symptomKeys.slice(0, 4).map((slider) => (
             <View key={slider} style={[styles.symptomDot, { backgroundColor: getColor(dayData[slider]) }]} />
         ));
-        const showPlus = symptomKeys.length > 4;
 
-        const isFutureDate = day > new Date(); // Check if the date is in the future
+        const showPlus = symptomKeys.length > 4;
+        const isFutureDate = day > new Date(); 
 
         return (
             <TouchableOpacity
@@ -81,6 +83,7 @@ const Month = ({ month, year, onDayClick }) => {
                     isFutureDate && settings.highContrast && styles.hcfutureDayBox, // Apply greyed-out style for future dates
                 ]}
             >
+
                 <Text
                     style={[
                         styles.dayText,
@@ -89,21 +92,28 @@ const Month = ({ month, year, onDayClick }) => {
                 >
                     {day.getDate()}
                 </Text>
+
                 {!isFutureDate && periodLevel && (
                     <View style={[styles.periodIndicator, { backgroundColor: getPeriodColor(periodLevel) }]} />
                 )}
+
                 <View style={styles.symptomIndicators}>
+
                     {!isFutureDate && symptomDots}
                     {!isFutureDate && showPlus && <Ionicons name="circle-with-plus" size={8} color="red" />}
+
                 </View>
+
             </TouchableOpacity>
         );
     };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            
             <Text style={[styles.header, { fontSize: settings.largeText ? 25 : 20, color: settings.highContrast ? 'white' : 'black' }]}>{monthYear}</Text>
             <View style={styles.grid}>{daysInMonth.map((day) => renderDayBox(day))}</View>
+
         </ScrollView>
     );
 };
@@ -136,12 +146,12 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     futureDayBox: {
-        backgroundColor: '#f0f0f0', // Greyed-out background for future dates
-        borderColor: '#ddd', // Lighter border for future dates
+        backgroundColor: '#f0f0f0', 
+        borderColor: '#ddd', 
     },
     hcfutureDayBox: {
-        backgroundColor: 'rgb(66, 66, 66)', // Greyed-out background for future dates
-        borderColor: 'rgb(39, 39, 39)', // Lighter border for future dates
+        backgroundColor: 'rgb(66, 66, 66)', 
+        borderColor: 'rgb(39, 39, 39)', 
     },
     dayText: {
         fontSize: 14,
