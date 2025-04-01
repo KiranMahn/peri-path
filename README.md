@@ -29,7 +29,7 @@
 
 6. Scan the QR code with your phone and the project will open in the expo app
 
-## Project Stucture 
+## Project Structure 
 ```
 ── README.md
 ├── TODO.md
@@ -124,14 +124,14 @@ How do I track symptoms?
 <img src="./assets/images/Home1.png" alt="Home Screen" width="200"/>
 
 #### 2. Press the Track Button 
-The Track button is located and the bottom of the screen in the middle and is green in color. 
+The Track button is located at the bottom of the screen in the middle and is green in color. 
 
 <img src="./assets/images/TrackBtn.png" alt="Track Button" width="200"/>
 
 Pressing this button will take you to the track page
 
 #### 3. Choose your symptoms 
-You now have the choice between choosing symptoms from the six quick add button, or using the dropdowns to select other symptoms.
+You now have the choice between choosing symptoms from the six quick add buttons, or using the dropdowns to select other symptoms.
 
 <img src="./assets/images/track.jpeg" alt="Track Screen" width="200"/>
 
