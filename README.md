@@ -120,7 +120,7 @@ Run `jest` in the root of the project to run the tests which are located in `com
 A few customer user journeys will be presented along with step-by-step instructions and screenshots to show how the app can be used. 
 
 ### I have symptoms I want to document today
-How do I track symptoms?
+How do I track symptoms? There are over 40 symptoms to choose from and track!
 
 #### 1. Start at the home page 
 <img src="./assets/images/Home1.png" alt="Home Screen" width="200"/>
@@ -195,6 +195,7 @@ There are many different options for saving the file. For the purpose of this ex
 You can then hit save or specifcy a location within your file system before you save.
 
 ### I want to learn more about perimenopause
+PeriPath contains over 100+ articles which are handpicked from reliable sources. Depending on what symptoms you track and how severely there are tracked, a `For You` page will reccomend articles tailored towards your needs!
 
 #### 1. Go to the Learn Screen
 From the home page press the `Learn` button on the bottom right of the screen. 
