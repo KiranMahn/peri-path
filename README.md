@@ -135,7 +135,7 @@ You now have the choice between choosing symptoms from the six quick add buttons
 
 <img src="./assets/images/track.jpeg" alt="Track Screen" width="200"/>
 
-You will know when you have selected a quick add button beacuse the background will change color. Multiple quick add buttons can be selected. 
+You will know when you have selected a quick add button because the background will change color. Multiple quick add buttons can be selected. 
 
 <img src="./assets/images/quickadd.jpeg" alt="Quick Add Buttons" width="200"/>
 
