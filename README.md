@@ -2,7 +2,7 @@
 
 # Table of Contents
 1. [Get started](#get-started)
-2. [Project Stucture](#project-stucture)
+2. [Project Structure](#project-structure)
 3. [Tests](#tests)
 4. [How to use the app](#how-to-use-the-app)
 5. [I have symptoms I want to document today. How do I track symptoms?](#i-have-symptoms-i-want-to-document-today)
@@ -192,10 +192,10 @@ There are many different options for saving the file. For the purpose of this ex
 
 <img src="./assets/images/save.png" alt="Choose Where to Save Data Screen" width="200"/>
 
-You can then hit save or specifcy a location within your file system before you save.
+You can then hit save or specify a location within your file system before you save.
 
 ### I want to learn more about perimenopause
-PeriPath contains over 100+ articles which are handpicked from reliable sources. Depending on what symptoms you track and how severely there are tracked, a `For You` page will reccomend articles tailored towards your needs!
+PeriPath contains over 100+ articles which are handpicked from reliable sources. Depending on what symptoms you track and how severely they are tracked, a `For You` page will recomend articles tailored towards your needs!
 
 #### 1. Go to the Learn Screen
 From the home page press the `Learn` button on the bottom right of the screen. 
@@ -205,9 +205,9 @@ From the home page press the `Learn` button on the bottom right of the screen.
 #### 2. Go to the Perimenopause Tab
 From the learn page, select the `Perimenopause` tab. 
 
-<img src="./assets/images/Learn.jpeg" alt="Learn Screen" width="200"/>
+<img src="./assets/images/learn.jpeg" alt="Learn Screen" width="200"/>
 
 #### 3. Browse Articles
-This will display all the articles that relate to Perimenopause. All articles are handpicked from reliable sources. When you click on an article button, you will be taken directly to that site to read up on that topic in detail. 
+This will display all the articles that relate to Perimenopause. When you click on an article button, you will be taken directly to that site to read up on that topic in detail. 
 
 <img src="./assets/images/Perimenopause.jpeg" alt="Learn Screen" width="200"/>
