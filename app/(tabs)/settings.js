@@ -26,7 +26,7 @@ const Settings = () => {
                 Object.keys(data[user]).forEach((date) => {
                     const dayData = data[user][date];
                     Object.keys(dayData).forEach((key) => {
-                        if (dayData[key] !== "None") { // Only include data where the value is not "None"
+                        if (dayData[key] !== "None" && key !== "period" ) { // Only include data where the value is not "None"
                             console.log("daydata[key] ", dayData[key]);
                             csvRows.push(`${date},${user},${key},${dayData[key]}`);
                         }
