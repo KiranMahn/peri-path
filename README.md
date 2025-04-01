@@ -5,7 +5,7 @@
 2. [Project Stucture](#project-stucture)
 3. [Tests](#tests)
 4. [How to use the app](#how-to-use-the-app)
-95. [I have symptoms I want to document today. How do I track symptoms?](#i-have-symptoms-i-want-to-document-today)
+5. [I have symptoms I want to document today. How do I track symptoms?](#i-have-symptoms-i-want-to-document-today)
 6. [What do the dots in the Calendar mean](#what-do-the-dots-in-the-calendar-mean)
 7. [I’m going to the doctor and I want to show the doctor recent data](#im-going-to-the-doctor-and-i-want-to-show-the-doctor-recent-data)
 8. [I want to learn more about perimenopause](#i-want-to-learn-more-about-perimenopause)
